@@ -2,7 +2,7 @@
   <section class="container-fluid">
     <NavBarBack />
     <div class="container">
-      <h1 class="mt-5">Formulario de Ingreso de Usuarios</h1>
+      <h1 class="mt-5">Formulario de Alta de Usuarios</h1>
 
       <vue-form :state="formState" @submit.prevent="enviar()">
         <!-- CAMPO name  -->

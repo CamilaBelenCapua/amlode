@@ -1,8 +1,8 @@
 <template>
   <section class="container-fluid">
-    <div class="container">
+    <div class="container" >
       <div class="row">
-        <div class="col-8 pt-3 pl-5 pr-5 pb-3">
+        <div class="col-8 pt-3 pl-5 pr-5">
           <p class="h4 pt-5">Sistema de Gestión de Usuarios y Equipos DEA</p>
           <h3>Aplicación Móvil para la Localización de Desfibriladores</h3>
         
@@ -12,9 +12,9 @@
             comunicate con el Administrador.
           </p>
         </div>
-        <div class="col-4 pt-3 pl-5 pr-5 pb-3 bg-warning">
+        <div class="col-4 pt-3 pl-5 pr-5 pb-3 bg-warning" >
           <vue-form :state="formState" @submit.prevent="login()">
-            <h4 class="pt-5">Ingreso a Usuarios Registrados</h4>
+            <h4>Ingreso a Usuarios Registrados</h4>
             <!-- CAMPO CORREO  -->
             <validate tag="div">
               <input

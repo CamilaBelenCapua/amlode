@@ -27,7 +27,7 @@
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                Alumnos
+                Usuarios
               </a>
               <div
                 class="dropdown-menu"
@@ -37,7 +37,7 @@
                   <a class="dropdown-item" href="#">Formulario Alta</a>
                 </router-link>
                 <router-link to="/usuarios">
-                  <a class="dropdown-item" href="#">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="#">Listado de Usuarios</a>
                 </router-link>
               </div>
             </li>
@@ -50,7 +50,7 @@
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                Cursos
+                Equipos DEA
               </a>
               <div
                 class="dropdown-menu"
@@ -60,7 +60,7 @@
                   <a class="dropdown-item" href="#">Formulario Alta</a>
                 </router-link>
                 <router-link to="/cursos">
-                  <a class="dropdown-item" href="#">Listado de Cursos</a>
+                  <a class="dropdown-item" href="#">Listado de DEA</a>
                 </router-link>
               </div>
             </li>

@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid align-bottom Footer-is-dark">
+  <section class="container-fluid align-bottom footer">
     <div class="container">
       <div class="row pb-5 pt-5">
         <div class="col-2 align-middle text-center">
@@ -32,13 +32,12 @@ export default {
 </script>
 
 <style scoped lang="css">
-.Footer-is-dark {
-  background: #03091e !important;
-  padding-top: 1em;
+.footer {
+  background: #03091e !important; 
   color: #fff;
-
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  bottom: 0;
+ 
 }
 
 img {
