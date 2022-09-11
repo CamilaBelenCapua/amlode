@@ -35,7 +35,7 @@ export default {
 .footer {
   background: #03091e !important; 
   color: #fff;
-  position: absolute;
+  
   bottom: 0;
  
 }
