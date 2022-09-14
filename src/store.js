@@ -8,8 +8,6 @@ Vue.use(Vuex)
 
 import axios from 'axios'
 
-
-
 console.log("process.env.NODE_ENV " + process.env.NODE_ENV)
 
 //const url = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080') + '' // desarrollo + producción
@@ -60,7 +58,10 @@ export default new Vuex.Store({
 
         async agregarUsuario({ commit }, usuarioNuevo) {
             try {
-                const { data: usuario } = await axios.post(url + "/v2/entities", usuarioNuevo, { 'content-type': 'application/json' })
+                console.log(usuarioNuevo)
+                const { data: usuario } = await axios.post(url + "/v2/entities",
+                 usuarioNuevo, 
+                 { 'Content-Type': 'application/json' })
                 commit('POST_Usuario', usuario)
                 return true
 
@@ -226,6 +227,7 @@ export default new Vuex.Store({
         },
 
     },
+    
     mutations: {
 
         //USUARIOS//
