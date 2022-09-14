@@ -190,12 +190,19 @@ export default {
   methods: {
     async enviar() {
       console.log({ ...this.formData });
-      const usuario = {
-        name: this.formData.name,
-        edad: this.formData.edad,
-        email: this.formData.email,
-        phone: this.formData.phone,
-        password: this.formData.password,
+      let usuario = {
+        id:  "30",
+        type: "user",
+        name: {type:"String", 
+                value:this.formData.name},
+        edad: {type:"String", 
+                value:this.formData.edad},
+        email:{type:"String", 
+                value:this.formData.email},
+        phone: {type:"String", 
+                value:this.formData.phone},
+        password: {type:"String", 
+                    value:this.formData.password},
       };
       console.log("POST USUARIOS");
       const resu = await this.$store.dispatch("agregarUsuario", usuario);

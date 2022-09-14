@@ -209,13 +209,20 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        name: this.formData.name,
-        phone: this.formData.phone,
-        email: this.formData.email,
-        password: this.formData.password,
-        edad: this.formData.edad,
-        _id: this.id,
-        results: this.results,
+        id:  this.id,
+        type: "user",
+        name: {type:"String", 
+                value:this.formData.name},
+        edad: {type:"String", 
+                value:this.formData.edad},
+        email:{type:"String", 
+                value:this.formData.email},
+        phone: {type:"String", 
+                value:this.formData.phone},
+        password: {type:"String", 
+                    value:this.formData.password},
+        results: {type:"String", 
+                    value:this.results},
       };
 
       let resu = await this.$store.dispatch("actualizarUsuario", usuario);
@@ -228,8 +235,6 @@ export default {
         console.log("ERROR DE REGISTRO!");
       }
 
-      /*   this.getInicialData();
-      this.formState._reset(); */
     },
 
     getInicialData() {
