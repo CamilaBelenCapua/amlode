@@ -8,7 +8,7 @@
         <!-- CAMPO name  -->
         <validate tag="div">
           <input
-            placeholder="Nombre y Apellido"
+            placeholder="Nombre"
             v-model.trim="formData.name"
             id="name"
             name="name"
@@ -17,6 +17,7 @@
             autocomplete="off"
             required
             :minlength="nameMinLength"
+           
           />
 
           <field-messages name="name" show="$dirty">
@@ -24,37 +25,65 @@
               Campo obligatorio
             </div>
             <div class="alert alert-danger mt-1" slot="minlength">
-              El name debe tener entre al menos {{ nameMinLength }} caracteres.
+              El nombre debe tener entre al menos {{ nameMinLength }} caracteres.
+            </div>
+           
+          </field-messages>
+        </validate>
+        <!-- FIN CAMPO name  -->
+
+        <!-- CAMPO lastName  -->
+        <validate tag="div">
+          <input
+            placeholder="Apellido"
+            v-model.trim="formData.lastName"
+            id="lastName"
+            name="lastName"
+            type="text"
+            class="form-control mt-3"
+            autocomplete="off"
+            required
+            :minlength="nameMinLength"
+          />
+
+          <field-messages name="lastName" show="$dirty">
+            <div class="alert alert-danger mt-1" slot="required">
+              Campo obligatorio
+            </div>
+            <div class="alert alert-danger mt-1" slot="minlength">
+              El Apellido debe tener entre al menos {{ nameMinLength }} caracteres.
             </div>
           </field-messages>
         </validate>
         <!-- FIN CAMPO name  -->
 
-        <!-- CAMPO EDAD  -->
+        <!-- CAMPO FECFA NAC  -->
         <validate tag="div">
           <input
-            placeholder="Edad"
-            v-model.trim="formData.edad"
-            id="edad"
-            name="edad"
-            type="number"
+            placeholder="Fecha de Nacimiento"
+            v-model.trim="formData.fechaNac"
+            id="fechaNac"
+            name="fechaNac"
+            type="date"
             class="form-control mt-3"
             autocomplete="off"
-            required
-            :min="edadMin"
-            :max="edadMax"
+            required           
+            menoredad
+     
           />
 
-          <field-messages name="edad" show="$dirty">
+          <field-messages name="fechaNac" show="$dirty">
             <div class="alert alert-danger mt-1" slot="required">
               Campo obligatorio
             </div>
-            <div class="alert alert-danger mt-1" slot="min">
-              La edad debe ser entre {{ edadMin }} y {{ edadMax }} años.
+             
+             <div class="alert alert-danger mt-1 " slot="menoredad">
+              La persona tiene que ser mayor de 18 años
             </div>
+           
           </field-messages>
         </validate>
-        <!-- FIN CAMPO EDAD  -->
+        <!-- FIN CAMPO FECHA NAC  -->
 
         <!-- CAMPO TELEFONO  -->
         <validate tag="div">
@@ -128,6 +157,8 @@
         </button>
       </vue-form>
 
+      
+
       <div
         class="modal"
         tabindex="-1"
@@ -191,18 +222,14 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        id:  "30",
+        id: "30",
         type: "user",
-        name: {type:"String", 
-                value:this.formData.name},
-        edad: {type:"String", 
-                value:this.formData.edad},
-        email:{type:"String", 
-                value:this.formData.email},
-        phone: {type:"String", 
-                value:this.formData.phone},
-        password: {type:"String", 
-                    value:this.formData.password},
+        name: { type: "String", value: this.formData.name },
+        lastName: { type: "String", value: this.formData.lastName },
+        fechaNac: { type: "String", value: this.formData.fechaNac },
+        email: { type: "String", value: this.formData.email },
+        phone: { type: "String", value: this.formData.phone },
+        password: { type: "String", value: this.formData.password },
       };
       console.log("POST USUARIOS");
       const resu = await this.$store.dispatch("agregarUsuario", usuario);
@@ -222,7 +249,8 @@ export default {
     getInicialData() {
       return {
         name: "",
-        edad: "",
+        lastName: "",
+        fechaNac: "",
         email: "",
         phone: "",
         password: "",
@@ -233,7 +261,7 @@ export default {
       let estilo = "none";
 
       if (this.modalShow) {
-        estilo = "inline";      
+        estilo = "inline";
       }
       return estilo;
     },
@@ -243,5 +271,4 @@ export default {
 </script>
 
 <style scoped lang="css">
-
 </style>
