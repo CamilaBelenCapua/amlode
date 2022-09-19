@@ -57,7 +57,7 @@
         </validate>
         <!-- FIN CAMPO name  -->
 
-        <!-- CAMPO FECFA NAC  -->
+        <!-- CAMPO FECHA NAC  -->
         <validate tag="div">
           <input
             placeholder="Fecha de Nacimiento"
@@ -85,27 +85,7 @@
         </validate>
         <!-- FIN CAMPO FECHA NAC  -->
 
-        <!-- CAMPO TELEFONO  -->
-        <validate tag="div">
-          <input
-            placeholder="Teléfono"
-            v-model.trim="formData.phone"
-            id="phone"
-            name="phone"
-            type="text"
-            class="form-control mt-3"
-            autocomplete="off"
-            required
-          />
-
-          <field-messages name="phone" show="$dirty">
-            <div class="alert alert-danger mt-1" slot="required">
-              Campo obligatorio
-            </div>
-          </field-messages>
-        </validate>
-        <!-- FIN CAMPO TELEFONO  -->
-
+        
         <!-- CAMPO CORREO  -->
         <validate tag="div">
           <input
@@ -227,8 +207,7 @@ export default {
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
-        email: { type: "String", value: this.formData.email },
-        phone: { type: "String", value: this.formData.phone },
+        email: { type: "String", value: this.formData.email },        
         password: { type: "String", value: this.formData.password },
       };
       console.log("POST USUARIOS");
@@ -251,8 +230,7 @@ export default {
         name: "",
         lastName: "",
         fechaNac: "",
-        email: "",
-        phone: "",
+        email: "",        
         password: "",
       };
     },
