@@ -37,7 +37,7 @@ export default new Vuex.Store({
         //APIS USUARIOS//
         async getUsuarios({ commit }) {
             try {
-                const usuarios = await axios.get(url + "/api/usuarios")
+                const usuarios = await axios.get(url + "/v2/entities")
                 commit('GET_Usuarios', usuarios.data)                
             }
             catch (error) {

@@ -143,7 +143,7 @@
         class="modal"
         tabindex="-1"
         role="dialog"
-        :style="{ display: mostrarDisplay() }"
+        :style="{display: mostrarDisplay() }"
       >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -202,14 +202,13 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        id: "30",
+        id: this.formData.email,
         type: "user",
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
-        email: { type: "String", value: this.formData.email },        
-        password: { type: "String", value: this.formData.password },
       };
+
       console.log("POST USUARIOS");
       const resu = await this.$store.dispatch("agregarUsuario", usuario);
 

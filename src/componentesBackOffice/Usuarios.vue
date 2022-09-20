@@ -7,25 +7,31 @@
       <div v-if="mostrarUsuarios.length" class="table-responsive">
         <table class="table table-dark">
           <tr>
-            <th>Nombre:</th>
-            <th class="text-center">Teléfono</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th class="text-center">Fecha de nacimiento</th>
             <th>Correo Electronico</th>
-
+            <th class="text-center">Tipo</th>
             <th class="text-center">Borrar Usuario</th>
             <th class="text-center">Editar Usuario</th>
           </tr>
 
           <tr v-for="(usuario, index) in mostrarUsuarios" :key="index">
             <td>
-              {{ usuario.name }}
-            </td>
-            <td class="text-center">
-              {{ usuario.phone }}
+              {{ usuario.name.value}}
             </td>
             <td>
-              {{ usuario.email }}
+              {{ usuario.lastName.value}}
             </td>
-
+            <td class="text-center">
+              {{ usuario.fechaNac.value}}
+            </td>
+            <td>
+              {{ usuario.id}}
+            </td>
+            <td>
+              {{ usuario.type}}
+            </td>
             <td class="text-center">
               <button
                 class="btn btn-danger"
@@ -71,7 +77,6 @@ export default {
  
   data() {
     return {
-    
     };
   },
   methods: {
@@ -83,11 +88,10 @@ export default {
       this.$router.push({
         path: "/editarUsuario",
         name: "editarUsuario",
-        params: { id: id },
+        params: {id: id},
       });
     },
 
- 
   },
   computed: {},
 };
