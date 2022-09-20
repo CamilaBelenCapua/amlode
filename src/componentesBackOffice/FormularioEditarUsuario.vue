@@ -209,7 +209,7 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        id:  this.id,
+        id:  this.formData.email,
         type: "user",
         name: {type:"String", 
                 value:this.formData.name},
@@ -219,8 +219,6 @@ export default {
                 value:this.formData.email},
         phone: {type:"String", 
                 value:this.formData.phone},
-        password: {type:"String", 
-                    value:this.formData.password},
         results: {type:"String", 
                     value:this.results},
       };
@@ -240,10 +238,9 @@ export default {
     getInicialData() {
       return {
         name: "",
-        phone: "",
-        email: "",
-        password: "",
-        edad: "",
+        lastName: "",
+        fechaNac: "",
+        email: "",   
         results: [],
       };
     },
@@ -252,7 +249,6 @@ export default {
       this.formData.name = usuario.name;
       this.formData.phone = usuario.phone;
       this.formData.email = usuario.email;
-      this.formData.password = usuario.password;
       this.formData.edad = usuario.edad;
       this.results = usuario.results;
     },

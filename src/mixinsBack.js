@@ -26,7 +26,8 @@ export const mixinsBack = {
     },
     mostrarUsuarios() {
       console.log("MIXIN BACKOFFICE MOSTRAR USUARIOS")
-      let usuarios = this.$store.state.usuarios;
+      let usuarios = []
+      usuarios = this.$store.state.usuarios;
       return usuarios;
     },
 

@@ -6,36 +6,36 @@
 
       <div v-if="mostrarUsuarios.length" class="table-responsive">
         <table class="table table-dark">
-          <tr>
+            <tr>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th class="text-center">Fecha de nacimiento</th>
+            <th>Fecha de nacimiento</th>
             <th>Correo Electronico</th>
-            <th class="text-center">Tipo</th>
-            <th class="text-center">Borrar Usuario</th>
-            <th class="text-center">Editar Usuario</th>
+            <th>Tipo</th>
+            <th>Borrar Usuario</th>
+            <th>Editar Usuario</th>
           </tr>
-
+  
           <tr v-for="(usuario, index) in mostrarUsuarios" :key="index">
-            <td>
-              {{ usuario.name.value}}
-            </td>
-            <td>
-              {{ usuario.lastName.value}}
-            </td>
-            <td class="text-center">
-              {{ usuario.fechaNac.value}}
-            </td>
-            <td>
-              {{ usuario.id}}
-            </td>
-            <td>
-              {{ usuario.type}}
-            </td>
+              <td>
+                  {{ usuario.name.value}}
+                </td>
+                <td>
+                  {{ usuario.lastName.value}}
+                </td>
+                <td>
+                  {{ usuario.fechaNac.value}}
+                </td>
+                <td>
+                  {{ usuario.id}}
+                </td>
+                <td>
+                  {{ usuario.type}}
+                </td>
             <td class="text-center">
               <button
                 class="btn btn-danger"
-                @click="borrarUsuario(usuario._id)"
+                @click="borrarUsuario(usuario.id)"
               >
                 Borrar
               </button>

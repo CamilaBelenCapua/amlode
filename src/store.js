@@ -47,8 +47,8 @@ export default new Vuex.Store({
 
         async eliminarUsuario({ commit }, id) {
             try {
-                const { data: usuario } = await axios.delete(url + "/api/usuarios/" + id)
-                commit('DELETE_Usuario', usuario)
+                await axios.delete(url + "/v2/entities/" + id)
+                commit('DELETE_Usuario', id)
                 return true
             }
             catch (error) {
@@ -217,7 +217,7 @@ export default new Vuex.Store({
 
         async borrarCurso({ commit }, id) {
             try {
-                const { data: curso } = await axios.delete(url + "/api/examenes/" + id)
+                const {data: curso} = await axios.delete(url + "/api/examenes/" + id)
                 commit('DELETE_Curso', curso)
                 return true
             }
@@ -235,9 +235,8 @@ export default new Vuex.Store({
             state.usuarios = data          
         },
 
-        DELETE_Usuario(state, data) {
-            let index = state.usuarios.findIndex(usuario => usuario.id == data.id)
-            if (index == -1) throw new Error('usuario no encontrado')
+        DELETE_Usuario(state, id) {
+            let index = state.usuarios.findIndex(usuario => usuario.id == id)
             state.usuarios.splice(index, 1)
         },
 

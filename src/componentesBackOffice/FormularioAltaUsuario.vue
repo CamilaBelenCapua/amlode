@@ -110,34 +110,12 @@
         </validate>
         <!-- FIN CAMPO CORREO  -->
 
-        <!-- CAMPO PASS  -->
-        <validate tag="div">
-          <input
-            placeholder="Contraseña"
-            v-model.trim="formData.password"
-            id="password"
-            name="password"
-            type="text"
-            class="form-control mt-3"
-            autocomplete="off"
-            required
-          />
-
-          <field-messages name="password" show="$dirty">
-            <div class="alert alert-danger mt-1" slot="required">
-              Campo obligatorio
-            </div>
-          </field-messages>
-        </validate>
-        <!-- FIN CAMPO PASS  -->
 
         <!-- ENVIO -->
         <button class="btn btn-info my-3" :disabled="formState.$invalid">
           Enviar
         </button>
       </vue-form>
-
-      
 
       <div
         class="modal"
@@ -162,7 +140,6 @@
               <p>Usuario ya registrado con ese Correo Electronico!</p>
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -230,13 +207,11 @@ export default {
         lastName: "",
         fechaNac: "",
         email: "",        
-        password: "",
       };
     },
 
     mostrarDisplay() {
       let estilo = "none";
-
       if (this.modalShow) {
         estilo = "inline";
       }
