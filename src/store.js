@@ -164,7 +164,7 @@ export default new Vuex.Store({
             }
         },
 
-        //APIS EXAMENES//
+        //APIS DEAS//
         async getCursos({ commit }) {
             try {
                 const { data: curso } = await axios.get(url + "/api/examenes")
@@ -175,10 +175,10 @@ export default new Vuex.Store({
             }
         },
 
-        async agregarCurso({ commit }, cursoNuevo) {
+        async agregarDea({ commit }, deaNuevo) {
             try {
-                const { data: curso } = await axios.post(url + "/api/examenes", cursoNuevo, { 'content-type': 'application/json' })
-                commit('POST_Curso', curso)
+                const { data: dea } = await axios.post(url + "/v2/entities", deaNuevo, { 'content-type': 'application/json' })
+                commit('POST_Dea', dea)
                 return true
             }
             catch (error) {
@@ -263,7 +263,7 @@ export default new Vuex.Store({
             state.examenes = data
         },
 
-        POST_Curso(state, data) {
+        POST_Dea(state, data) {
             state.examenes.push(data)
         },
 

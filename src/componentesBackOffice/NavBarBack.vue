@@ -56,10 +56,10 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <router-link to="/formularioAltaCurso">
+                <router-link to="/formularioAltaDea">
                   <a class="dropdown-item" href="#">Formulario Alta</a>
                 </router-link>
-                <router-link to="/cursos">
+                <router-link to="/Dea">
                   <a class="dropdown-item" href="#">Listado de DEA</a>
                 </router-link>
               </div>
