@@ -4,14 +4,11 @@ services:
     image: fiware/orion
     hostname: orion
     container_name: fiware-orion-DEA
-    environment:
-      - ORIONLD_CORS_ALLOWED_ORIGIN=__ALL
-      - corsOrigin=__ALL
     depends_on:
       - mongo-db
     ports:
       - "1026:1026"
-    command: -dbhost mongo-db -logLevel DEBUG -noCache
+    command: -dbhost mongo-db -logLevel DEBUG -noCache -corsOrigin __ALL
 
   mongo-db:
     image: mongo:3.6
