@@ -1,5 +1,11 @@
 # amlode
 
+## Docker
+```
+docker compose up
+docker system prune
+```
+
 ## Project setup
 ```
 npm install
@@ -22,3 +28,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+

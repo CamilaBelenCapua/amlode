@@ -72,10 +72,11 @@ export default new Vuex.Store({
             }
         },
 
+        // CAMI PODES HACER ESTE?
         async actualizarUsuario({ commit }, usuarioAModificar) {
 
             try {
-                const { data: usuario } = await axios.put(url + "/api/usuarios/" + usuarioAModificar._id,
+                const { data: usuario } = await axios.put(url + "/api/usuarios/" + usuarioAModificar.mail,
                     usuarioAModificar,
                     { 'content-type': 'application/json' }
                 )
@@ -88,6 +89,7 @@ export default new Vuex.Store({
             }
         },
 
+        // CAMI PODES HACER ESTE?
         async buscarUsuarioPorId({ commit }, id) {
             try {
                 const { data: usuario } = await axios.get(url + "/api/usuarios/consultarUsuario/" + id)
@@ -165,6 +167,7 @@ export default new Vuex.Store({
         },
 
         //APIS DEAS//
+        // CAMI PODES HACER ESTE?
         async getCursos({ commit }) {
             try {
                 const { data: curso } = await axios.get(url + "/api/examenes")
@@ -174,7 +177,7 @@ export default new Vuex.Store({
                 alert(error)
             }
         },
-
+        // CAMI PODES HACER ESTE?
         async agregarDea({ commit }, deaNuevo) {
             try {
                 const { data: dea } = await axios.post(url + "/v2/entities", deaNuevo, { 'content-type': 'application/json' })
