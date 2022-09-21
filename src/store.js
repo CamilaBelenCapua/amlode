@@ -24,13 +24,13 @@ const url = 'http://localhost:8080/usuarios/' */
 export default new Vuex.Store({
     state: {
         usuarios: [],
-        examenes: [],
+        deas: [],
         usuario: '',
-        examen: '',       
+        dea: '',       
     },
 
     getters: {
-        cursos: state => state.examenes
+        cursos: state => state.deas
     },
 
     actions: {
@@ -134,6 +134,7 @@ export default new Vuex.Store({
 
         async inscribirACurso({ commit }, datos) {
             const body = {
+                //VER ESTE
                 examen_id: datos.examen_id,
                 payment: datos.payment,
                 number: datos.number
@@ -170,10 +171,10 @@ export default new Vuex.Store({
         // CAMI PODES HACER ESTE?
         // GET DEAS
         
-        async getCursos({ commit }) {
+        async getDeas({ commit }) {
             try {
                 const { data: curso } = await axios.get(url + "/v2/entities")
-                commit('GET_Examenes', curso)
+                commit('GET_Deas', curso)
             }
             catch (error) {
                 alert(error)
@@ -195,7 +196,7 @@ export default new Vuex.Store({
 
         async buscarCurso({ commit }, id) {
             try {
-                const { data: curso } = await axios.get(url + "/api/examenes/buscarCurso/" + id)
+                const { data: curso } = await axios.get(url + "/api/deas/buscarCurso/" + id)
                 commit('BUSCAR_Curso', curso)
             }
             catch (error) {
@@ -206,7 +207,7 @@ export default new Vuex.Store({
         async actualizarCurso({ commit }, cursoAModificar) {
 
             try {
-                const { data: curso } = await axios.put(url + "/api/examenes/" + cursoAModificar.id,
+                const { data: curso } = await axios.put(url + "/api/deas/" + cursoAModificar.id,
                     cursoAModificar,
                     { 'content-type': 'application/json' }                    
                 )
@@ -222,7 +223,7 @@ export default new Vuex.Store({
 
         async borrarCurso({ commit }, id) {
             try {
-                const {data: curso} = await axios.delete(url + "/api/examenes/" + id)
+                const {data: curso} = await axios.delete(url + "/api/deas/" + id)
                 commit('DELETE_Curso', curso)
                 return true
             }
@@ -263,29 +264,29 @@ export default new Vuex.Store({
             state.usuario.results = data
         },
 
-        //EXAMENES//
-        GET_Examenes(state, data) {
-            state.examenes = data
+        //DEAS//
+        GET_Deas(state, data) {
+            state.deas = data
         },
 
         POST_Dea(state, data) {
-            state.examenes.push(data)
+            state.deas.push(data)
         },
 
         BUSCAR_Curso(state, data) {
-            state.examen = data
+            state.deas = data
         },
 
         PUT_Curso(state, data) {
-            let index = state.examenes.findIndex(curso => curso.id == data.id)
-            state.examenes.splice(index, 1, data)
-            state.examen = data
+            let index = state.deas.findIndex(curso => curso.id == data.id)
+            state.deas.splice(index, 1, data)
+            state.dea = data
         },
 
         DELETE_Curso(state, data) {
-            let index = state.examenes.findIndex(curso => curso.id == data.id)
+            let index = state.deas.findIndex(curso => curso.id == data.id)
             if (index == -1) throw new Error('curso no encontrado')
-            state.examenes.splice(index, 1)
+            state.deas.splice(index, 1)
         },
     }
 
