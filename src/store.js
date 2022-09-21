@@ -168,9 +168,11 @@ export default new Vuex.Store({
 
         //APIS DEAS//
         // CAMI PODES HACER ESTE?
+        // GET DEAS
+        
         async getCursos({ commit }) {
             try {
-                const { data: curso } = await axios.get(url + "/api/examenes")
+                const { data: curso } = await axios.get(url + "/v2/entities")
                 commit('GET_Examenes', curso)
             }
             catch (error) {

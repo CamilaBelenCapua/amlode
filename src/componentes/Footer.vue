@@ -35,9 +35,10 @@ export default {
 .footer {
   background: #03091e !important; 
   color: #fff;
-  
   bottom: 0;
- 
+  position: fixed;
+   left: 0;
+   width: 100%;
 }
 
 img {
