@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-8 pt-3 pl-5 pr-5 pb-3">
           <p class="h4 pt-5">DEAS REGISTRADOS</p>
-          <div v-if="mostrarDea.length">
+          <div v-if="mostrarDea.length" class="table-responsive">
           <div class="row">
             <Curso
               v-for="(curso, index) in mostrarDea"
@@ -46,9 +46,10 @@ export default {
   props: [],
 
   mounted() {
-    console.log("GET EXAMENES");
+    console.log("GET DEAS");
     this.$store.dispatch("getCursos");
   },
+
   data() {
     return {
       botAccion: "Más Info",
