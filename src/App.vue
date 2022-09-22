@@ -49,7 +49,7 @@ export default {
   background: darkcyan;
 }
 
-.cajaCurso {
+.cajaDea {
   background: black;
   
   color: white;

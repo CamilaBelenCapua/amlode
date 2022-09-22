@@ -184,6 +184,7 @@ export default {
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
+        deas: {type: "StructuredValue", value:[]}
       };
 
       console.log("POST USUARIOS");
