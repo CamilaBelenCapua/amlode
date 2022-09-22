@@ -5,7 +5,8 @@
       <h1 class="mt-5">Formulario de Ingreso de Equipos DEA</h1>
 
       <vue-form :state="formState" @submit.prevent="enviar()">
-        <!-- CAMPO NOMBRE CURSO  -->
+
+        <!-- CAMPO NOMBRE DEA  -->
         <validate tag="div">
           <input
             placeholder="Nombre del Curso"
@@ -28,7 +29,7 @@
             </div>
           </field-messages>
         </validate>
-        <!-- FIN CAMPO NOMBRE CURSO  -->
+        <!-- FIN CAMPO NOMBRE DEA  -->
 
         <!-- CAMPO INTRO PORTADA  -->
         <validate tag="div">

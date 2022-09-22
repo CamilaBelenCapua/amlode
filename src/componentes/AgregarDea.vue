@@ -127,7 +127,6 @@
                 <p>Mail o Contraseña Incorrecta!</p>
               </div>
               <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -156,6 +155,7 @@ export default {
       email: "",
       password: "",
       modalShow: false,
+      
     };
   },
   methods: {
@@ -177,40 +177,37 @@ export default {
     },
 
     async agregarDea() {
+      console.log({ ...this.formData });
+      const id = this.$store.state.deas.length+1;
+
       let deaNuevo = {
-        id: "1111",
-        latitud: this.formData.latitud,
-        longitud: this.formData.longitud,
-        fechaAlta: new Date(),
-      };
-
-      let usuario = {
-        email: this.formData.email,
-        password: this.formData.password,
-        deaId: deaNuevo.id,
-      };
-
-      let resu = await this.$store.dispatch(
-        "buscarUsuarioPorId",
-        usuario.email
-      );
-
-      console.log(deaNuevo);
-      console.log(usuario);
-
-      if (resu) {
-        /* this.$router.push({
-          path: "/perfilAlumno",
-          name: "perfilAlumno",
-          params: { email: this.formData.email },
-        }); */
-
-        this.$store.dispatch("agregarDea", deaNuevo);
-        this.$store.dispatch("actualizarUsuario", usuario);
-      } else {
-        console.log("ERROR DE REGISTRO!");
-        this.modalShow = true;
+          id: id.toString(),
+          type: "dea",
+          latitude: {type: "String", value: this.formData.latitud},
+          length: {type: "String", value: this.formData.longitud},
+          date: {type: "String", value: new Date()}
       }
+
+      let deaUsuario = {
+        idDea: deaNuevo.id,
+        idUsuario: this.formData.email
+      }
+        const resuUsuario = await this.$store.dispatch("actualizarUsuario", deaUsuario)
+
+        if(resuUsuario){
+          const resu = await this.$store.dispatch("agregarDea", deaNuevo);
+          if (resu) {
+            this.formData = this.getInicialData();
+            this.formState._reset();
+            this.$router.push({
+              path: "/inicio",
+            })
+          } else {
+              console.log("ERROR DE REGISTRO!");
+              this.modalShow = true;
+          }
+        }
+
     },
   },
 
