@@ -181,9 +181,9 @@ export default {
     },
 
     async datosValidos(){
-      let existeUsuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
-      if(!existeUsuario){
-        this.msjModal = "Email incorrecto"
+      let usuario = await this.$store.dispatch("getUsuarioByMail", this.formData.email)
+      if(usuario == null){
+        this.msjModal = "No existe usuario para ese email"
         return false;
       }
       return true;
@@ -195,7 +195,7 @@ export default {
         this.modalShow = true;
         return;
       }
-      
+
       const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
           id: id.toString(),
@@ -205,15 +205,11 @@ export default {
           datestamp: {type: "String", value: this.formData.fechaAlta}
       }
 
-      console.log("DEA NUEVO ", deaNuevo)
-
       let deaUsuario = {
         idDea: deaNuevo.id,
         idUsuario: this.formData.email
       }
         const resuUsuario = await this.$store.dispatch("actualizarUsuario", deaUsuario)
-
-        console.log("RESU USUARIO ", resuUsuario)
         
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);
