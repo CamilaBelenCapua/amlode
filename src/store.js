@@ -46,7 +46,7 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
+                return false
             }
         },
 
@@ -109,10 +109,10 @@ export default new Vuex.Store({
             try {
                 const { data: usuario } = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario)
-                return usuario.data
+                return true
             }
             catch (error) {
-                return null
+                return false
             }
         },
 

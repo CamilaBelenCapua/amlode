@@ -92,9 +92,6 @@
               </field-messages>
             </validate>
             <!-- FIN CAMPO LONGITUD  -->
-
-   
-
             <!-- ENVIO -->
             <button
               class="btn btn-info my-3 float-right"
@@ -115,7 +112,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">ERROR!</h5>
                 <button
                   type="button"
                   class="close"
@@ -169,7 +166,7 @@ export default {
         fechaAlta: this.obtenerFecha()
       };
     },
-
+    
   obtenerFecha() {
     const fecha = new Date();
     return fecha.toLocaleDateString()
@@ -184,20 +181,21 @@ export default {
     },
 
     async datosValidos(){
-      let usuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
-      if(usuario == null){
+      let existeUsuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
+      if(!existeUsuario){
         this.msjModal = "Email incorrecto"
-        return false
+        return false;
       }
-      return true
+      return true;
     },
 
     async agregarDea() {
-      
       if(!await this.datosValidos()){
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
+        return;
       }
+      
       const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
           id: id.toString(),
@@ -207,12 +205,16 @@ export default {
           datestamp: {type: "String", value: this.formData.fechaAlta}
       }
 
+      console.log("DEA NUEVO ", deaNuevo)
+
       let deaUsuario = {
         idDea: deaNuevo.id,
         idUsuario: this.formData.email
       }
         const resuUsuario = await this.$store.dispatch("actualizarUsuario", deaUsuario)
 
+        console.log("RESU USUARIO ", resuUsuario)
+        
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);
           
@@ -223,14 +225,8 @@ export default {
              this.$router.push({
               path: "/inicio",
             }) 
-          } /*else {
-              console.log("ERROR DE REGISTRO!");
-              this.modalShow = true;
-          }*/
-        } else {
-              console.log("ERROR DE REGISTRO!");
-              this.modalShow = true;
-        }
+          } 
+        } 
 
     },
   },

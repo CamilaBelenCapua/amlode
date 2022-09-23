@@ -7,29 +7,29 @@
       <div v-if="mostrarUsuarios.length" class="table-responsive">
         <table class="table table-dark">
             <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Fecha de nacimiento</th>
-            <th>Correo Electronico</th>
-            <th>Tipo</th>
-            <th>Borrar Usuario</th>
-            <th>Editar Usuario</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Apellido</th>
+            <th class="text-center">Fecha de nacimiento</th>
+            <th class="text-center">Correo Electronico</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Borrar Usuario</th>
+            <th class="text-center">Editar Usuario</th>
           </tr>
   
           <tr v-for="(usuario, index) in mostrarUsuarios" :key="index">
-              <td>
+              <td class="text-center">
                   {{ usuario.name.value}}
                 </td>
-                <td>
+                <td class="text-center">
                   {{ usuario.lastName.value}}
                 </td>
-                <td>
+                <td class="text-center">
                   {{ usuario.fechaNac.value}}
                 </td>
-                <td>
+                <td class="text-center">
                   {{ usuario.id}}
                 </td>
-                <td>
+                <td class="text-center">
                   {{ usuario.type}}
                 </td>
             <td class="text-center">
