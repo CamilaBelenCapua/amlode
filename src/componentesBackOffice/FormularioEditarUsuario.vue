@@ -8,7 +8,7 @@
           <p class="h5 mt-5">Listado de Cursos Realizados</p>
           <div
             class="media alert alert-info"
-            v-for="(curso, index) in this.results"
+            v-for="(curso, index) in this.deas"
             :key="index"
           >
             <div class="media-body">
@@ -41,12 +41,12 @@
         <div class="col-3 bg-warning">
           <p class="h5 mt-5">Datos Personales</p>
           <vue-form :state="formState" @submit.prevent="enviar()">
-            <!-- CAMPO name  -->
+            <!-- CAMPO NAME  -->
 
             <validate tag="div">
-              <span style="font-weight: bold">Nombre y apellido</span>
+              <span style="font-weight: bold">Nombre</span>
               <input
-                v-model.trim="formData.name"
+                v-model.trim="formData.name.value"
                 id="name"
                 name="name"
                 type="text"
@@ -65,30 +65,27 @@
                 </div>
               </field-messages>
             </validate>
-            <!-- FIN CAMPO name  -->
+            <!-- FIN CAMPO NAME  -->
 
-            <!-- CAMPO EDAD  -->
+            <!-- CAMPO LASTNAME  -->
             <validate tag="div">
-              <span style="font-weight: bold">Edad</span>
+              <span style="font-weight: bold">Apellido</span>
               <input
-                v-model.trim="formData.edad"
-                id="edad"
-                name="edad"
-                type="number"
+                v-model.trim="formData.lastName.value"
+                id="lastName"
+                name="lastName"
+                type="text"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
-                :min="edadMin"
-                :max="edadMax"
+            
               />
 
-              <field-messages name="edad" show="$dirty">
+              <field-messages name="lastName" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-                <div class="alert alert-danger mt-1" slot="min">
-                  La edad debe ser entre {{ edadMin }} y {{ edadMax }} años.
-                </div>
+          
               </field-messages>
             </validate>
             <!-- FIN CAMPO EDAD  -->
@@ -166,16 +163,17 @@ import { mixinsBack } from "../mixinsBack";
 export default {
   mixins: [mixinsBack],
   name: "src-componentes-formulario-editar-usuario",
-  props: ["id"],
+  props: ["mail"],
   components: {
     NavBarBack,
   },
 
   mounted() {
     console.log("MOUNTED BUSCAR USUARIO");
-    this.$store.dispatch("buscarUsuarioPorId", this.id);
-    console.log("GET EXAMENES");
-    this.$store.dispatch("getCursos");
+    this.$store.dispatch("buscarUsuarioPorMail", this.mail);
+    const usuario = this.mostrarUsuario()
+    console.log("GET DEAS", usuario);
+    this.$store.dispatch("getDeas");
   },
 
   data() {
@@ -209,18 +207,13 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        id:  this.formData.email,
+        id: this.formData.email,
         type: "user",
-        name: {type:"String", 
-                value:this.formData.name},
-        edad: {type:"String", 
-                value:this.formData.edad},
-        email:{type:"String", 
-                value:this.formData.email},
-        phone: {type:"String", 
-                value:this.formData.phone},
-        results: {type:"String", 
-                    value:this.results},
+        name: { type: "String", value: this.formData.name },
+        lastName: { type: "String", value: this.formData.lastName },
+        fechaNac: { type: "String", value: this.formData.fechaNac },       
+        email: { type: "String", value: this.formData.email },       
+        results: { type: "String", value: this.results },
       };
 
       let resu = await this.$store.dispatch("actualizarUsuario", usuario);
@@ -232,7 +225,6 @@ export default {
       } else {
         console.log("ERROR DE REGISTRO!");
       }
-
     },
 
     getInicialData() {
@@ -240,8 +232,8 @@ export default {
         name: "",
         lastName: "",
         fechaNac: "",
-        email: "",   
-        results: [],
+        email: "",
+        deas: [],
       };
     },
 
@@ -250,11 +242,11 @@ export default {
       this.formData.phone = usuario.phone;
       this.formData.email = usuario.email;
       this.formData.edad = usuario.edad;
-      this.results = usuario.results;
+      this.deas = usuario.deas;
     },
 
     traerInfoCurso(id) {
-      const found = this.mostrarExamenes.find((curso) => curso._id === id);
+      const found = this.mostrarDeas.find((curso) => curso._id === id);
       return found;
     },
   },

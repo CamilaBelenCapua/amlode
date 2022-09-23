@@ -24,7 +24,7 @@ export const router = new VueRouter({
         { path: '/', redirect: '/BackOffice' },
         { path: '/BackOffice', component: BackOffice },        
         { path: '/formularioAltaUsuario', component: FormularioAltaUsuario },
-        { path: '/editarUsuario/:id', name: 'editarUsuario', component: FormularioEditarUsuario, props: true },
+        { path: '/editarUsuario/:mail', name: 'editarUsuario', component: FormularioEditarUsuario, props: true },
         { path: '/usuarios', component: Usuarios },    
         { path: '/deas', component: Deas },   
         { path: '/formularioAltaDea', component: FormularioAltaDea },

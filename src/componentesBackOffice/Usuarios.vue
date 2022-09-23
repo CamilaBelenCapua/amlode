@@ -44,7 +44,7 @@
             <td class="text-center">
               <button
                 class="btn btn-success"
-                @click="editarUsuario(usuario._id)"
+                @click="editarUsuario(usuario.id)"
               >
                 Editar
               </button>
@@ -80,15 +80,16 @@ export default {
     };
   },
   methods: {
-    borrarUsuario(id) {
-      this.$store.dispatch("eliminarUsuario", id);
+    borrarUsuario(mail) {
+      this.$store.dispatch("eliminarUsuario", mail);
     },
 
-    editarUsuario(id) {
+    editarUsuario(mail) {
+      console.log(mail)
       this.$router.push({
         path: "/editarUsuario",
         name: "editarUsuario",
-        params: {id: id},
+        params: {mail: mail},
       });
     },
 
