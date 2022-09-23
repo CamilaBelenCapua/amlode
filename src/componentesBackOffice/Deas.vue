@@ -17,18 +17,17 @@
           </tr>
 
           <tr v-for="(dea, index) in mostrarDeas" :key="index">
-            <td class="text-center">
-              
-              {{ dea.id }}
+            <td class="text-center">  
+              {{dea.id}}
             </td>
             <td class="text-center">
-              {{ dea.latitude.value }}
+              {{dea.latitude.value}}
             </td>
             <td class="text-center">
-              {{ dea.length.value }}
+              {{dea.length.value}}
             </td>
             <td class="text-center">
-              {{ dea.datestamp.value }}
+              {{dea.datestamp.value}}
             </td>
 
             <td class="text-center">
@@ -45,7 +44,6 @@
           </tr>
         </table>
       </div>
-
       <h4 v-else class="alert alert-danger text-center">
         No se encontraron Deas regitrados
       </h4>
@@ -73,8 +71,20 @@ export default {
     return {};
   },
   methods: {
-    borrarDea(id) {
-      this.$store.dispatch("borrarDea", id);
+   async borrarDea(id) {
+      console.log(id)
+      /*
+      let result = await this.$store.dispatch("buscarDeaPorId", id);
+
+      if(result){
+        
+        let usuarios = await this.$store.dispatch("getUsuarios");
+        const usuarioEncontrado = usuarios.find(usuario => usuario.deas.value.includes(id.toString()))
+        const nuevosDeas = usuarioEncontrado.deas.value.filter(dea => dea !== id.toString() )
+        */
+       //this.$store.dispatch("borrarDea", id);
+      }
+        
     },
 
     editarDea(id) {
@@ -83,8 +93,9 @@ export default {
         name: "actualizarDea",
         params: { id: id },
       });
+
+      
     },
-  },
   computed: {},
 };
 </script>

@@ -12,7 +12,6 @@ import LoginBackOffice from "../componentesBackOffice/LoginBackOffice.vue";
 export default {
   name: "src-componentes-back-office",
   components: {
-   
     LoginBackOffice,
   },
   props: [],
