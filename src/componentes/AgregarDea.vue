@@ -93,6 +93,8 @@
             </validate>
             <!-- FIN CAMPO LONGITUD  -->
 
+   
+
             <!-- ENVIO -->
             <button
               class="btn btn-info my-3 float-right"
@@ -151,11 +153,8 @@ export default {
   data() {
     return {
       formState: {},
-      formData: this.getInicialData(),
-      email: "",
-      password: "",
-      modalShow: false,
-      
+      formData: this.getInicialData(),       
+      modalShow: false,      
     };
   },
   methods: {
@@ -165,8 +164,16 @@ export default {
         password: "",
         latitud: "",
         longitud: "",
+        fechaAlta: this.obtenerFecha()
+       
+        
       };
     },
+
+  obtenerFecha() {
+    const fecha = new Date();
+    return fecha.toLocaleDateString()
+  },
 
     mostrarDisplay() {
       let estilo = "none";
@@ -185,7 +192,7 @@ export default {
           type: "dea",
           latitude: {type: "String", value: this.formData.latitud},
           length: {type: "String", value: this.formData.longitud},
-          date: {type: "String", value: new Date()}
+          datestamp: {type: "String", value: this.formData.fechaAlta}
       }
 
       let deaUsuario = {
@@ -199,9 +206,10 @@ export default {
           if (resu) {
             this.formData = this.getInicialData();
             this.formState._reset();
-            this.$router.push({
+            this.$store.dispatch("getDeas");
+          /*   this.$router.push({
               path: "/inicio",
-            })
+            }) */
           } else {
               console.log("ERROR DE REGISTRO!");
               this.modalShow = true;

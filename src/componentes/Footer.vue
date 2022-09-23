@@ -36,7 +36,7 @@ export default {
   background: #03091e !important; 
   color: #fff;
   bottom: 0;
-  position: fixed;
+ 
    left: 0;
    width: 100%;
 }

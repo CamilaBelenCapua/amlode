@@ -5,11 +5,11 @@
         <div class="bg-info p-2 text-center font-weight-bold">
           DEA REGISTRADO
         </div>
-        <p class="h6 pt-2">Latitud: {{ dea.latitude.value }}</p>
+        <p class="h6 pt-2">Latitud: {{ dea.latitude.value.toString() }}</p>
 
-        <p class="h6 pt-1">Longitud: {{ dea.length.value }}</p>
+        <p class="h6 pt-1">Longitud: {{ dea.length.value.toString()}}</p>
 
-        <p class="w-100 pt-1">Fecha Alta: {{ dea.date.value }}</p>
+        <p class="w-100 pt-1">Fecha Alta: {{ dea.datestamp.value.toString() }}</p>
       </div>
     </div>
   </section>

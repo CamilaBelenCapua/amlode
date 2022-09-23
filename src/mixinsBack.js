@@ -6,10 +6,10 @@ export const mixinsBack = {
 
   computed: {
     mostrarExamen() {
-      console.log("MIXIN BACKOFFICE MOSTRAR EXAMEN")
-      let curso = this.$store.state.examen;
-      this.cargarForm(curso);
-      return curso;
+      console.log("MIXIN BACKOFFICE MOSTRAR EXAMEN -> CAMBIAR")
+      let dea = this.$store.state.dea;
+      this.cargarForm(dea);
+      return dea;
     },
 
     mostrarUsuario() {
@@ -19,10 +19,10 @@ export const mixinsBack = {
       return usuario;
     },
 
-    mostrarExamenes() {
-      console.log("MIXIN BACKOFFICE MOSTRAR EXAMENES")
-      let examenes = this.$store.state.examenes;
-      return examenes;
+    mostrarDeas() {
+      console.log("MIXIN BACKOFFICE MOSTRAR DEAS")
+      let deas = this.$store.state.deas;
+      return deas;
     },
     mostrarUsuarios() {
       console.log("MIXIN BACKOFFICE MOSTRAR USUARIOS")
@@ -32,8 +32,9 @@ export const mixinsBack = {
     },
 
     mostrarCurso() {
-      let curso = this.$store.state.examen;
-      return curso;
+      console.log("MIXIN BACKOFFICE MOSTRAR CURSO -> CAMBIAR")
+      let dea = this.$store.state.dea;
+      return dea;
     },
   }
 }

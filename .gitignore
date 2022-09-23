@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-data
+/data
+/mongo-volume
 
 
 # local env files
