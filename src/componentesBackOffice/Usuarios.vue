@@ -91,7 +91,6 @@ export default {
         params: {id: id},
       });
     },
-
   },
   computed: {},
 };

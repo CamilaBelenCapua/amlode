@@ -146,6 +146,7 @@
 </template>
 
 <script>
+
 export default {
   name: "src-componentes-login",
   props: [],
@@ -165,8 +166,6 @@ export default {
         latitud: "",
         longitud: "",
         fechaAlta: this.obtenerFecha()
-       
-        
       };
     },
 
@@ -186,6 +185,9 @@ export default {
     async agregarDea() {
       console.log({ ...this.formData });
       const id = this.$store.state.deas.length+1;
+      console.log("DEAS "+JSON.stringify(this.$store.state.deas))
+
+      console.log("id" + id)
 
       let deaNuevo = {
           id: id.toString(),
@@ -203,13 +205,14 @@ export default {
 
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);
+          
           if (resu) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-          /*   this.$router.push({
+             this.$router.push({
               path: "/inicio",
-            }) */
+            }) 
           } else {
               console.log("ERROR DE REGISTRO!");
               this.modalShow = true;

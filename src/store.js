@@ -31,7 +31,8 @@ export default new Vuex.Store({
         async getUsuarios({ commit }) {
             try {
                 const usuarios = await axios.get(url + "/v2/entities?type=user")
-                commit('GET_Usuarios', usuarios.data)                
+                commit('GET_Usuarios', usuarios.data) 
+                return usuarios.data               
             }
             catch (error) {
                 alert(error)
@@ -106,9 +107,9 @@ export default new Vuex.Store({
 
         async buscarUsuarioPorMail({ commit }, mail) {
             try {
-                const { data: usuario } = await axios.get(url + "/v2/entities/" + mail)
+                const { data: usuario } = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario)
-                return true
+                return usuario
             }
             catch (error) {
                 alert(error)
@@ -138,16 +139,6 @@ export default new Vuex.Store({
             }
         },
 
-        async buscarDea({ commit }, id) {
-            try {
-                const { data: dea } = await axios.get(url + "/api/deas/buscarDea/" + id)
-                commit('GET_Dea', dea)
-            }
-            catch (error) {
-                alert(error)
-            }
-        },
-
         async actualizarDea({ commit }, deaAModificar) {
 
             try {
@@ -166,8 +157,19 @@ export default new Vuex.Store({
 
         async borrarDea({ commit }, id) {
             try {
-                const {data: dea} = await axios.delete(url + "/api/deas/" + id)
+                const {data: dea} = await axios.delete(url + "/v2/entities" + id + "?type=dea")
                 commit('DELETE_Dea', dea)
+                return true
+            }
+            catch (error) {
+                alert(error)
+            }
+        },
+
+        async buscarDeaPorId({ commit }, id) {
+            try {
+                const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
+                commit('GET_DEA', dea)
                 return true
             }
             catch (error) {
