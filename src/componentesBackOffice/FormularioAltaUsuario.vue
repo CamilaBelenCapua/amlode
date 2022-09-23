@@ -137,7 +137,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Usuario ya registrado con ese Correo Electronico!</p>
+              <p>{{this.msjModal}}</p>
             </div>
             <div class="modal-footer">
               <button
@@ -173,10 +173,18 @@ export default {
       edadMax: 120,
       checkPass: "",
       modalShow: false,
+      msjModal: ""  
     };
   },
   methods: {
     async enviar() {
+      
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+        return
+      }
+
       console.log({ ...this.formData });
       let usuario = {
         id: this.formData.email,
@@ -184,9 +192,9 @@ export default {
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
-        deas: {type: "StructuredValue", value:[]}
+        deas: {type: "StructuredValue", value:[]},
       };
-
+      
       console.log("POST USUARIOS");
       const resu = await this.$store.dispatch("agregarUsuario", usuario);
 
@@ -196,9 +204,6 @@ export default {
         this.$router.push({
           path: "/usuarios",
         });
-      } else {
-        console.log("ERROR DE REGISTRO!");
-        this.modalShow = true;
       }
     },
 
@@ -217,6 +222,15 @@ export default {
         estilo = "inline";
       }
       return estilo;
+    },
+    
+    async datosValidos(){
+      let usuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
+      if(usuario){
+        this.msjModal = "Email ya registrado!"
+        return false
+      }
+      return true
     },
   },
   computed: {},

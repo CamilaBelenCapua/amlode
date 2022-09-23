@@ -92,9 +92,6 @@
               </field-messages>
             </validate>
             <!-- FIN CAMPO LONGITUD  -->
-
-   
-
             <!-- ENVIO -->
             <button
               class="btn btn-info my-3 float-right"
@@ -115,7 +112,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">ERROR!</h5>
                 <button
                   type="button"
                   class="close"
@@ -126,7 +123,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>Mail o Contraseña Incorrecta!</p>
+                <p>{{this.msjModal}}</p>
               </div>
               <div class="modal-footer">
                 <button
@@ -146,6 +143,7 @@
 </template>
 
 <script>
+
 export default {
   name: "src-componentes-login",
   props: [],
@@ -154,7 +152,8 @@ export default {
     return {
       formState: {},
       formData: this.getInicialData(),       
-      modalShow: false,      
+      modalShow: false, 
+      msjModal: ""     
     };
   },
   methods: {
@@ -165,11 +164,9 @@ export default {
         latitud: "",
         longitud: "",
         fechaAlta: this.obtenerFecha()
-       
-        
       };
     },
-
+    
   obtenerFecha() {
     const fecha = new Date();
     return fecha.toLocaleDateString()
@@ -183,10 +180,23 @@ export default {
       return estilo;
     },
 
-    async agregarDea() {
-      console.log({ ...this.formData });
-      const id = this.$store.state.deas.length+1;
+    async datosValidos(){
+      let existeUsuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
+      if(!existeUsuario){
+        this.msjModal = "Email incorrecto"
+        return false;
+      }
+      return true;
+    },
 
+    async agregarDea() {
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+        return;
+      }
+      
+      const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
           id: id.toString(),
           type: "dea",
@@ -195,26 +205,28 @@ export default {
           datestamp: {type: "String", value: this.formData.fechaAlta}
       }
 
+      console.log("DEA NUEVO ", deaNuevo)
+
       let deaUsuario = {
         idDea: deaNuevo.id,
         idUsuario: this.formData.email
       }
         const resuUsuario = await this.$store.dispatch("actualizarUsuario", deaUsuario)
 
+        console.log("RESU USUARIO ", resuUsuario)
+        
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);
+          
           if (resu) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-          /*   this.$router.push({
+             this.$router.push({
               path: "/inicio",
-            }) */
-          } else {
-              console.log("ERROR DE REGISTRO!");
-              this.modalShow = true;
-          }
-        }
+            }) 
+          } 
+        } 
 
     },
   },
