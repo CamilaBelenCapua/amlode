@@ -126,7 +126,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>Mail o Contraseña Incorrecta!</p>
+                <p>{{this.msjModal}}</p>
               </div>
               <div class="modal-footer">
                 <button
@@ -155,7 +155,8 @@ export default {
     return {
       formState: {},
       formData: this.getInicialData(),       
-      modalShow: false,      
+      modalShow: false, 
+      msjModal: ""     
     };
   },
   methods: {
@@ -182,13 +183,22 @@ export default {
       return estilo;
     },
 
+    async datosValidos(){
+      let usuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
+      if(usuario == null){
+        this.msjModal = "Email incorrecto"
+        return false
+      }
+      return true
+    },
+
     async agregarDea() {
-      console.log({ ...this.formData });
-      const id = this.$store.state.deas.length+1;
-      console.log("DEAS "+JSON.stringify(this.$store.state.deas))
-
-      console.log("id" + id)
-
+      
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+      }
+      const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
           id: id.toString(),
           type: "dea",
@@ -213,10 +223,13 @@ export default {
              this.$router.push({
               path: "/inicio",
             }) 
-          } else {
+          } /*else {
               console.log("ERROR DE REGISTRO!");
               this.modalShow = true;
-          }
+          }*/
+        } else {
+              console.log("ERROR DE REGISTRO!");
+              this.modalShow = true;
         }
 
     },

@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 return usuarios.data               
             }
             catch (error) {
-                alert(error)
+                alert("No se pudo cargar los usuarios")
             }
         },
 
@@ -109,10 +109,10 @@ export default new Vuex.Store({
             try {
                 const { data: usuario } = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario)
-                return usuario
+                return usuario.data
             }
             catch (error) {
-                alert(error)
+                return null
             }
         },
 
@@ -140,7 +140,6 @@ export default new Vuex.Store({
         },
 
         async actualizarDea({ commit }, deaAModificar) {
-
             try {
                 const { data: dea } = await axios.put(url + "/api/deas/" + deaAModificar.id,
                 deaAModificar,
