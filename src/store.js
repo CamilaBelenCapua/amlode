@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 return usuarios.data               
             }
             catch (error) {
-                alert("No se pudo cargar los usuarios")
+                alert(error)
             }
         },
 
@@ -113,6 +113,17 @@ export default new Vuex.Store({
             }
             catch (error) {
                 return false
+            }
+        },
+
+        async getUsuarioPorMail({ commit }, mail) {
+            try {
+                const usuario = await axios.get(url + "/v2/entities/" + mail + "?type=user")
+                commit('GET_USUARIO', usuario.data)
+                return usuario.data
+            }
+            catch (error) {
+                alert(error)
             }
         },
 
@@ -202,8 +213,6 @@ export default new Vuex.Store({
         },
 
         GET_USUARIO(state, data) {
-            console.log("data en Get_usuario" , data)
-            console.log("state.usuario" , state.usuario)
             state.usuario = data
         },
 

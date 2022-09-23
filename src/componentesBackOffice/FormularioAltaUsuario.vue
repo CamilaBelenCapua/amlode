@@ -178,13 +178,13 @@ export default {
   },
   methods: {
     async enviar() {
-
+      
       if(!await this.datosValidos()){
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
         return
       }
-      
+
       console.log({ ...this.formData });
       let usuario = {
         id: this.formData.email,
