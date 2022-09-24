@@ -12,7 +12,8 @@ import FormularioAltaUsuario from './componentesBackOffice/FormularioAltaUsuario
 import FormularioEditarUsuario from './componentesBackOffice/FormularioEditarUsuario.vue'
 import Usuarios from './componentesBackOffice/Usuarios.vue'
 import Deas from './componentesBackOffice/Deas.vue'
-import FormularioAltaDea from './componentesBackOffice/FormularioAltaDea.vue'
+//import FormularioAltaDea from './componentesBackOffice/FormularioAltaDea.vue'
+import FormularioEditarDea from './componentesBackOffice/FormularioEditarDea'
 
 /*front*/
 import Inicio from './componentes/Inicio.vue'
@@ -21,13 +22,15 @@ export const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: '*', redirect: '/' },
-        { path: '/', redirect: '/BackOffice' },
+        { path: '/', redirect: '/inicio' },
         { path: '/BackOffice', component: BackOffice },        
         { path: '/formularioAltaUsuario', component: FormularioAltaUsuario },
         { path: '/editarUsuario/:mail', name: 'editarUsuario', component: FormularioEditarUsuario, props: true },
         { path: '/usuarios', component: Usuarios },    
         { path: '/deas', component: Deas },   
-        { path: '/formularioAltaDea', component: FormularioAltaDea },
+        //{ path: '/formularioAltaDea', component: FormularioAltaDea },
+        { path: '/editarDea/:id', name: 'editarDea', component: FormularioEditarDea, props: true },
+
 
         /*front*/
         { path: '/inicio', component: Inicio },   

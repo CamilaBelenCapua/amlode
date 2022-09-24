@@ -11,29 +11,26 @@
             <th class="text-center">Latitud</th>
             <th class="text-center">Longitud</th>
             <th class="text-center">Fecha de Alta</th>
-
-            <th class="text-center">Borrar Dea</th>
+            <th class="text-center">Activo</th>
             <th class="text-center">Editar Dea</th>
           </tr>
 
           <tr v-for="(dea, index) in mostrarDeas" :key="index">
-            <td class="text-center">  
-              {{dea.id}}
+            <td class="text-center">
+              {{ dea.id }}
             </td>
             <td class="text-center">
-              {{dea.latitude.value}}
+              {{ dea.latitude.value }}
             </td>
             <td class="text-center">
-              {{dea.length.value}}
+              {{ dea.length.value }}
             </td>
             <td class="text-center">
-              {{dea.datestamp.value}}
+              {{ dea.datestamp.value }}
             </td>
 
             <td class="text-center">
-              <button class="btn btn-danger" @click="borrarDea(dea.id)">
-                Borrar
-              </button>
+              {{ dea.active.value }}
             </td>
 
             <td class="text-center">
@@ -71,31 +68,17 @@ export default {
     return {};
   },
   methods: {
-   async borrarDea(id) {
-      console.log(id)
-      /*
-      let result = await this.$store.dispatch("buscarDeaPorId", id);
-
-      if(result){
-        
-        let usuarios = await this.$store.dispatch("getUsuarios");
-        const usuarioEncontrado = usuarios.find(usuario => usuario.deas.value.includes(id.toString()))
-        const nuevosDeas = usuarioEncontrado.deas.value.filter(dea => dea !== id.toString() )
-        */
-       //this.$store.dispatch("borrarDea", id);
-      }
-        
-    },
 
     editarDea(id) {
+      console.log(id);
       this.$router.push({
-        path: "/actualizarDea",
-        name: "actualizarDea",
+        path: "/editarDea",
+        name: "editarDea",
         params: { id: id },
       });
-
-      
     },
+  },
+
   computed: {},
 };
 </script>

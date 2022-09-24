@@ -6,39 +6,34 @@
 
       <div v-if="mostrarUsuarios.length" class="table-responsive">
         <table class="table table-dark">
-            <tr>
+          <tr>
             <th class="text-center">Nombre</th>
             <th class="text-center">Apellido</th>
             <th class="text-center">Fecha de nacimiento</th>
             <th class="text-center">Correo Electronico</th>
             <th class="text-center">Tipo</th>
-            <th class="text-center">Borrar Usuario</th>
+            <th class="text-center">Activo</th>
             <th class="text-center">Editar Usuario</th>
           </tr>
-  
+
           <tr v-for="(usuario, index) in mostrarUsuarios" :key="index">
-              <td class="text-center">
-                  {{ usuario.name.value}}
-                </td>
-                <td class="text-center">
-                  {{ usuario.lastName.value}}
-                </td>
-                <td class="text-center">
-                  {{ usuario.fechaNac.value}}
-                </td>
-                <td class="text-center">
-                  {{ usuario.id}}
-                </td>
-                <td class="text-center">
-                  {{ usuario.type}}
-                </td>
             <td class="text-center">
-              <button
-                class="btn btn-danger"
-                @click="borrarUsuario(usuario.id)"
-              >
-                Borrar
-              </button>
+              {{ usuario.name.value }}
+            </td>
+            <td class="text-center">
+              {{ usuario.lastName.value }}
+            </td>
+            <td class="text-center">
+              {{ usuario.fechaNac.value }}
+            </td>
+            <td class="text-center">
+              {{ usuario.id }}
+            </td>
+            <td class="text-center">
+              {{ usuario.type }}
+            </td>
+            <td class="text-center">
+              {{ usuario.active.value ? "Si" : "No" }}
             </td>
 
             <td class="text-center">
@@ -74,10 +69,9 @@ export default {
   mounted() {
     this.$store.dispatch("getUsuarios");
   },
- 
+
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     borrarUsuario(mail) {
@@ -85,11 +79,11 @@ export default {
     },
 
     editarUsuario(mail) {
-      console.log(mail)
+      console.log(mail);
       this.$router.push({
         path: "/editarUsuario",
         name: "editarUsuario",
-        params: {mail: mail},
+        params: { mail: mail },
       });
     },
   },

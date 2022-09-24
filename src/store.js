@@ -179,7 +179,8 @@ export default new Vuex.Store({
         async buscarDeaPorId({ commit }, id) {
             try {
                 const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
-                commit('GET_DEA', dea)
+                console.log("SERVICIO BUSCAR DEA-> ", dea)
+                commit('GET_Dea', dea)
                 return true
             }
             catch (error) {
@@ -231,7 +232,7 @@ export default new Vuex.Store({
         },
 
         GET_Dea(state, data) {
-            state.deas = data
+            state.dea = data            
         },
 
         PUT_Dea(state, data) {

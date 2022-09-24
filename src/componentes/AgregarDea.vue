@@ -202,7 +202,8 @@ export default {
           type: "dea",
           latitude: {type: "String", value: this.formData.latitud},
           length: {type: "String", value: this.formData.longitud},
-          datestamp: {type: "String", value: this.formData.fechaAlta}
+          datestamp: {type: "String", value: this.formData.fechaAlta},
+          active: { type: Boolean, value: 1 },
       }
 
       console.log("DEA NUEVO ", deaNuevo)

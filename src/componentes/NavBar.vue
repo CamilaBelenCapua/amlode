@@ -19,12 +19,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-       
-            <!-- <li class="nav-item">
-              <router-link to="/backOffice">
+            <li class="nav-item">
+              <router-link to="/formularioAltaUsuario">
                 <a class="nav-link" href="#">BackOffice</a>
               </router-link>
-            </li> -->
+            </li>
           </ul>
         </div>
       </nav>

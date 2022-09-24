@@ -2,7 +2,7 @@
   <section class="container-fluid bg-light">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link to="/Backoffice">
+        <router-link to="/Inicio">
           <a class="navbar-brand" href="#">Inicio</a>
         </router-link>
         <button
@@ -41,28 +41,16 @@
                 </router-link>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Equipos DEA
-              </a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <router-link to="/formularioAltaDea">
-                  <a class="dropdown-item" href="#">Formulario Alta</a>
-                </router-link>
-                <router-link to="/Dea">
-                  <a class="dropdown-item" href="#">Listado de DEA</a>
-                </router-link>
-              </div>
+
+            <li class="nav-item">
+              <router-link to="/deas">
+                <a class="nav-link" href="#">Listado de DEA</a>
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/">
+                <a class="nav-link" href="#">Salir</a>
+              </router-link>
             </li>
           </ul>
         </div>
