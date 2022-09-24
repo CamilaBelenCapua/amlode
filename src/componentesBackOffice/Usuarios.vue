@@ -71,7 +71,8 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+    };
   },
   methods: {
     borrarUsuario(mail) {
@@ -79,13 +80,13 @@ export default {
     },
 
     editarUsuario(mail) {
-      console.log(mail);
       this.$router.push({
         path: "/editarUsuario",
         name: "editarUsuario",
         params: { mail: mail },
       });
     },
+    
   },
   computed: {},
 };

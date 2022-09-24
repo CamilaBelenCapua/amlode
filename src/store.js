@@ -140,14 +140,11 @@ export default new Vuex.Store({
         },
 
         async actualizarDea({ commit }, deaAModificar) {
-            console.log("deaAModificar "+JSON.stringify(deaAModificar))
             let body = {
                 latitude: {type: "String", value: deaAModificar.latitude.value},
                 length: {type: "String", value: deaAModificar.length.value},
                 active: {type: "Boolean", value: deaAModificar.active.value}
             }
-
-            console.log("DESPUES DEL BODY" + JSON.stringify(body))
 
             try {
                 const { data: dea } = await axios.patch(url + "/v2/entities/" + deaAModificar.id +

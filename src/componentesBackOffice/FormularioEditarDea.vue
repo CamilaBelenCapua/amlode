@@ -5,7 +5,7 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-warning p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{mostrarDea.id}} {{id}}</div>
+        <div class="flex-fill bd-highlight">ID: {{mostrarDea.id}}</div>
         <div class="flex-fill bd-highlight text-right">
           DEA ACTIVO:
           <input
@@ -92,7 +92,6 @@
         </button>
       </vue-form>
 
-      <!-- <pre>{{formData}}</pre> -->
     </div>
   </section>
 </template>
@@ -154,7 +153,7 @@ export default {
       };
     },
 
-    cargarForm(dea) {     
+    async cargarForm(dea) {     
       this.formData.id = dea.id;
       this.formData.latitude = dea.latitude.value;
       this.formData.length = dea.length.value;

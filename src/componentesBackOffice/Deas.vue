@@ -29,8 +29,8 @@
               {{ dea.datestamp.value }}
             </td>
 
-            <td class="text-center">
-              {{ dea.active.value }}
+            <td class="text-center" :class= cambiarColorEstado(dea)>
+              <b>{{ dea.active.value }}</b>
             </td>
 
             <td class="text-center">
@@ -65,17 +65,26 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      textoEstado: ""
+    };
   },
   methods: {
     editarDea(id) {
-      console.log(id);
       this.$router.push({
         path: "/editarDea",
         name: "editarDea",
         params: { id: id },
       });
     },
+    
+    cambiarColorEstado(dea){
+      this.textoEstado = "text-danger"
+      if(dea.active.value){
+        this.textoEstado = "text-success"
+      }
+      return this.textoEstado
+    }
   },
 
   computed: {},
