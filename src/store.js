@@ -105,25 +105,14 @@ export default new Vuex.Store({
             }
         },
 
-        async buscarUsuarioPorMail({ commit }, mail) {
-            try {
-                const { data: usuario } = await axios.get(url + "/v2/entities/" + mail + "?type=user")
-                commit('GET_USUARIO', usuario)
-                return true
-            }
-            catch (error) {
-                return false
-            }
-        },
-
-        async getUsuarioPorMail({ commit }, mail) {
+        async getUsuarioByMail({ commit }, mail) {
             try {
                 const usuario = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario.data)
                 return usuario.data
             }
             catch (error) {
-                alert(error)
+                return null
             }
         },
 
@@ -176,8 +165,9 @@ export default new Vuex.Store({
             }
         },
 
-        async buscarDeaPorId({ commit }, id) {
+        async getDeaById({ commit }, id) {
             try {
+
                 const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
                 console.log("SERVICIO BUSCAR DEA-> ", dea)
                 commit('GET_Dea', dea)

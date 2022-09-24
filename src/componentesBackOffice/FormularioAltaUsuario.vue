@@ -226,8 +226,8 @@ export default {
     },
     
     async datosValidos(){
-      let usuario = await this.$store.dispatch("buscarUsuarioPorMail", this.formData.email)
-      if(usuario){
+      let usuario = await this.$store.dispatch("getUsuarioByMail", this.formData.email)
+      if(usuario != null){
         this.msjModal = "Email ya registrado!"
         return false
       }
