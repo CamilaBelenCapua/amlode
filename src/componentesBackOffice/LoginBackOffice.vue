@@ -132,7 +132,6 @@ export default {
   },
   methods: {
     async login() {
-      console.log("ENTRO AL METODO LOGIN DEL BACKOFFICE");
       let usuario = {
         email: this.formData.email,
         password: this.formData.password,

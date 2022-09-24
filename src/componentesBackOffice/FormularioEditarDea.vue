@@ -5,7 +5,7 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-warning p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
+        <div class="flex-fill bd-highlight">ID: {{mostrarDea.id}}</div>
         <div class="flex-fill bd-highlight text-right">
           DEA ACTIVO:
           <input
@@ -41,26 +41,26 @@
             <!-- FIN CAMPO latitude  -->
           </div>
           <div class="col-4">
-            <!-- CAMPO length  -->
+            <!-- CAMPO longitude  -->
             <validate tag="div">
               <span style="font-weight: bold">Longitud</span>
               <input
-                v-model.trim="formData.length"
-                id="length"
-                name="length"
+                v-model.trim="formData.longitude"
+                id="longitude"
+                name="longitude"
                 type="text"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
               />
 
-              <field-messages name="length" show="$dirty">
+              <field-messages name="longitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
               </field-messages>
             </validate>
-            <!-- FIN CAMPO length  -->
+            <!-- FIN CAMPO longitude  -->
           </div>
           <div class="col-4">
             <!-- CAMPO datestamp  -->
@@ -92,7 +92,41 @@
         </button>
       </vue-form>
 
-      <!-- <pre>{{formData}}</pre> -->
+      <div
+        class="modal"
+        tabindex="-1"
+        role="dialog"
+        :style="{display: mostrarDisplay() }"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">ERROR!</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{this.msjModal}}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="modalShow = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -118,20 +152,28 @@ export default {
   data() {
     return {
       formState: {},
-      formData: this.getInicialData(),     
+      formData: this.getInicialData(),  
+      modalShow: false,
+      msjModal: ""     
     };
   },
 
   methods: {
     async enviar() {
       console.log({ ...this.formData });
-      let dea = {       
-        latitude: this.formData.latitude,
-        length: this.formData.length,
-        datestamp: this.formData.datestamp,
-        active: this.formData.active,
-        id: this.id,
-      };
+
+      const dea = {   
+        id: this.id,    
+        latitude: {type: "String", value: this.formData.latitude},
+        longitude: {type: "String", value: this.formData.longitude},
+        active: {type: "Boolean", value: this.formData.active}
+      }; 
+     
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+        return
+      }
 
       let resu = await this.$store.dispatch("actualizarDea", dea);
 
@@ -148,18 +190,35 @@ export default {
       return {
         name: "",
         latitude: "",
-        length: "",
+        longitude: "",
         datestamp: "",
         active: "",
       };
     },
 
-    cargarForm(dea) {     
+    async cargarForm(dea) {     
       this.formData.id = dea.id;
       this.formData.latitude = dea.latitude.value;
-      this.formData.length = dea.length.value;
+      this.formData.longitude = dea.longitude.value;
       this.formData.datestamp = dea.datestamp.value;
       this.formData.active = dea.active.value;
+    },
+
+    mostrarDisplay() {
+      let estilo = "none";
+      if (this.modalShow) {
+        estilo = "inline";
+      }
+      return estilo;
+    },
+    
+    async datosValidos(){
+      const dea = await this.$store.dispatch("getDeaById", this.id)
+      if(dea == null){
+        this.msjModal = "ID no encontrado"
+        return false
+      }
+      return true
     },
   },
   computed: {},

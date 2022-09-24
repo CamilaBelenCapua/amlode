@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 return usuarios.data
             }
             catch (error) {
-                alert(error)
+                alert("Problema al cargar los usuarios")
             }
         },
 
@@ -64,7 +64,7 @@ export default new Vuex.Store({
         },
 
         async actualizarUsuario({ commit }, deaUsuario) {
-            const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario)
+            const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario + "?type=user")
             const idDeas = usuario.deas.value
             const newArray = [...idDeas, deaUsuario.idDea];
 
@@ -78,7 +78,6 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
                 return false
             }
         },
@@ -124,7 +123,7 @@ export default new Vuex.Store({
                 commit('GET_Deas', deas)
             }
             catch (error) {
-                alert(error)
+                alert("Problema al cargar los DEAS")
             }
         },
 
@@ -140,12 +139,16 @@ export default new Vuex.Store({
         },
 
         async actualizarDea({ commit }, deaAModificar) {
+            let body = {
+                latitude: {type: "String", value: deaAModificar.latitude.value},
+                longitude: {type: "String", value: deaAModificar.longitude.value},
+                active: {type: "Boolean", value: deaAModificar.active.value}
+            }
+
             try {
-                const { data: dea } = await axios.put(url + "/api/deas/" + deaAModificar.id,
-                    deaAModificar,
-                    { 'content-type': 'application/json' }
-                )
-                commit('PUT_Dea', dea)
+                const { data: dea } = await axios.patch(url + "/v2/entities/" + deaAModificar.id +
+                "/attrs?type=dea",body,{ 'content-type': 'application/json' })
+                commit('PATCH_Dea', dea)
                 return true
             }
             catch (error) {
@@ -161,20 +164,18 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
+                return false
             }
         },
 
         async getDeaById({ commit }, id) {
             try {
                 const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
-                console.log("SERVICIO BUSCAR DEA-> ", dea)
                 commit('GET_Dea', dea)
                 return true
-
             }
             catch (error) {
-                alert(error)
+                return false
             }
         },
 
@@ -225,7 +226,7 @@ export default new Vuex.Store({
             state.dea = data
         },
 
-        PUT_Dea(state, data) {
+        PATCH_Dea(state, data) {
             let index = state.deas.findIndex(dea => dea.id == data.id)
             state.deas.splice(index, 1, data)
             state.dea = data

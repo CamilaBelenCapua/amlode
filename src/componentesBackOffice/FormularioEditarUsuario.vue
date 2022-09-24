@@ -169,7 +169,6 @@ export default {
   },
 
   mounted() {
-    console.log("MOUNTED BUSCAR USUARIO");
     this.$store.dispatch("buscarUsuarioPorMail", this.mail);
     const usuario = this.mostrarUsuario()
     console.log("GET DEAS", usuario);
