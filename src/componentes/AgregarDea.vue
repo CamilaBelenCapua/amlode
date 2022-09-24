@@ -210,7 +210,7 @@ export default {
         idDea: deaNuevo.id,
         idUsuario: this.formData.email
       }
-        const resuUsuario = await this.$store.dispatch("actualizarUsuario", deaUsuario)
+        const resuUsuario = await this.$store.dispatch("actualizarDeasByUsuario", deaUsuario)
         
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);

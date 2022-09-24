@@ -63,7 +63,7 @@ export default new Vuex.Store({
             }
         },
 
-        async actualizarUsuario({ commit }, deaUsuario) {
+        async actualizarDeasByUsuario({ commit }, deaUsuario) {
             const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario + "?type=user")
             const idDeas = usuario.deas.value
             const newArray = [...idDeas, deaUsuario.idDea];
@@ -78,6 +78,23 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
+                return false
+            }
+        },
+
+        async actualizarUsuario({ commit }, usuarioModificado) {
+            let body = {
+                active: {type: "Boolean", value: usuarioModificado.active.value }
+            }
+
+            try {
+                const { data: usuario } = await axios.patch(url + "/v2/entities/" + usuarioModificado.id +
+                    "/attrs?type=user", body, { 'content-type': 'application/json' })
+                commit('PATCH_Usuario', usuario)
+                return true
+            }
+            catch (error) {
+                alert(error)
                 return false
             }
         },
@@ -199,6 +216,7 @@ export default new Vuex.Store({
         },
 
         PATCH_Usuario(state, data) {
+            console.log("PASA POR ACA PATCH")
             let index = state.usuarios.findIndex(usuario => usuario.id == data.id)
             state.usuarios.splice(index, 1, data)
             state.usuario = data
