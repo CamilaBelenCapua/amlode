@@ -68,7 +68,6 @@ export default {
     return {};
   },
   methods: {
-
     editarDea(id) {
       console.log(id);
       this.$router.push({

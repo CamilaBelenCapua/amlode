@@ -5,7 +5,7 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-warning p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
+        <div class="flex-fill bd-highlight">ID: {{mostrarDea.id}} {{id}}</div>
         <div class="flex-fill bd-highlight text-right">
           DEA ACTIVO:
           <input
@@ -125,12 +125,12 @@ export default {
   methods: {
     async enviar() {
       console.log({ ...this.formData });
-      let dea = {       
-        latitude: this.formData.latitude,
-        length: this.formData.length,
-        datestamp: this.formData.datestamp,
-        active: this.formData.active,
-        id: this.id,
+
+      let dea = {   
+        id: this.id,    
+        latitude: {type: "String", value: this.formData.latitude},
+        length: {type: "String", value:this.formData.length},
+        active: {type: "Boolean", value:this.formData.active}
       };
 
       let resu = await this.$store.dispatch("actualizarDea", dea);

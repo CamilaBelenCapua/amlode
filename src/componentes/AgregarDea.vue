@@ -203,7 +203,7 @@ export default {
           latitude: {type: "String", value: this.formData.latitud},
           length: {type: "String", value: this.formData.longitud},
           datestamp: {type: "String", value: this.formData.fechaAlta},
-          active: { type: Boolean, value: 1 },
+          active: { type: "Boolean", value: true },
       }
 
       let deaUsuario = {

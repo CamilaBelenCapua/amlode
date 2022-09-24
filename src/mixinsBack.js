@@ -22,6 +22,7 @@ export const mixinsBack = {
     mostrarDeas() {
       console.log("MIXIN BACKOFFICE MOSTRAR DEAS")
       let deas = this.$store.state.deas;
+      console.log("Deas "+JSON.stringify(deas))
       return deas;
     },
     mostrarUsuarios() {
