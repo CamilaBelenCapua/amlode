@@ -23,7 +23,7 @@
               {{ dea.latitude.value }}
             </td>
             <td class="text-center">
-              {{ dea.length.value }}
+              {{ dea.longitude.value }}
             </td>
             <td class="text-center">
               {{ dea.datestamp.value }}

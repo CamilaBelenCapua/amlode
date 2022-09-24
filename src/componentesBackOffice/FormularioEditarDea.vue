@@ -41,26 +41,26 @@
             <!-- FIN CAMPO latitude  -->
           </div>
           <div class="col-4">
-            <!-- CAMPO length  -->
+            <!-- CAMPO longitude  -->
             <validate tag="div">
               <span style="font-weight: bold">Longitud</span>
               <input
-                v-model.trim="formData.length"
-                id="length"
-                name="length"
+                v-model.trim="formData.longitude"
+                id="longitude"
+                name="longitude"
                 type="text"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
               />
 
-              <field-messages name="length" show="$dirty">
+              <field-messages name="longitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
               </field-messages>
             </validate>
-            <!-- FIN CAMPO length  -->
+            <!-- FIN CAMPO longitude  -->
           </div>
           <div class="col-4">
             <!-- CAMPO datestamp  -->
@@ -165,7 +165,7 @@ export default {
       const dea = {   
         id: this.id,    
         latitude: {type: "String", value: this.formData.latitude},
-        length: {type: "String", value: this.formData.length},
+        longitude: {type: "String", value: this.formData.longitude},
         active: {type: "Boolean", value: this.formData.active}
       }; 
      
@@ -190,7 +190,7 @@ export default {
       return {
         name: "",
         latitude: "",
-        length: "",
+        longitude: "",
         datestamp: "",
         active: "",
       };
@@ -199,7 +199,7 @@ export default {
     async cargarForm(dea) {     
       this.formData.id = dea.id;
       this.formData.latitude = dea.latitude.value;
-      this.formData.length = dea.length.value;
+      this.formData.longitude = dea.longitude.value;
       this.formData.datestamp = dea.datestamp.value;
       this.formData.active = dea.active.value;
     },

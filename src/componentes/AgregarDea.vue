@@ -201,7 +201,7 @@ export default {
           id: id.toString(),
           type: "dea",
           latitude: {type: "String", value: this.formData.latitud},
-          length: {type: "String", value: this.formData.longitud},
+          longitude: {type: "String", value: this.formData.longitud},
           datestamp: {type: "String", value: this.formData.fechaAlta},
           active: { type: "Boolean", value: true },
       }

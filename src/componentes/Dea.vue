@@ -7,7 +7,7 @@
         </div>
         <p class="h6 pt-2">Latitud: {{ dea.latitude.value.toString() }}</p>
 
-        <p class="h6 pt-1">Longitud: {{ dea.length.value.toString()}}</p>
+        <p class="h6 pt-1">Longitud: {{ dea.longitude.value.toString()}}</p>
 
         <p class="w-100 pt-1">Fecha Alta: {{ dea.datestamp.value.toString() }}</p>
       </div>

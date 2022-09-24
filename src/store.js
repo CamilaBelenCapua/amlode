@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 return usuarios.data
             }
             catch (error) {
-                alert(error)
+                alert("Problema al cargar los usuarios")
             }
         },
 
@@ -78,7 +78,6 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
                 return false
             }
         },
@@ -124,7 +123,7 @@ export default new Vuex.Store({
                 commit('GET_Deas', deas)
             }
             catch (error) {
-                alert(error)
+                alert("Problema al cargar los DEAS")
             }
         },
 
@@ -142,7 +141,7 @@ export default new Vuex.Store({
         async actualizarDea({ commit }, deaAModificar) {
             let body = {
                 latitude: {type: "String", value: deaAModificar.latitude.value},
-                length: {type: "String", value: deaAModificar.length.value},
+                longitude: {type: "String", value: deaAModificar.longitude.value},
                 active: {type: "Boolean", value: deaAModificar.active.value}
             }
 
@@ -165,7 +164,7 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
+                return false
             }
         },
 
@@ -176,7 +175,7 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
+                return false
             }
         },
 
