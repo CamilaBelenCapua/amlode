@@ -17,7 +17,7 @@ export default new Vuex.Store({
         usuarios: [],
         deas: [],
         usuario: '',
-        dea: '',       
+        dea: '',
     },
 
     getters: {
@@ -31,8 +31,8 @@ export default new Vuex.Store({
         async getUsuarios({ commit }) {
             try {
                 const usuarios = await axios.get(url + "/v2/entities?type=user")
-                commit('GET_Usuarios', usuarios.data) 
-                return usuarios.data               
+                commit('GET_Usuarios', usuarios.data)
+                return usuarios.data
             }
             catch (error) {
                 alert(error)
@@ -53,27 +53,27 @@ export default new Vuex.Store({
         async agregarUsuario({ commit }, usuarioNuevo) {
             try {
                 const { data: usuario } = await axios.post(url + "/v2/entities",
-                 usuarioNuevo, 
-                 { 'Content-Type': 'application/json' })
+                    usuarioNuevo,
+                    { 'Content-Type': 'application/json' })
                 commit('POST_Usuario', usuario)
                 return true
             }
-            catch (error) {            
+            catch (error) {
                 return false
             }
         },
 
         async actualizarUsuario({ commit }, deaUsuario) {
             const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario)
-            const idDeas = usuario.deas.value 
+            const idDeas = usuario.deas.value
             const newArray = [...idDeas, deaUsuario.idDea];
-           
+
             let body = {
-                deas: {type: "StructuredValue",value: newArray}
+                deas: { type: "StructuredValue", value: newArray }
             }
             try {
-                const {data: usuario} = await axios.patch(url + "/v2/entities/" + deaUsuario.idUsuario + 
-                "/attrs?type=user", body,{ 'content-type': 'application/json' })
+                const { data: usuario } = await axios.patch(url + "/v2/entities/" + deaUsuario.idUsuario +
+                    "/attrs?type=user", body, { 'content-type': 'application/json' })
                 commit('PATCH_Usuario', usuario)
                 return true
             }
@@ -117,7 +117,7 @@ export default new Vuex.Store({
         },
 
         //APIS DEAS//
-        
+
         async getDeas({ commit }) {
             try {
                 const { data: deas } = await axios.get(url + "/v2/entities?type=dea")
@@ -142,8 +142,8 @@ export default new Vuex.Store({
         async actualizarDea({ commit }, deaAModificar) {
             try {
                 const { data: dea } = await axios.put(url + "/api/deas/" + deaAModificar.id,
-                deaAModificar,
-                    { 'content-type': 'application/json' }                    
+                    deaAModificar,
+                    { 'content-type': 'application/json' }
                 )
                 commit('PUT_Dea', dea)
                 return true
@@ -156,7 +156,7 @@ export default new Vuex.Store({
 
         async borrarDea({ commit }, id) {
             try {
-                const {data: dea} = await axios.delete(url + "/v2/entities" + id + "?type=dea")
+                const { data: dea } = await axios.delete(url + "/v2/entities" + id + "?type=dea")
                 commit('DELETE_Dea', dea)
                 return true
             }
@@ -167,11 +167,11 @@ export default new Vuex.Store({
 
         async getDeaById({ commit }, id) {
             try {
-
                 const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
                 console.log("SERVICIO BUSCAR DEA-> ", dea)
                 commit('GET_Dea', dea)
                 return true
+
             }
             catch (error) {
                 alert(error)
@@ -179,13 +179,13 @@ export default new Vuex.Store({
         },
 
     },
-    
+
     mutations: {
 
         //USUARIOS//
 
         GET_Usuarios(state, data) {
-            state.usuarios = data          
+            state.usuarios = data
         },
 
         DELETE_Usuario(state, id) {
@@ -222,7 +222,7 @@ export default new Vuex.Store({
         },
 
         GET_Dea(state, data) {
-            state.dea = data            
+            state.dea = data
         },
 
         PUT_Dea(state, data) {

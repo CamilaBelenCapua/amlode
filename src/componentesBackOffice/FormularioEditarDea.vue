@@ -110,7 +110,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("buscarDeaPorId", this.id);
+    this.$store.dispatch("getDeaById", this.id);
   },
 
   updated() {},
