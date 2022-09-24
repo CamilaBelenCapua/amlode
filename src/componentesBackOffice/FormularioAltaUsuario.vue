@@ -192,7 +192,7 @@ export default {
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
-        active: { type: Boolean, value: 1 },
+        active: { type: "Boolean", value: true },
         deas: {type: "StructuredValue", value:[]},
       };
       

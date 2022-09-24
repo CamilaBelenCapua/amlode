@@ -92,6 +92,41 @@
         </button>
       </vue-form>
 
+      <div
+        class="modal"
+        tabindex="-1"
+        role="dialog"
+        :style="{display: mostrarDisplay() }"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">ERROR!</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{this.msjModal}}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="modalShow = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -117,7 +152,9 @@ export default {
   data() {
     return {
       formState: {},
-      formData: this.getInicialData(),     
+      formData: this.getInicialData(),  
+      modalShow: false,
+      msjModal: ""     
     };
   },
 
@@ -125,12 +162,18 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
 
-      let dea = {   
+      const dea = {   
         id: this.id,    
         latitude: {type: "String", value: this.formData.latitude},
-        length: {type: "String", value:this.formData.length},
-        active: {type: "Boolean", value:this.formData.active}
-      };
+        length: {type: "String", value: this.formData.length},
+        active: {type: "Boolean", value: this.formData.active}
+      }; 
+     
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+        return
+      }
 
       let resu = await this.$store.dispatch("actualizarDea", dea);
 
@@ -159,6 +202,23 @@ export default {
       this.formData.length = dea.length.value;
       this.formData.datestamp = dea.datestamp.value;
       this.formData.active = dea.active.value;
+    },
+
+    mostrarDisplay() {
+      let estilo = "none";
+      if (this.modalShow) {
+        estilo = "inline";
+      }
+      return estilo;
+    },
+    
+    async datosValidos(){
+      const dea = await this.$store.dispatch("getDeaById", this.id)
+      if(dea == null){
+        this.msjModal = "ID no encontrado"
+        return false
+      }
+      return true
     },
   },
   computed: {},

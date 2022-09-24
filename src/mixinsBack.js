@@ -5,9 +5,9 @@ export const mixinsBack = {
   },
 
   computed: {
-   mostrarDea() {
+   async mostrarDea() {
       console.log("MIXIN BACKOFFICE MOSTRAR DEA")
-      let dea = this.$store.state.dea;
+      let dea = await this.$store.state.dea;
       this.cargarForm(dea);
       return dea;
     },

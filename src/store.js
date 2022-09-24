@@ -148,7 +148,7 @@ export default new Vuex.Store({
 
             try {
                 const { data: dea } = await axios.patch(url + "/v2/entities/" + deaAModificar.id +
-                "/attrs?type=dea", body,{ 'content-type': 'application/json' })
+                "/attrs?type=dea",body,{ 'content-type': 'application/json' })
                 commit('PATCH_Dea', dea)
                 return true
             }
