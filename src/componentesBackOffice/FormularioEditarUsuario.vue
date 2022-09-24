@@ -191,11 +191,6 @@ export default {
   },
 
   methods: {
-    /*   borrarCurso(id) {
-      let index = this.results.findIndex((curso) => curso.examen_id == id);
-
-      this.results.splice(index, 1);
-    }, */
 
     editarCurso(id, pago, nota) {
       let index = this.results.findIndex((curso) => curso.examen_id == id);
@@ -210,16 +205,11 @@ export default {
 
     async enviar() {
       console.log({ ...this.formData });
-      let usuario = {
+      const usuario = {
         id: this.formData.email,
-        type: "user",
-        name: { type: "String", value: this.formData.name },
-        lastName: { type: "String", value: this.formData.lastName },
-        fechaNac: { type: "String", value: this.formData.fechaNac },
-
-        results: { type: "String", value: this.results },
+        active: {type: "Boolean", value: this.formData.active}
       };
-
+      
       let resu = await this.$store.dispatch("actualizarUsuario", usuario);
 
       if (resu) {
