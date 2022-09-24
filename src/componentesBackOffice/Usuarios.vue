@@ -32,7 +32,7 @@
             <td class="text-center">
               {{ usuario.type }}
             </td>
-            <td class="text-center">
+             <td class="text-center font-weight-bold" :class= cambiarColorEstado(usuario)>
               {{ usuario.active.value ? "Si" : "No" }}
             </td>
 
@@ -86,6 +86,14 @@ export default {
         params: { mail: mail },
       });
     },
+
+    cambiarColorEstado(usuario){
+      this.textoEstado = "text-danger"
+      if(usuario.active.value){
+        this.textoEstado = "text-success"
+      }
+      return this.textoEstado
+    }
     
   },
   computed: {},

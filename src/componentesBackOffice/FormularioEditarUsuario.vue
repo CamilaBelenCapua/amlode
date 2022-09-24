@@ -3,50 +3,60 @@
     <NavBarBack />
     <div class="container">
       <h1 class="mt-5">Formulario de Modificación de Usuarios</h1>
+
       <div class="row">
         <div class="col-9">
-          <p class="h5 mt-5">Listado de Cursos Realizados</p>
+          <p class="h5 mt-5">Listado de DEA Registrados</p>
           <div
             class="media alert alert-info"
-            v-for="(curso, index) in this.deas"
+            v-for="(dea, index) in this.deas"
             :key="index"
           >
             <div class="media-body">
-              <div class="col-5 float-left p-2">
-                {{ traerInfoCurso(curso.examen_id).name }}
+              <div class="col-2 float-left">ID DEA: {{ dea }}</div>
+              <div class="col-3 float-left">
+                Latitud: {{ traerInfoDea(dea).latitude.value }}
               </div>
-              <div class="col-3 float-left text-center p-2">
-                NOTA:
-                <input
-                  type="text"
-                  style="width: 50%"
-                  class="text-center"
-                  v-model="curso.number"
-                />
+              <div class="col-3 float-left">
+                Longitud: {{ traerInfoDea(dea).longitude.value }}
               </div>
-              <div class="col-3 float-left text-center p-2">
-                Curso Pago: <input type="checkbox" v-model="curso.payment" />
+
+              <div class="col-2 float-left text-center font-weight-bold">
+                Activo:
+                {{ traerInfoDea(dea).active.value ? "Si" : "No" }}
+                <!-- <input
+                  type="checkbox"
+                  v-model="traerInfoDea(dea).active.value"
+                /> -->
               </div>
-              <div class="col-1 float-left text-center p-2">
+              <div class="col-1 float-left text-center">
                 <button
                   class="btn btn-danger"
-                  @click="borrarCurso(curso.examen_id)"
+                  @click="borrarCurso(dea.examen_id)"
                 >
-                  Borrar
+                  Desvincular
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-3 bg-warning">
-          <p class="h5 mt-5">Datos Personales</p>
+          <p class="h4 mt-5 text-center">Datos Personales</p>
           <vue-form :state="formState" @submit.prevent="enviar()">
+            <div class="flex-fill bd-highlight text-center pb-3 pt-3">
+              USUARIO ACTIVO:
+              <input
+                style="width: 30px; height: 30px"
+                type="checkbox"
+                v-model="formData.active"
+              />
+            </div>
             <!-- CAMPO NAME  -->
 
             <validate tag="div">
               <span style="font-weight: bold">Nombre</span>
               <input
-                v-model.trim="formData.name.value"
+                v-model.trim="formData.name"
                 id="name"
                 name="name"
                 type="text"
@@ -71,48 +81,46 @@
             <validate tag="div">
               <span style="font-weight: bold">Apellido</span>
               <input
-                v-model.trim="formData.lastName.value"
+                v-model.trim="formData.lastName"
                 id="lastName"
                 name="lastName"
                 type="text"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
-            
               />
 
               <field-messages name="lastName" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-          
               </field-messages>
             </validate>
-            <!-- FIN CAMPO EDAD  -->
+            <!-- FIN CAMPO LASTNAME  -->
 
-            <!-- CAMPO TELEFONO  -->
+            <!-- CAMPO FECHA NAC  -->
 
             <validate tag="div">
-              <span style="font-weight: bold">Teléfono</span>
+              <span style="font-weight: bold">Fecha Nacimiento</span>
               <input
-                :placeholder="mostrarUsuario.phone"
-                v-model.trim="formData.phone"
-                id="phone"
-                name="phone"
-                type="text"
+                :placeholder="mostrarUsuario.fechaNac"
+                v-model.trim="formData.fechaNac"
+                id="fechaNac"
+                name="fechaNac"
+                type="date"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
               />
 
-              <field-messages name="phone" show="$dirty">
+              <field-messages name="fechaNac" show="$dirty">
                 <div class="alert alert-success mt-1">Perfecto!</div>
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
               </field-messages>
             </validate>
-            <!-- FIN CAMPO TELEFONO  -->
+            <!-- FIN CAMPO FECHA NAC  -->
 
             <!-- CAMPO CORREO  -->
 
@@ -127,6 +135,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="email" show="$dirty">
@@ -169,9 +178,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("buscarUsuarioPorMail", this.mail);
-    const usuario = this.mostrarUsuario()
-    console.log("GET DEAS", usuario);
+    this.$store.dispatch("getUsuarioByMail", this.mail);
     this.$store.dispatch("getDeas");
   },
 
@@ -180,17 +187,15 @@ export default {
       formState: {},
       formData: this.getInicialData(),
       nameMinLength: 3,
-      edadMin: 18,
-      edadMax: 120,
     };
   },
 
   methods: {
-    borrarCurso(id) {
+    /*   borrarCurso(id) {
       let index = this.results.findIndex((curso) => curso.examen_id == id);
 
       this.results.splice(index, 1);
-    },
+    }, */
 
     editarCurso(id, pago, nota) {
       let index = this.results.findIndex((curso) => curso.examen_id == id);
@@ -210,8 +215,8 @@ export default {
         type: "user",
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
-        fechaNac: { type: "String", value: this.formData.fechaNac },       
-        email: { type: "String", value: this.formData.email },       
+        fechaNac: { type: "String", value: this.formData.fechaNac },
+
         results: { type: "String", value: this.results },
       };
 
@@ -228,6 +233,7 @@ export default {
 
     getInicialData() {
       return {
+        active: "",
         name: "",
         lastName: "",
         fechaNac: "",
@@ -236,17 +242,26 @@ export default {
       };
     },
 
-    cargarForm(usuario) {
-      this.formData.name = usuario.name;
-      this.formData.phone = usuario.phone;
-      this.formData.email = usuario.email;
-      this.formData.edad = usuario.edad;
-      this.deas = usuario.deas;
+    async cargarForm(usuario) {
+      this.formData.active = usuario.active.value;
+      this.formData.name = usuario.name.value;
+      this.formData.lastName = usuario.lastName.value;
+      this.formData.email = usuario.id;
+      this.formData.fechaNac = usuario.fechaNac.value;
+      this.deas = usuario.deas.value;
     },
 
-    traerInfoCurso(id) {
-      const found = this.mostrarDeas.find((curso) => curso._id === id);
-      return found;
+    traerInfoDea(idDea) {
+      const dea = this.mostrarDeas.find((dea) => dea.id === idDea);
+      return dea;
+    },
+
+    cambiarColorEstado(dea) {
+      this.textoEstado = "text-danger";
+      if (dea.active.value) {
+        this.textoEstado = "text-success";
+      }
+      return this.textoEstado;
     },
   },
   computed: {},

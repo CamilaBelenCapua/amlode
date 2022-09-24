@@ -29,8 +29,8 @@
               {{ dea.datestamp.value }}
             </td>
 
-            <td class="text-center" :class= cambiarColorEstado(dea)>
-              <b>{{ dea.active.value }}</b>
+            <td class="text-center font-weight-bold" :class= cambiarColorEstado(dea)>
+               {{ dea.active.value ? "Si" : "No" }}
             </td>
 
             <td class="text-center">
