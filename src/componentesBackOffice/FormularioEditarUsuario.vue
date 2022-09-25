@@ -63,6 +63,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
                 :minlength="nameMinLength"
               />
 
@@ -88,6 +89,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="lastName" show="$dirty">
@@ -111,6 +113,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="fechaNac" show="$dirty">
@@ -150,6 +153,29 @@
             </validate>
             <!-- FIN CAMPO CORREO  -->
 
+             <!-- CAMPO PUNTOS  -->
+             <validate tag="div">
+              <span style="font-weight: bold">Puntos</span>
+              <input
+                :placeholder="mostrarUsuario.points"
+                v-model.trim="formData.points"
+                id="points"
+                name="points"
+                type="number"
+                class="form-control mb-3"
+                autocomplete="off"
+                required
+                readonly
+              />
+
+              <field-messages name="points" show="$dirty">
+                <div class="alert alert-danger mt-1" slot="required">
+                  Campo obligatorio
+                </div>
+              </field-messages>
+            </validate>
+            <!-- FIN CAMPO POINTS  -->
+
             <!-- ENVIO -->
             <button
               class="btn btn-info my-3 float-right"
@@ -158,6 +184,42 @@
               Guardar
             </button>
           </vue-form>
+
+          <div
+        class="modal"
+        tabindex="-1"
+        role="dialog"
+        :style="{display: mostrarDisplay() }"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">ERROR!</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{this.msjModal}}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="modalShow = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
         </div>
       </div>
     </div>
@@ -187,28 +249,26 @@ export default {
       formState: {},
       formData: this.getInicialData(),
       nameMinLength: 3,
+      modalShow: false,
+      msjModal: ""
     };
   },
 
   methods: {
 
-    editarCurso(id, pago, nota) {
-      let index = this.results.findIndex((curso) => curso.examen_id == id);
-      let resultado = {
-        examen_id: id,
-        number: nota,
-        payment: pago,
-      };
-      this.results.splice(index, 1, resultado);
-      this.enviar();
-    },
-
     async enviar() {
       console.log({ ...this.formData });
       const usuario = {
         id: this.formData.email,
-        active: {type: "Boolean", value: this.formData.active}
+        active: {type: "Boolean", value: this.formData.active},
+        points: {type: "Number", value: this.formData.points}
       };
+
+      if(!await this.datosValidos()){
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+        return
+      }
       
       let resu = await this.$store.dispatch("actualizarUsuario", usuario);
 
@@ -228,6 +288,7 @@ export default {
         lastName: "",
         fechaNac: "",
         email: "",
+        points:0,
         deas: [],
       };
     },
@@ -238,6 +299,7 @@ export default {
       this.formData.lastName = usuario.lastName.value;
       this.formData.email = usuario.id;
       this.formData.fechaNac = usuario.fechaNac.value;
+      this.formData.points = usuario.points.value;
       this.deas = usuario.deas.value;
     },
 
@@ -252,6 +314,24 @@ export default {
         this.textoEstado = "text-success";
       }
       return this.textoEstado;
+    },
+
+    mostrarDisplay() {
+      let estilo = "none";
+      if (this.modalShow) {
+        estilo = "inline";
+      }
+      return estilo;
+    },
+    
+    async datosValidos(){
+      const usuario = await this.$store.dispatch("getUsuarioByMail", this.mail)
+    
+      if(usuario == null){
+        this.msjModal = "ID no encontrado para ese usuario"
+        return false
+      }
+      return true
     },
   },
   computed: {},

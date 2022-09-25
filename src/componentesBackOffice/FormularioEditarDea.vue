@@ -215,7 +215,7 @@ export default {
     async datosValidos(){
       const dea = await this.$store.dispatch("getDeaById", this.id)
       if(dea == null){
-        this.msjModal = "ID no encontrado"
+        this.msjModal = "ID no encontrado para ese DEA"
         return false
       }
       return true
