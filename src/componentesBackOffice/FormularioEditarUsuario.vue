@@ -63,6 +63,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
                 :minlength="nameMinLength"
               />
 
@@ -88,6 +89,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="lastName" show="$dirty">
@@ -111,6 +113,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="fechaNac" show="$dirty">
@@ -154,6 +157,7 @@
              <validate tag="div">
               <span style="font-weight: bold">Puntos</span>
               <input
+                :placeholder="mostrarUsuario.points"
                 v-model.trim="formData.points"
                 id="points"
                 name="points"
@@ -161,6 +165,7 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                readonly
               />
 
               <field-messages name="points" show="$dirty">
@@ -255,7 +260,8 @@ export default {
       console.log({ ...this.formData });
       const usuario = {
         id: this.formData.email,
-        active: {type: "Boolean", value: this.formData.active}
+        active: {type: "Boolean", value: this.formData.active},
+        points: {type: "Number", value: this.formData.points}
       };
 
       if(!await this.datosValidos()){

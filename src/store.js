@@ -84,7 +84,8 @@ export default new Vuex.Store({
 
         async actualizarUsuario({ commit }, usuarioModificado) {
             let body = {
-                active: {type: "Boolean", value: usuarioModificado.active.value }
+                active: {type: "Boolean", value: usuarioModificado.active.value},
+                points: {type: "Number", value: usuarioModificado.points.value}
             }
 
             try {
@@ -123,7 +124,6 @@ export default new Vuex.Store({
 
         async getUsuarioByMail({ commit }, mail) {
             try {
-                console.log("GET USUARIO BY EMAIL")
                 const usuario = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario.data)
                 return usuario.data
@@ -217,7 +217,6 @@ export default new Vuex.Store({
         },
 
         PATCH_Usuario(state, data) {
-            console.log("PASA POR ACA PATCH")
             let index = state.usuarios.findIndex(usuario => usuario.id == data.id)
             state.usuarios.splice(index, 1, data)
             state.usuario = data

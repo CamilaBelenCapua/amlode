@@ -213,14 +213,21 @@ export default {
         const resuUsuario = await this.$store.dispatch("actualizarDeasByUsuario", deaUsuario)
         
         if(resuUsuario){
-          const resu = await this.$store.dispatch("agregarDea", deaNuevo);
+          const resuDea = await this.$store.dispatch("agregarDea", deaNuevo);
           const usuario = await this.$store.dispatch("getUsuarioByMail",this.formData.email);
 
-          if(usuario != null){
-            usuario.points.value = usuario.points.value + 50
-          }
-          
-          if (resu) {
+          if(usuario != null && resuDea){
+            const puntos = usuario.points.value + 50
+
+            let usuarioModificado = {
+              id: this.formData.email,
+              active: {type: "Boolean", value: usuario.active.value},
+              points: {type: "Number", value: puntos},
+            }
+            const resuActualizar = await this.$store.dispatch("actualizarUsuario", usuarioModificado);
+            console.log(resuActualizar)
+
+            if (resuActualizar) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
@@ -228,6 +235,7 @@ export default {
               path: "/inicio",
             }) 
           } 
+          }
         } 
 
     },
