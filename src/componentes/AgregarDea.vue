@@ -214,6 +214,11 @@ export default {
         
         if(resuUsuario){
           const resu = await this.$store.dispatch("agregarDea", deaNuevo);
+          const usuario = await this.$store.dispatch("getUsuarioByMail",this.formData.email);
+
+          if(usuario != null){
+            usuario.points.value = usuario.points.value + 50
+          }
           
           if (resu) {
             this.formData = this.getInicialData();

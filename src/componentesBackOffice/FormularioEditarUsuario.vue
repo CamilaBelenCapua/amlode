@@ -150,6 +150,27 @@
             </validate>
             <!-- FIN CAMPO CORREO  -->
 
+             <!-- CAMPO PUNTOS  -->
+             <validate tag="div">
+              <span style="font-weight: bold">Puntos</span>
+              <input
+                v-model.trim="formData.points"
+                id="points"
+                name="points"
+                type="number"
+                class="form-control mb-3"
+                autocomplete="off"
+                required
+              />
+
+              <field-messages name="points" show="$dirty">
+                <div class="alert alert-danger mt-1" slot="required">
+                  Campo obligatorio
+                </div>
+              </field-messages>
+            </validate>
+            <!-- FIN CAMPO POINTS  -->
+
             <!-- ENVIO -->
             <button
               class="btn btn-info my-3 float-right"
@@ -261,6 +282,7 @@ export default {
         lastName: "",
         fechaNac: "",
         email: "",
+        points:0,
         deas: [],
       };
     },
@@ -271,6 +293,7 @@ export default {
       this.formData.lastName = usuario.lastName.value;
       this.formData.email = usuario.id;
       this.formData.fechaNac = usuario.fechaNac.value;
+      this.formData.points = usuario.points.value;
       this.deas = usuario.deas.value;
     },
 

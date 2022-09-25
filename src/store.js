@@ -123,6 +123,7 @@ export default new Vuex.Store({
 
         async getUsuarioByMail({ commit }, mail) {
             try {
+                console.log("GET USUARIO BY EMAIL")
                 const usuario = await axios.get(url + "/v2/entities/" + mail + "?type=user")
                 commit('GET_USUARIO', usuario.data)
                 return usuario.data

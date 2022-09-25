@@ -193,6 +193,7 @@ export default {
         lastName: { type: "String", value: this.formData.lastName },
         fechaNac: { type: "String", value: this.formData.fechaNac },
         active: { type: "Boolean", value: true },
+        points: {type:"Number", value: 0},
         deas: {type: "StructuredValue", value:[]},
       };
       
@@ -213,7 +214,8 @@ export default {
         name: "",
         lastName: "",
         fechaNac: "",
-        email: "",        
+        email: "",
+        points: 0        
       };
     },
 
