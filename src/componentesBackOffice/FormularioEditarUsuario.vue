@@ -24,10 +24,6 @@
               <div class="col-2 float-left text-center font-weight-bold">
                 Activo:
                 {{ traerInfoDea(dea).active.value ? "Si" : "No" }}
-                <!-- <input
-                  type="checkbox"
-                  v-model="traerInfoDea(dea).active.value"
-                /> -->
               </div>
               <div class="col-1 float-left text-center">
                 <button

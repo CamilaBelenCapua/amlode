@@ -15,6 +15,7 @@
         <div class="col-4 pt-3 pl-5 pr-5 pb-3 bg-warning" >
           <vue-form :state="formState" @submit.prevent="login()">
             <h4>Ingreso a Usuarios Registrados</h4>
+            
             <!-- CAMPO CORREO  -->
             <validate tag="div">
               <input
@@ -97,7 +98,6 @@
                 <p>Mail o Contraseña Incorrecta!</p>
               </div>
               <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -133,7 +133,7 @@ export default {
   methods: {
     async login() {
       let usuario = {
-        email: this.formData.email,
+        name: this.formData.email,
         password: this.formData.password,
       };
 
@@ -142,7 +142,7 @@ export default {
       if (resu) {
         this.visible = true;
         this.$router.push({
-          path: "/usuarios",
+          path: "/Inicio",
         });
       } else {
         console.log("ERROR DE REGISTRO!");

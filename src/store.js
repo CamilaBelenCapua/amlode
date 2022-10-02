@@ -7,10 +7,12 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import axios from 'axios'
+import buffer from 'buffer'
 
 console.log("process.env.NODE_ENV " + process.env.NODE_ENV)
 
 const url = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:1026') + ''
+const url_auth = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000') + ''
 
 export default new Vuex.Store({
     state: {
@@ -18,6 +20,8 @@ export default new Vuex.Store({
         deas: [],
         usuario: '',
         dea: '',
+        token: '',
+        expires: ''
     },
 
     getters: {
@@ -113,8 +117,17 @@ export default new Vuex.Store({
 
         async loguearAdmin({ commit }, credenciales) {
             try {
-                const { data: usuario } = await axios.post(url + "/api/usuarios/loginAdmin", credenciales, { 'content-type': 'application/json' })
-                commit('SET_USUARIO', usuario)
+                const params = new URLSearchParams()
+                params.append("username", credenciales.name)
+                params.append("password", credenciales.password)
+                params.append("grant_type", "password")
+
+                const usuario = await axios.post(url_auth + "/oauth2/token", params,
+                {headers:{'content-type': 'application/x-www-form-urlencoded',
+                  'Authorization': 'Basic ' + buffer.Buffer.from(process.env.VUE_APP_ID_CLIENT + ':' + 
+                                    process.env.VUE_APP_ID_SECRET).toString('base64')}
+                })
+                commit('Login', usuario)
                 return true
             }
             catch (error) {
@@ -200,6 +213,11 @@ export default new Vuex.Store({
     },
 
     mutations: {
+
+        Login(state, usuario){
+            state.token = usuario.data['access_token']
+            state.expires = usuario.data['expires_in']
+        },
 
         //USUARIOS//
 
