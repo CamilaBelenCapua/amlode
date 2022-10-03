@@ -22,12 +22,12 @@ export const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: '*', redirect: '/' },
-        { path: '/', redirect: '/inicio' },
+        { path: '/', redirect: '/Login' },
         { path: '/BackOffice', component: BackOffice },        
         { path: '/formularioAltaUsuario', component: FormularioAltaUsuario },
         { path: '/editarUsuario/:mail', name: 'editarUsuario', component: FormularioEditarUsuario, props: true },
-        { path: '/usuarios', component: Usuarios },    
-        { path: '/deas', component: Deas }, 
+        { path: '/usuarios', component: Usuarios },
+        { path: '/deas', component: Deas },
         { path: '/Login', component:LoginBackOffice},  
         { path: '/editarDea/:id', name: 'editarDea', component: FormularioEditarDea, props: true },
 

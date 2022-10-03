@@ -79,9 +79,6 @@ export default {
     };
   },
   methods: {
-    borrarUsuario(mail) {
-      this.$store.dispatch("eliminarUsuario", mail);
-    },
 
     editarUsuario(mail) {
       this.$router.push({

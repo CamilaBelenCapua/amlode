@@ -3,11 +3,10 @@ import Vue from 'vue'
 
 //importar la dependecia de Vuex
 import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
 import axios from 'axios'
 import buffer from 'buffer'
+
+Vue.use(Vuex)
 
 console.log("process.env.NODE_ENV " + process.env.NODE_ENV)
 
@@ -40,17 +39,6 @@ export default new Vuex.Store({
             }
             catch (error) {
                 alert("Problema al cargar los usuarios")
-            }
-        },
-
-        async eliminarUsuario({ commit }, id) {
-            try {
-                await axios.delete(url + "/v2/entities/" + id + "?type=user")
-                commit('DELETE_Usuario', id)
-                return true
-            }
-            catch (error) {
-                return false
             }
         },
 
@@ -100,17 +88,6 @@ export default new Vuex.Store({
             }
             catch (error) {
                 alert(error)
-                return false
-            }
-        },
-
-        async loguearUsuario({ commit }, credenciales) {
-            try {
-                const { data: usuario } = await axios.post(url + "/api/usuarios/login", credenciales, { 'content-type': 'application/json' })
-                commit('SET_USUARIO', usuario)
-                return true
-            }
-            catch (error) {
                 return false
             }
         },
@@ -188,16 +165,6 @@ export default new Vuex.Store({
             }
         },
 
-        async borrarDea({ commit }, id) {
-            try {
-                const { data: dea } = await axios.delete(url + "/v2/entities" + id + "?type=dea")
-                commit('DELETE_Dea', dea)
-                return true
-            }
-            catch (error) {
-                return false
-            }
-        },
 
         async getDeaById({ commit }, id) {
             try {
@@ -210,24 +177,31 @@ export default new Vuex.Store({
             }
         },
 
+        async checkLogin(){
+            const token =  localStorage.getItem('access_token')
+            if(token){
+                const res = await axios.get(url_auth + "/user?access_token=" + localStorage.getItem('access_token'))
+                if(res.status === 200){
+                    return true
+                }else{
+                    return false
+                }
+            }
+            return false
+        }
     },
 
     mutations: {
 
         Login(state, usuario){
-            state.token = usuario.data['access_token']
-            state.expires = usuario.data['expires_in']
+            localStorage.setItem('access_token',usuario.data['access_token'])
+            //console.log("token in local storage "+localStorage.getItem('access_token'))
         },
 
         //USUARIOS//
 
         GET_Usuarios(state, data) {
             state.usuarios = data
-        },
-
-        DELETE_Usuario(state, id) {
-            let index = state.usuarios.findIndex(usuario => usuario.id == id)
-            state.usuarios.splice(index, 1)
         },
 
         POST_Usuario(state, data) {
@@ -266,13 +240,7 @@ export default new Vuex.Store({
             let index = state.deas.findIndex(dea => dea.id == data.id)
             state.deas.splice(index, 1, data)
             state.dea = data
-        },
-
-        DELETE_Dea(state, data) {
-            let index = state.deas.findIndex(dea => dea.id == data.id)
-            if (index == -1) throw new Error('dea no encontrado')
-            state.deas.splice(index, 1)
-        },
+        }
     }
 
 })

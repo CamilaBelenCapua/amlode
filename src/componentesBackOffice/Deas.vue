@@ -60,8 +60,8 @@ export default {
     NavBarBack,
   },
 
-  mounted() {
-    this.$store.dispatch("getDeas");
+  async mounted() {
+      this.$store.dispatch("getDeas");
   },
 
   data() {
