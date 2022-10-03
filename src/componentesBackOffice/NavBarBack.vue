@@ -49,7 +49,7 @@
             </li>
             <li class="nav-item">
               <router-link to="/">
-                <a class="nav-link" href="#">Salir</a>
+                <a class="nav-link" href="#" @click="desloguar()">Salir</a>
               </router-link>
             </li>
           </ul>
@@ -69,7 +69,11 @@ export default {
       visible: false,
     };
   },
-  methods: {},
+  methods: {
+    desloguar(){
+      localStorage.setItem('access_token', '')
+    }
+  },
   computed: {},
 };
 </script>
