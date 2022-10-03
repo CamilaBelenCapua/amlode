@@ -95,7 +95,7 @@ export default new Vuex.Store({
         async loguearAdmin({ commit }, credenciales) {
             try {
                 const params = new URLSearchParams()
-                params.append("username", credenciales.name)
+                params.append("username", credenciales.name )
                 params.append("password", credenciales.password)
                 params.append("grant_type", "password")
 
@@ -165,7 +165,6 @@ export default new Vuex.Store({
             }
         },
 
-
         async getDeaById({ commit }, id) {
             try {
                 const { data: dea } = await axios.get(url + "/v2/entities/" + id + "?type=dea")
@@ -176,26 +175,12 @@ export default new Vuex.Store({
                 return false
             }
         },
-
-        async checkLogin(){
-            const token =  localStorage.getItem('access_token')
-            if(token){
-                const res = await axios.get(url_auth + "/user?access_token=" + localStorage.getItem('access_token'))
-                if(res.status === 200){
-                    return true
-                }else{
-                    return false
-                }
-            }
-            return false
-        }
     },
 
     mutations: {
 
         Login(state, usuario){
             localStorage.setItem('access_token',usuario.data['access_token'])
-            //console.log("token in local storage "+localStorage.getItem('access_token'))
         },
 
         //USUARIOS//
