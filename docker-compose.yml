@@ -63,7 +63,7 @@ services:
       - IDM_ADMIN_USER=admin
       - IDM_ADMIN_EMAIL=admin@test.com
       - IDM_ADMIN_PASS=1234
-
+      - IDM_CORS_ENABLED=true
 
 networks:
   default:
