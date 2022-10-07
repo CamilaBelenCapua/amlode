@@ -1,16 +1,29 @@
 <template>
   <section class="container">
-    <div class="w-100 pb-3">
-      <div class="cajaDea rounded p-3">
-        <div class="bg-info p-2 text-center font-weight-bold">
-          DEA REGISTRADO
-        </div>
-        <p class="h6 pt-2">Latitud: {{ dea.latitude.value.toString() }}</p>
+    <div class="table-responsive">
+      <table class="table table-dark">
+        <tr>
+          <th class="text-center col-1">ID</th>
+          <th class="text-center col-3">Latitud</th>
+          <th class="text-center col-3">Longitud</th>
+          <th class="text-center col-2">Fecha de Alta</th>
+        </tr>
 
-        <p class="h6 pt-1">Longitud: {{ dea.longitude.value.toString()}}</p>
-
-        <p class="w-100 pt-1">Fecha Alta: {{ dea.datestamp.value.toString() }}</p>
-      </div>
+        <tr>
+          <td class="text-center">
+            {{ dea.id }}
+          </td>
+          <td class="text-center">
+            {{ dea.latitude.value.toString() }}
+          </td>
+          <td class="text-center">
+            {{ dea.longitude.value.toString() }}
+          </td>
+          <td class="text-center">
+            {{ dea.datestamp.value.toString() }}
+          </td>
+        </tr>
+      </table>
     </div>
   </section>
 </template>
@@ -18,36 +31,13 @@
 <script>
 export default {
   name: "src-componentes-dea",
-  props: ["dea", "click", "usuario", "botonStyle"],
+  props: ["dea"],
   mounted() {},
   data() {
     return {};
   },
 
-  methods: {
-    getBg(img) {
-      return `background-image: url("../img/${img}")`;
-    },
-
-    accionBoton(id) {
-      if (this.click === "Más Info") {
-        this.$router.push({
-          path: "/cursoDetalle",
-          name: "cursoDetalle",
-          params: { id: id },
-        });
-      }
-      if (this.click === "Inscribirme Ahora!") {
-        let datos = {
-          idUsuario: this.usuario._id,
-          examen_id: id,
-          payment: false,
-          number: "",
-        };
-        this.$store.dispatch("inscribirACurso", datos);
-      }
-    },
-  },
+  methods: {},
   computed: {},
 };
 </script>

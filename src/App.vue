@@ -50,11 +50,9 @@ export default {
 }
 
 .cajaDea {
-  background: black;
-  
+  background: black;  
   color: white;
-  background-repeat: no-repeat;
-  background-size: cover;
+
 }
 </style>
 

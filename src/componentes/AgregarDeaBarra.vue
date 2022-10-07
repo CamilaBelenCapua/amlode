@@ -2,19 +2,18 @@
   <section class="container-fluid">
     <div class="container">
       <div class="row">
-    
         <div class="col-12">
           <vue-form :state="formState" @submit.prevent="agregarDea()">
-            <h4 class="pt-5">Agregar DEA</h4>
+            <h4 class="pt-4">¿Encontraste un DEA? Agregalo!</h4>
             <!-- CAMPO CORREO  -->
-            <validate tag="div">
+            <validate tag="div" class="col-3 float-left">
               <input
                 placeholder="Correo Eléctronico"
                 v-model.trim="formData.email"
                 id="email"
                 name="email"
                 type="email"
-                class="form-control mt-3"
+                class="form-control col mt-3"
                 autocomplete="on"
                 required
               />
@@ -24,24 +23,23 @@
                   Campo obligatorio
                 </div>
                 <div class="alert alert-danger mt-1" slot="email">
-                  El correo ingresado es inválido.
+                  Formato inválido
                 </div>
               </field-messages>
             </validate>
             <!-- FIN CAMPO CORREO  -->
 
-            
-
             <!-- CAMPO LATITUD  -->
-            <validate tag="div">
+            <validate tag="div" class="col-3 float-left">
               <input
                 placeholder="Latitud"
                 v-model.trim="formData.latitud"
                 id="latitud"
                 name="latitud"
                 type="latitud"
-                class="form-control mt-3"
+                class="form-control col mt-3"
                 autocomplete="off"
+                required
               />
 
               <field-messages name="latitud" show="$dirty">
@@ -53,15 +51,16 @@
             <!-- FIN CAMPO LATITUD  -->
 
             <!-- CAMPO LONGITUD  -->
-            <validate tag="div">
+            <validate tag="div" class="col-3 float-left">
               <input
                 placeholder="Longitud"
                 v-model.trim="formData.longitud"
                 id="longitud"
                 name="longitud"
                 type="longitud"
-                class="form-control mt-3"
+                class="form-control col mt-3"
                 autocomplete="off"
+                required
               />
 
               <field-messages name="longitud" show="$dirty">
@@ -73,10 +72,10 @@
             <!-- FIN CAMPO LONGITUD  -->
             <!-- ENVIO -->
             <button
-              class="btn btn-info my-3 float-right"
+              class="btn btn-danger my-3 float-Lleft col-2"
               :disabled="formState.$invalid"
             >
-              Enviar
+              Agregar DEA
             </button>
           </vue-form>
         </div>
@@ -91,28 +90,26 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">ERROR!</h5>
+                <h5 class="modal-title">{{ this.tituloModal }}</h5>
+
                 <button
                   type="button"
                   class="close"
                   data-dismiss="modal"
                   aria-label="Close"
+                  @click="modalShow = false"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>{{this.msjModal}}</p>
+                <p>{{ this.msjModal }}</p>
+                <AgregarUsuario
+                  @modalShow="modalShow = $event"
+                  :style="getStyle(formAgregarUsuario)"
+                />
               </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  @click="modalShow = false"
-                >
-                  Close
-                </button>
-              </div>
+            
             </div>
           </div>
         </div>
@@ -122,33 +119,48 @@
 </template>
 
 <script>
+import AgregarUsuario from "./AgregarUsuario.vue";
 
 export default {
   name: "src-componentes-login",
+
+  components: {
+    AgregarUsuario,
+  },
   props: [],
   mounted() {},
   data() {
     return {
       formState: {},
-      formData: this.getInicialData(),       
-      modalShow: false, 
-      msjModal: ""     
+      formData: this.getInicialData(),
+      modalShow: false,
+      msjModal: "",
+      tituloModal: "",
+      formAgregarUsuario: false,
     };
   },
   methods: {
     getInicialData() {
       return {
-        email: "",       
+        email: "",
         latitud: "",
         longitud: "",
-        fechaAlta: this.obtenerFecha()
+        fechaAlta: this.obtenerFecha(),
       };
     },
-    
-  obtenerFecha() {
-    const fecha = new Date();
-    return fecha.toLocaleDateString()
-  },
+
+    obtenerFecha() {
+      const fecha = new Date();
+      return fecha.toLocaleDateString();
+    },
+
+    getStyle(estado) {
+      return {
+        
+        display: estado ? "" : "none",
+       
+      };
+    },
 
     mostrarDisplay() {
       let estilo = "none";
@@ -158,64 +170,82 @@ export default {
       return estilo;
     },
 
-    async datosValidos(){
-      let usuario = await this.$store.dispatch("getUsuarioByMail", this.formData.email)
-      if(usuario == null){
-        this.msjModal = "No existe usuario para ese email"
+    async datosValidos() {
+      let usuario = await this.$store.dispatch(
+        "getUsuarioByMail",
+        this.formData.email
+      );
+      if (usuario == null) {
+        this.msjModal = "Para ingrear un DEA tenes que registrarte";
+        this.tituloModal = "ERROR!";
+        this.formAgregarUsuario = true;
         return false;
       }
       return true;
     },
 
     async agregarDea() {
-      if(!await this.datosValidos()){
+      if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
+
         return;
+      } else {
+        this.modalShow = true;
+        this.msjModal = "Dea ingresaso con Éxito!";
+        this.tituloModal = "FELICITACIONES";
       }
 
       const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
-          id: id.toString(),
-          type: "dea",
-          latitude: {type: "String", value: this.formData.latitud},
-          longitude: {type: "String", value: this.formData.longitud},
-          datestamp: {type: "String", value: this.formData.fechaAlta},
-          active: { type: "Boolean", value: true },
-      }
+        id: id.toString(),
+        type: "dea",
+        latitude: { type: "String", value: this.formData.latitud },
+        longitude: { type: "String", value: this.formData.longitud },
+        datestamp: { type: "String", value: this.formData.fechaAlta },
+        active: { type: "Boolean", value: true },
+      };
 
       let deaUsuario = {
         idDea: deaNuevo.id,
-        idUsuario: this.formData.email
-      }
-        const resuUsuario = await this.$store.dispatch("actualizarDeasByUsuario", deaUsuario)
-        
-        if(resuUsuario){
-          const resuDea = await this.$store.dispatch("agregarDea", deaNuevo);
-          const usuario = await this.$store.dispatch("getUsuarioByMail",this.formData.email);
+        idUsuario: this.formData.email,
+      };
+      const resuUsuario = await this.$store.dispatch(
+        "actualizarDeasByUsuario",
+        deaUsuario
+      );
 
-          if(usuario != null && resuDea){
-            const puntos = usuario.points.value + 50
+      if (resuUsuario) {
+        const resuDea = await this.$store.dispatch("agregarDea", deaNuevo);
+        const usuario = await this.$store.dispatch(
+          "getUsuarioByMail",
+          this.formData.email
+        );
 
-            let usuarioModificado = {
-              id: this.formData.email,
-              active: {type: "Boolean", value: usuario.active.value},
-              points: {type: "Number", value: puntos},
-            }
-            const resuActualizar = await this.$store.dispatch("actualizarUsuario", usuarioModificado);
-            console.log(resuActualizar)
+        if (usuario != null && resuDea) {
+          const puntos = usuario.points.value + 50;
 
-            if (resuActualizar) {
+          let usuarioModificado = {
+            id: this.formData.email,
+            active: { type: "Boolean", value: usuario.active.value },
+            points: { type: "Number", value: puntos },
+          };
+          const resuActualizar = await this.$store.dispatch(
+            "actualizarUsuario",
+            usuarioModificado
+          );
+          console.log(resuActualizar);
+
+          if (resuActualizar) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-             this.$router.push({
-              path: "/inicio",
-            }) 
-          } 
+            this.$router.push({
+              path: "/home",
+            });
           }
-        } 
-
+        }
+      }
     },
   },
 

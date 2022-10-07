@@ -24,6 +24,28 @@ import './axios'
 //import VUEX
 import store from './store'
 
+//import googlemaps
+import * as VueGoogleMaps from 'vue2-google-maps' // Import package
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyD1VnxBVrSPcRZg6Yd0uu07EU5UqwXntb4",
+    libraries: "places"
+  }
+});
+
+//import googleAuth2
+import GAuth from 'vue-google-oauth2'
+const gauthOption = {
+  clientId: '1064672349955-6ag6kufjdk22ekgbitse4i35gi9tnabp.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account',
+  fetch_basic_profile:true,
+}
+Vue.use(GAuth, gauthOption)
+
+
+
 Vue.config.productionTip = false
 
 new Vue({

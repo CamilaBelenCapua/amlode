@@ -20,12 +20,14 @@ import LoginBackOffice from './componentesBackOffice/LoginBackOffice'
 
 /*front*/
 import Inicio from './componentes/Inicio.vue'
+import Mapa from './componentes/Mapa.vue'
+import Home from './componentes/Home.vue'
 
 export const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: '*', redirect: '/' },
-        { path: '/', redirect: '/Login',  meta:{ requireAuth: false} },
+        { path: '/', redirect: '/home',  meta:{ requireAuth: false} },
         { path: '/BackOffice', component: BackOffice, meta:{ requireAuth: true} },        
         { path: '/formularioAltaUsuario', component: FormularioAltaUsuario, meta:{ requireAuth: true} },
         { path: '/editarUsuario/:mail', name: 'editarUsuario', component: FormularioEditarUsuario, props: true,  meta:{ requireAuth: true} },
@@ -35,7 +37,9 @@ export const router = new VueRouter({
         { path: '/editarDea/:id', name: 'editarDea', component: FormularioEditarDea, props: true,  meta:{ requireAuth: true} },
 
         /*front*/
-        { path: '/inicio', component: Inicio, meta:{ requireAuth: true} },         
+        { path: '/inicio', component: Inicio, meta:{ requireAuth: true} },       
+        { path: '/mapa', component: Mapa, meta:{ requireAuth: false} },      
+        { path: '/home', component: Home, meta:{ requireAuth: false} },   
     ]
 })
 

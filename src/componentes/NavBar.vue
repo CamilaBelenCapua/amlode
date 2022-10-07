@@ -2,9 +2,7 @@
   <section class="container-fluid" style="background: #f8f9fa">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link to="/Inicio">
-          <a class="navbar-brand" href="#">Inicio</a>
-        </router-link>
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -18,10 +16,29 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item pr-3 pl-3">
+              <router-link to="/home">
+                <a class="nav-link" href="#">AMLODE</a>
+              </router-link>
+            </li>
+
+
+            <li class="nav-item pr-3 pl-3">
+              <router-link to="/home">
+                <a class="nav-link" href="#">Primeros Auxilios</a>
+              </router-link>
+            </li>
+
+            <li class="nav-item pr-3 pl-3">
+              <router-link to="/home">
+                <a class="nav-link" href="#">FAQ</a>
+              </router-link>
+            </li>
+
+            <li class="nav-item pr-3 pl-3 ">
               <router-link to="/formularioAltaUsuario">
-                <a class="nav-link" href="#">BackOffice</a>
+                <a class="nav-link bg-danger text-light rounded" href="#">BackOffice</a>
               </router-link>
             </li>
           </ul>
