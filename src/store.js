@@ -112,6 +112,34 @@ export default new Vuex.Store({
             }
         },
 
+        async subscriber() {
+            try {
+                let body = {
+                        "subject":{
+                            "entities":[
+                                {
+                                    "idPattern": ".*"
+                                }
+                            ]
+                        },
+                        "notification": {
+                            "http": {
+                                "url": "http://cygnus:5055/notify"
+                            },
+                            "attrsFormat": "legacy"
+                        }
+                    }
+
+                const usuario = await axios.post(url + "/v2/subscriptions/", body, 
+                {'content-type': 'application/json'} )
+                console.log('HOLA', usuario);
+                return true
+            }
+            catch (error) {
+                return false
+            }
+        },
+
         async getUsuarioByMail({ commit }, mail) {
             try {
                 const usuario = await axios.get(url + "/v2/entities/" + mail + "?type=user")

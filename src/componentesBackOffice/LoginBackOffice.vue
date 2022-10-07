@@ -72,6 +72,11 @@
               Enviar
             </button>
           </vue-form>
+          <button
+              class="btn btn-info my-3 float-right" @click="subscriber()"
+            >
+              Persistir datos
+            </button>
         </div>
 
         <!-- MODAL -->
@@ -165,6 +170,10 @@ export default {
       }
       return estilo;
     },
+
+    subscriber(){
+      this.$store.dispatch('subscriber')
+    }
   },
 
   computed: {},
