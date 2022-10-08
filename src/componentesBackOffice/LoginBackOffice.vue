@@ -75,13 +75,7 @@
         </div>
 
         <div>
-          <button
-              class="btn btn-info my-3 float-right" 
-              :disabled= this.accionBoton
-              @click="subscriber()"
-            >
-              Persistir datos
-          </button>
+
         </div>
    
         <!-- MODAL -->
@@ -133,8 +127,8 @@ export default {
   
   async mounted() {
     let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
-    if(cantSubscriptions>0){
-      this.accionBoton = true
+    if(cantSubscriptions==0){
+      await this.$store.dispatch('subscriber')
     }
     },
   data() {
@@ -144,7 +138,6 @@ export default {
       email: "",
       password: "",
       modalShow: false,
-      accionBoton: false
     };
   },
   methods: {
@@ -183,20 +176,6 @@ export default {
       }
       return estilo;
     },
-
-    async subscriber(){
-      await this.$store.dispatch('subscriber')
-      this.accionBoton = true
-    },
-
-    async getsubscriptions(){
-      let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
-      console.log('Cantidad', cantSubscriptions)
-
-      if(cantSubscriptions>0){
-        this.accionBoton = true
-      }
-    }
   },
 
   computed: {},
