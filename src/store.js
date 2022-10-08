@@ -19,8 +19,6 @@ export default new Vuex.Store({
         deas: [],
         usuario: '',
         dea: '',
-        token: '',
-        expires: ''
     },
 
     getters: {
@@ -130,10 +128,21 @@ export default new Vuex.Store({
                         }
                     }
 
-                const usuario = await axios.post(url + "/v2/subscriptions/", body, 
+                let persistencia = await axios.post(url + "/v2/subscriptions/", body, 
                 {'content-type': 'application/json'} )
-                console.log('HOLA', usuario);
+                console.log(persistencia)
                 return true
+            }
+            catch (error) {
+                return false
+            }
+        },
+
+        async getSubscriptions() {
+            try {
+                let subscriptions = await axios.get(url + "/v2/subscriptions/", 
+                {'content-type': 'application/json'} )
+                return subscriptions.data.length
             }
             catch (error) {
                 return false
