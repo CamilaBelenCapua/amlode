@@ -74,6 +74,16 @@
           </vue-form>
         </div>
 
+        <div>
+          <button
+              class="btn btn-info my-3 float-right" 
+              :disabled= this.accionBoton
+              @click="subscriber()"
+            >
+              Persistir datos
+          </button>
+        </div>
+   
         <!-- MODAL -->
         <div
           class="modal"
@@ -120,7 +130,13 @@ export default {
   mixins: [mixinsBack],
   name: "src-componentes-loginBackOffice",
   props: [],
-  mounted() {},
+  
+  async mounted() {
+    let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
+    if(cantSubscriptions>0){
+      this.accionBoton = true
+    }
+    },
   data() {
     return {
       formState: {},
@@ -128,9 +144,11 @@ export default {
       email: "",
       password: "",
       modalShow: false,
+      accionBoton: false
     };
   },
   methods: {
+
     async login() {
       let usuario = {
         name: this.formData.email,
@@ -165,6 +183,20 @@ export default {
       }
       return estilo;
     },
+
+    async subscriber(){
+      await this.$store.dispatch('subscriber')
+      this.accionBoton = true
+    },
+
+    async getsubscriptions(){
+      let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
+      console.log('Cantidad', cantSubscriptions)
+
+      if(cantSubscriptions>0){
+        this.accionBoton = true
+      }
+    }
   },
 
   computed: {},

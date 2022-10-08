@@ -19,8 +19,6 @@ export default new Vuex.Store({
         deas: [],
         usuario: '',
         dea: '',
-        token: '',
-        expires: ''
     },
 
     getters: {
@@ -106,6 +104,45 @@ export default new Vuex.Store({
                 })
                 commit('Login', usuario)
                 return true
+            }
+            catch (error) {
+                return false
+            }
+        },
+
+        async subscriber() {
+            try {
+                let body = {
+                        "subject":{
+                            "entities":[
+                                {
+                                    "idPattern": ".*"
+                                }
+                            ]
+                        },
+                        "notification": {
+                            "http": {
+                                "url": "http://cygnus:5055/notify"
+                            },
+                            "attrsFormat": "legacy"
+                        }
+                    }
+
+                let persistencia = await axios.post(url + "/v2/subscriptions/", body, 
+                {'content-type': 'application/json'} )
+                console.log(persistencia)
+                return true
+            }
+            catch (error) {
+                return false
+            }
+        },
+
+        async getSubscriptions() {
+            try {
+                let subscriptions = await axios.get(url + "/v2/subscriptions/", 
+                {'content-type': 'application/json'} )
+                return subscriptions.data.length
             }
             catch (error) {
                 return false
