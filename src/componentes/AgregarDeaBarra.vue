@@ -128,7 +128,12 @@ export default {
     AgregarUsuario,
   },
   props: [],
-  mounted() {},
+  async mounted() {
+    let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
+    if(cantSubscriptions==0){
+      await this.$store.dispatch('subscriber')
+    }
+  },
   data() {
     return {
       formState: {},
