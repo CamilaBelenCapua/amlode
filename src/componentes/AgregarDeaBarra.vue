@@ -2,9 +2,10 @@
   <section class="container-fluid">
     <div class="container">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 text-center">
           <vue-form :state="formState" @submit.prevent="agregarDea()">
-            <h4 class="pt-4">¿Encontraste un DEA? Agregalo!</h4>
+            <h4 class="pt-4 ">¿Encontraste un DEA? Agregalo!</h4>
+
             <!-- CAMPO CORREO  -->
             <validate tag="div" class="col-3 float-left">
               <input
@@ -36,7 +37,7 @@
                 v-model.trim="formData.latitud"
                 id="latitud"
                 name="latitud"
-                type="latitud"
+                type="number"
                 class="form-control col mt-3"
                 autocomplete="off"
                 required
@@ -57,14 +58,14 @@
                 v-model.trim="formData.longitud"
                 id="longitud"
                 name="longitud"
-                type="longitud"
+                type="number"
                 class="form-control col mt-3"
                 autocomplete="off"
                 required
               />
 
               <field-messages name="longitud" show="$dirty">
-                <div class="alert alert-danger mt-1" slot="required">
+                <div class="alert alert-danger mt-1" slot="min">
                   Campo obligatorio
                 </div>
               </field-messages>
@@ -103,13 +104,13 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>{{ this.msjModal }}</p>
+                <p class="h5">{{ this.msjModal }}</p>
+            
                 <AgregarUsuario
                   @modalShow="modalShow = $event"
                   :style="getStyle(formAgregarUsuario)"
                 />
               </div>
-            
             </div>
           </div>
         </div>
@@ -137,6 +138,8 @@ export default {
       msjModal: "",
       tituloModal: "",
       formAgregarUsuario: false,
+      cantDigitos: 8,
+      usuarioRegistrado: "",
     };
   },
   methods: {
@@ -156,9 +159,7 @@ export default {
 
     getStyle(estado) {
       return {
-        
         display: estado ? "" : "none",
-       
       };
     },
 
@@ -170,30 +171,26 @@ export default {
       return estilo;
     },
 
-    async datosValidos() {
-      let usuario = await this.$store.dispatch(
+    async agregarDea() {
+      const usuario = await this.$store.dispatch(
         "getUsuarioByMail",
         this.formData.email
       );
-      if (usuario == null) {
-        this.msjModal = "Para ingrear un DEA tenes que registrarte";
-        this.tituloModal = "ERROR!";
-        this.formAgregarUsuario = true;
-        return false;
-      }
-      return true;
-    },
 
-    async agregarDea() {
+      console.log("RESU USUARIO POR MAIL", usuario);
+
+      this.usuarioRegistrado = usuario;
+      this.usuarioRegistradoPuntos = usuario.points.value;
+      this.usuarioRegistradoNombre = usuario.name.value;
+
       if (!(await this.datosValidos())) {
-        console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
 
         return;
       } else {
         this.modalShow = true;
-        this.msjModal = "Dea ingresaso con Éxito!";
-        this.tituloModal = "FELICITACIONES";
+        this.msjModal = `${this.usuarioRegistradoNombre}, ya tenes ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
+        this.tituloModal = "Gracias por colaborar con AMLODE!";
       }
 
       const id = this.$store.state.deas.length + 1;
@@ -234,18 +231,35 @@ export default {
             "actualizarUsuario",
             usuarioModificado
           );
-          console.log(resuActualizar);
+          console.log("RESU USUARIO ACTUALIZAR", resuActualizar);
 
           if (resuActualizar) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-            this.$router.push({
+            /*      this.$router.push({
               path: "/home",
-            });
+            }); */
           }
         }
       }
+    },
+
+    async datosValidos() {
+      let usuario = await this.$store.dispatch(
+        "getUsuarioByMail",
+        this.formData.email
+      );
+      if (usuario == null) {
+        this.msjModal = "Para ingrear un DEA tenes que registrarte";
+        this.tituloModal = "ERROR!";
+        this.formAgregarUsuario = true;
+        console.log("Usuario inexistente");
+        this.formData = this.getInicialData();
+        this.formState._reset();
+        return false;
+      }
+      return true;
     },
   },
 

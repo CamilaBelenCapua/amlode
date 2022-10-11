@@ -29,7 +29,7 @@ import * as VueGoogleMaps from 'vue2-google-maps' // Import package
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyD1VnxBVrSPcRZg6Yd0uu07EU5UqwXntb4",
+    key: "AIzaSyC2gvsuHDRpLtgXrRKKdn2tyBPrtAaJMXk",
     libraries: "places"
   }
 });

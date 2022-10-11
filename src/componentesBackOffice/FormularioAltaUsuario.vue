@@ -168,9 +168,7 @@ export default {
     return {
       formState: {},
       formData: this.getInicialData(),
-      nameMinLength: 3,
-      edadMin: 18,
-      edadMax: 120,
+      nameMinLength: 3,   
       checkPass: "",
       modalShow: false,
       msjModal: ""  

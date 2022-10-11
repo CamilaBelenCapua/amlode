@@ -43,6 +43,7 @@ export default {
 
   mounted() {
     console.log("GET DEAS");
+    this.$store.dispatch("getDeasActivos");
     this.$store.dispatch("getDeas");
   },
 
@@ -54,8 +55,8 @@ export default {
   },
   methods: {},
   computed: {
-    mostrarDea() {
-      let deas = this.$store.state.deas;
+     mostrarDea() {
+      let deas = this.$store.state.deasActivos;
       return deas;
     },
   },

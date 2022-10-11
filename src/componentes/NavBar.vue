@@ -37,8 +37,8 @@
             </li>
 
             <li class="nav-item pr-3 pl-3 ">
-              <router-link to="/formularioAltaUsuario">
-                <a class="nav-link bg-danger text-light rounded" href="#">BackOffice</a>
+              <router-link to="/deas">
+                <a class="nav-link bg-danger text-light rounded" href="#" target="_blank">BackOffice</a>
               </router-link>
             </li>
           </ul>

@@ -209,9 +209,9 @@ export default {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-             this.$router.push({
+           /*   this.$router.push({
               path: "/inicio",
-            }) 
+            })  */
           } 
           }
         } 
@@ -219,7 +219,9 @@ export default {
     },
   },
 
-  computed: {},
+  computed: {
+     
+  },
 };
 </script>
 
