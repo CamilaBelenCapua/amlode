@@ -2,9 +2,7 @@
   <section class="container-fluid bg-light">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link to="/Inicio">
-          <a class="navbar-brand" href="#">Inicio</a>
-        </router-link>
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -17,8 +15,15 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
+          <ul class="navbar-nav mx-auto">
+             <li class="nav-item pr-3 pl-3 ">
+              <router-link to="/home">
+                <a class="nav-link" href="#" >AMLODE HOME</a>
+              </router-link>
+            </li>
+
+
+            <li class="nav-item dropdown pr-3 pl-3 ">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -42,14 +47,14 @@
               </div>
             </li>
 
-            <li class="nav-item">
+           <li class="nav-item pr-3 pl-3 ">
               <router-link to="/deas">
                 <a class="nav-link" href="#">Listado de DEA</a>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item pr-3 pl-3 ">
               <router-link to="/">
-                <a class="nav-link" href="#" @click="desloguar()">Salir</a>
+                <a class="nav-link bg-danger text-light rounded" href="#" @click="desloguar()">Cerrar Sesión</a>
               </router-link>
             </li>
           </ul>

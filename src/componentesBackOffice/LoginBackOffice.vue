@@ -153,7 +153,7 @@ export default {
       if (resu) {
         this.visible = true;
         this.$router.push({
-          path: "/Inicio",
+          path: "/deas",
         });
       } else {
         console.log("ERROR DE REGISTRO!");

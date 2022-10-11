@@ -19,6 +19,7 @@ export default new Vuex.Store({
         deas: [],
         usuario: '',
         dea: '',
+        deasActivos: [],
     },
 
     getters: {
@@ -74,8 +75,8 @@ export default new Vuex.Store({
 
         async actualizarUsuario({ commit }, usuarioModificado) {
             let body = {
-                active: {type: "Boolean", value: usuarioModificado.active.value},
-                points: {type: "Number", value: usuarioModificado.points.value}
+                active: { type: "Boolean", value: usuarioModificado.active.value },
+                points: { type: "Number", value: usuarioModificado.points.value }
             }
 
             try {
@@ -93,15 +94,18 @@ export default new Vuex.Store({
         async loguearAdmin({ commit }, credenciales) {
             try {
                 const params = new URLSearchParams()
-                params.append("username", credenciales.name )
+                params.append("username", credenciales.name)
                 params.append("password", credenciales.password)
                 params.append("grant_type", "password")
 
                 const usuario = await axios.post(url_auth + "/oauth2/token", params,
-                {headers:{'content-type': 'application/x-www-form-urlencoded',
-                  'Authorization': 'Basic ' + buffer.Buffer.from(process.env.VUE_APP_ID_CLIENT + ':' + 
-                                    process.env.VUE_APP_ID_SECRET).toString('base64')}
-                })
+                    {
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded',
+                            'Authorization': 'Basic ' + buffer.Buffer.from(process.env.VUE_APP_ID_CLIENT + ':' +
+                                process.env.VUE_APP_ID_SECRET).toString('base64')
+                        }
+                    })
                 commit('Login', usuario)
                 return true
             }
@@ -113,23 +117,23 @@ export default new Vuex.Store({
         async subscriber() {
             try {
                 let body = {
-                        "subject":{
-                            "entities":[
-                                {
-                                    "idPattern": ".*"
-                                }
-                            ]
+                    "subject": {
+                        "entities": [
+                            {
+                                "idPattern": ".*"
+                            }
+                        ]
+                    },
+                    "notification": {
+                        "http": {
+                            "url": "http://cygnus:5055/notify"
                         },
-                        "notification": {
-                            "http": {
-                                "url": "http://cygnus:5055/notify"
-                            },
-                            "attrsFormat": "legacy"
-                        }
+                        "attrsFormat": "legacy"
                     }
+                }
 
-                let persistencia = await axios.post(url + "/v2/subscriptions/", body, 
-                {'content-type': 'application/json'} )
+                let persistencia = await axios.post(url + "/v2/subscriptions/", body,
+                    { 'content-type': 'application/json' })
                 console.log(persistencia)
                 return true
             }
@@ -140,8 +144,8 @@ export default new Vuex.Store({
 
         async getSubscriptions() {
             try {
-                let subscriptions = await axios.get(url + "/v2/subscriptions/", 
-                {'content-type': 'application/json'} )
+                let subscriptions = await axios.get(url + "/v2/subscriptions/",
+                    { 'content-type': 'application/json' })
                 return subscriptions.data.length
             }
             catch (error) {
@@ -185,14 +189,14 @@ export default new Vuex.Store({
 
         async actualizarDea({ commit }, deaAModificar) {
             let body = {
-                latitude: {type: "String", value: deaAModificar.latitude.value},
-                longitude: {type: "String", value: deaAModificar.longitude.value},
-                active: {type: "Boolean", value: deaAModificar.active.value}
+                latitude: { type: "String", value: deaAModificar.latitude.value },
+                longitude: { type: "String", value: deaAModificar.longitude.value },
+                active: { type: "Boolean", value: deaAModificar.active.value }
             }
 
             try {
                 const { data: dea } = await axios.patch(url + "/v2/entities/" + deaAModificar.id +
-                "/attrs?type=dea",body,{ 'content-type': 'application/json' })
+                    "/attrs?type=dea", body, { 'content-type': 'application/json' })
                 commit('PATCH_Dea', dea)
                 return true
             }
@@ -216,8 +220,8 @@ export default new Vuex.Store({
 
     mutations: {
 
-        Login(state, usuario){
-            localStorage.setItem('access_token',usuario.data['access_token'])
+        Login(state, usuario) {
+            localStorage.setItem('access_token', usuario.data['access_token'])
         },
 
         //USUARIOS//
@@ -247,11 +251,23 @@ export default new Vuex.Store({
         //DEAS//
 
         GET_Deas(state, data) {
+            // ACTUALIZA EL ARRAY DE DEAS
             state.deas = data
+
+            // FILTRA LOS ARRAY ACTIVOS            
+            let activos = []
+            data.forEach((dea) => {
+                if (dea.active.value) {
+                    activos.push(dea)                    
+                }
+            });  
+            state.deasActivos = activos         
         },
+      
 
         POST_Dea(state, data) {
             state.deas.push(data)
+           
         },
 
         GET_Dea(state, data) {

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <div class="mx-auto" style="width: 500px;">
+      <!-- <div class="mx-auto" style="width: 500px;">
         <label class="form-inline">
           <gmap-autocomplete
             class="form-control mr-2"
@@ -15,12 +15,12 @@
             Agregar DEA
           </button>
         </label>
-      </div>
+      </div> -->
     </div>
     <div>
       <gmap-map :center="center" :zoom="15" style="width: 100%; height: 555px">
         <gmap-marker
-          v-for="(gmp, index) in mostrarDea"
+          v-for="(gmp, index) in deasActivos"
           :key="index"
           :position="armarPosition(gmp)"
           @click="modalShow = !modalShow"
@@ -36,7 +36,7 @@
         style="display: inline"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content" style="background-color:#f8e16c">
             <div class="modal-header">
               <h5 class="modal-title">Información DEA</h5>
               <button
@@ -60,7 +60,7 @@
                 class="btn btn-secondary"
                 @click="modalShow = false"
               >
-                Close
+                Cerrar
               </button>
             </div>
           </div>
@@ -74,13 +74,17 @@
 export default {
   name: "DrawGoogleMap",
 
+   props: ["deasActivos"],
+
   components: {},
 
   data() {
     return {
       center: {
-        lat: 39.7837304,
-        lng: -100.4458825,
+        lat: -34.45055543390788,
+        lng: -58.54288444037823,
+
+      
       },
       locations: [],
       currentLocation: null,
@@ -92,8 +96,7 @@ export default {
 
   mounted() {
     this.setLocationLatLng();
-    console.log("GET DEAS");
-    this.$store.dispatch("getDeas");
+  
   },
 
   methods: {
@@ -142,10 +145,7 @@ export default {
   },
 
   computed: {
-    mostrarDea() {
-      let deas = this.$store.state.deas;
-      return deas;
-    },
+  
   },
 };
 </script>

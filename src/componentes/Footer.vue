@@ -2,15 +2,13 @@
   <section class="container-fluid align-bottom footer">
     <div class="container">
       <div class="row pb-5 pt-5">
-        <div class="col-2 align-middle text-center">
-          <img src="img/logo_footer.png" alt="AMLODE" />
+        <div class="col-12 align-middle text-center pb-4">
+          <img src="img/logo_footer.png" alt="AMLODE" width="80px" />
         </div>
-        <div class="col-10 align-middle text-center">
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+        <div class="col-12 align-middle text-center">
+          <p class="h6">
+            APP Colaborativa que localiza desfibriladores para salvar vidas
+
           </p>
         </div>
       </div>
@@ -33,7 +31,7 @@ export default {
 
 <style scoped lang="css">
 .footer {
-  background: #03091e !important; 
+  background: #7B0B00 !important; 
   color: #fff;
   bottom: 0;
  

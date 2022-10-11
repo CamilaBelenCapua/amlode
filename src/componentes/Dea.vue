@@ -1,25 +1,20 @@
 <template>
-  <section class="container">
-    <div class="table-responsive">
-      <table class="table table-dark">
-        <tr>
-          <th class="text-center col-1">ID</th>
-          <th class="text-center col-3">Latitud</th>
-          <th class="text-center col-3">Longitud</th>
-          <th class="text-center col-2">Fecha de Alta</th>
-        </tr>
+  <section class="">
+    <div class="">
+      <table class="table table-dark mb-0">
+ 
 
         <tr>
-          <td class="text-center">
+          <td class="text-center col-1">
             {{ dea.id }}
           </td>
-          <td class="text-center">
+          <td class="text-center col-3">
             {{ dea.latitude.value.toString() }}
           </td>
-          <td class="text-center">
+          <td class="text-center col-3">
             {{ dea.longitude.value.toString() }}
           </td>
-          <td class="text-center">
+          <td class="text-center col-2">
             {{ dea.datestamp.value.toString() }}
           </td>
         </tr>
