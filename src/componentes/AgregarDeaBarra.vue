@@ -242,9 +242,6 @@ export default {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-            /*      this.$router.push({
-              path: "/home",
-            }); */
           }
         }
       }

@@ -8,7 +8,6 @@
         <div class="col-12 align-middle text-center">
           <p class="h6">
             APP Colaborativa que localiza desfibriladores para salvar vidas
-
           </p>
         </div>
       </div>
@@ -34,9 +33,9 @@ export default {
   background: #7B0B00 !important; 
   color: #fff;
   bottom: 0;
- 
-   left: 0;
-   width: 100%;
+  position: fixed;
+  left: 0;
+  width: 100%;
 }
 
 img {

@@ -1,6 +1,5 @@
 <template>
   <section class="container-fluid">
-    
     <LoginBackOffice />
   </section>
 </template>

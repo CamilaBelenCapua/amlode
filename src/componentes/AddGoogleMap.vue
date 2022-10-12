@@ -1,22 +1,5 @@
 <template>
   <section>
-    <div class="container">
-      <!-- <div class="mx-auto" style="width: 500px;">
-        <label class="form-inline">
-          <gmap-autocomplete
-            class="form-control mr-2"
-            @place_changed="setPlace"
-          ></gmap-autocomplete>
-          <button
-            type="button"
-            class="btn btn-danger"
-            @click="addLocationMarker"
-          >
-            Agregar DEA
-          </button>
-        </label>
-      </div> -->
-    </div>
     <div>
       <gmap-map :center="center" :zoom="15" style="width: 100%; height: 555px">
         <gmap-marker

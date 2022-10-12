@@ -79,12 +79,9 @@ export default {
       const email = profile.getEmail();
       const imageUrl = profile.getImageUrl();
       this.profile = { fullName, email, imageUrl };
-      // The User variable contains id_token, id, name, image, email as objects.
-      // Send The id_token to the Backend for the verication.
       console.log(fullName)
     },
     getFailureData: function (errorData) {
-      // The errorData variable contains failure details
         console.log(errorData)
     },
   },
