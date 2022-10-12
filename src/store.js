@@ -37,7 +37,7 @@ export default new Vuex.Store({
                 return usuarios.data
             }
             catch (error) {
-                alert("Problema al cargar los usuarios")
+                return null
             }
         },
 
@@ -86,7 +86,6 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
                 return false
             }
         },
@@ -149,7 +148,7 @@ export default new Vuex.Store({
                 return subscriptions.data.length
             }
             catch (error) {
-                return false
+                return -1
             }
         },
 
@@ -170,9 +169,10 @@ export default new Vuex.Store({
             try {
                 const { data: deas } = await axios.get(url + "/v2/entities?type=dea")
                 commit('GET_Deas', deas)
+                return true
             }
             catch (error) {
-                alert("Problema al cargar los DEAS")
+                return false
             }
         },
 
@@ -201,7 +201,6 @@ export default new Vuex.Store({
                 return true
             }
             catch (error) {
-                alert(error)
                 return false
             }
         },
@@ -220,7 +219,7 @@ export default new Vuex.Store({
 
     mutations: {
 
-        Login(state, usuario) {
+        Login(usuario) {
             localStorage.setItem('access_token', usuario.data['access_token'])
         },
 
@@ -248,13 +247,11 @@ export default new Vuex.Store({
             state.usuario.results = data
         },
 
+
         //DEAS//
 
         GET_Deas(state, data) {
-            // ACTUALIZA EL ARRAY DE DEAS
-            state.deas = data
-
-            // FILTRA LOS ARRAY ACTIVOS            
+            state.deas = data          
             let activos = []
             data.forEach((dea) => {
                 if (dea.active.value) {
