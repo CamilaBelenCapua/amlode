@@ -42,7 +42,7 @@
         </table>
       </div>
       <h4 v-else class="alert alert-danger text-center">
-        No se encontraron Deas regitrados
+        No se encontraron deas registrados
       </h4>
     </div>
   </section>
@@ -92,4 +92,5 @@ export default {
 </script>
 
 <style scoped lang="css">
+
 </style>

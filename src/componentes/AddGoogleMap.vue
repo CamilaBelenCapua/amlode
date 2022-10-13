@@ -22,15 +22,6 @@
           <div class="modal-content" style="background-color:#f8e16c">
             <div class="modal-header">
               <h5 class="modal-title">Información DEA</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="modalShow = false"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div class="modal-body">
               <p>Latitud: {{ this.dea.latitude.value }}</p>
