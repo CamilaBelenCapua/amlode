@@ -17,7 +17,7 @@
             autocomplete="off"
             required
             :minlength="nameMinLength"
-           
+            validatename
           />
 
           <field-messages name="name" show="$dirty">
@@ -26,6 +26,9 @@
             </div>
             <div class="alert alert-danger mt-1" slot="minlength">
               El nombre debe tener entre al menos {{ nameMinLength }} caracteres.
+            </div>
+            <div class="alert alert-danger mt-1" slot="validatename">
+              Nombre no válido
             </div>
            
           </field-messages>
@@ -44,6 +47,7 @@
             autocomplete="off"
             required
             :minlength="nameMinLength"
+            validatename
           />
 
           <field-messages name="lastName" show="$dirty">
@@ -52,6 +56,9 @@
             </div>
             <div class="alert alert-danger mt-1" slot="minlength">
               El Apellido debe tener entre al menos {{ nameMinLength }} caracteres.
+            </div>
+            <div class="alert alert-danger mt-1" slot="validatename">
+              El nombre ingresado es inválido.
             </div>
           </field-messages>
         </validate>
@@ -97,13 +104,14 @@
             class="form-control mt-3"
             autocomplete="off"
             required
+            validateemail
           />
 
           <field-messages name="email" show="$dirty">
             <div class="alert alert-danger mt-1" slot="required">
               Campo obligatorio
             </div>
-            <div class="alert alert-danger mt-1" slot="email">
+            <div class="alert alert-danger mt-1" slot="validateemail">
               El correo ingresado es inválido.
             </div>
           </field-messages>

@@ -17,14 +17,15 @@
                 class="form-control col mt-3"
                 autocomplete="on"
                 required
+                validateemail
               />
 
               <field-messages name="email" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-                <div class="alert alert-danger mt-1" slot="email">
-                  Formato inválido
+                <div class="alert alert-danger mt-1" slot="validateemail">
+                  El correo ingresado es inválido.
                 </div>
               </field-messages>
             </validate>
@@ -37,15 +38,19 @@
                 v-model.trim="formData.latitud"
                 id="latitud"
                 name="latitud"
-                type="number"
+                type="text"
                 class="form-control col mt-3"
                 autocomplete="off"
                 required
+                validatelatitude
               />
 
               <field-messages name="latitud" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
+                </div>
+                <div class="alert alert-danger mt-1" slot="validatelatitude">
+                  Coordenada inválida
                 </div>
               </field-messages>
             </validate>
@@ -58,15 +63,19 @@
                 v-model.trim="formData.longitud"
                 id="longitud"
                 name="longitud"
-                type="number"
+                type="text"
                 class="form-control col mt-3"
                 autocomplete="off"
                 required
+                validatelongitude
               />
 
               <field-messages name="longitud" show="$dirty">
-                <div class="alert alert-danger mt-1" slot="min">
+                <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
+                </div>
+                <div class="alert alert-danger mt-1" slot="validatelongitude">
+                  Coordenada inválida
                 </div>
               </field-messages>
             </validate>

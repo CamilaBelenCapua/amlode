@@ -27,13 +27,14 @@
                 class="form-control mt-3"
                 autocomplete="on"
                 required
+                validateemail
               />
 
               <field-messages name="email" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-                <div class="alert alert-danger mt-1" slot="email">
+                <div class="alert alert-danger mt-1" slot="validateemail">
                   El correo ingresado es inválido.
                 </div>
               </field-messages>
@@ -154,7 +155,7 @@ export default {
         this.visible = true;
         this.$router.push({
           path: "/deas",
-        });
+        })
       } else {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;

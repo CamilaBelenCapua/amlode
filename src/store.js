@@ -80,7 +80,7 @@ export default new Vuex.Store({
             }
 
             try {
-                const { data: usuario } = await axios.patch(url + "/v2/entities/" + usuarioModificado.id +
+                const {data: usuario} = await axios.patch(url + "/v2/entities/" + usuarioModificado.id +
                     "/attrs?type=user", body, { 'content-type': 'application/json' })
                 commit('PATCH_Usuario', usuario)
                 return true
@@ -219,7 +219,7 @@ export default new Vuex.Store({
 
     mutations: {
 
-        Login(usuario) {
+        Login(state, usuario) {
             localStorage.setItem('access_token', usuario.data['access_token'])
         },
 

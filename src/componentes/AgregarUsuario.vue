@@ -87,17 +87,17 @@
             v-model.trim="formData.email"
             id="email"
             name="email"
-            type="email"
             class="form-control mt-3"
             autocomplete="off"
             required
+            validateEmail
           />
 
           <field-messages name="email" show="$dirty">
             <div class="alert alert-danger mt-1" slot="required">
               Campo obligatorio
             </div>
-            <div class="alert alert-danger mt-1" slot="email">
+            <div class="alert alert-danger mt-1" slot="validateEmail">
               El correo ingresado es inválido.
             </div>
           </field-messages>
@@ -201,9 +201,6 @@ export default {
         this.formData = this.getInicialData();
         this.formState._reset();
         this.$emit("modalShow", false);
-        // this.modalShow = true,
-        // this.msjModal = "Usuaro ingresaso con Éxito!";
-        // this.tituloModal = "FELICITACIONES";
       }
     },
 
