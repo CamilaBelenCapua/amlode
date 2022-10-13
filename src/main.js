@@ -11,10 +11,6 @@ import 'jquery'
 import 'popper.js'
 import 'bootstrap'
 
-
-/*GLOBAL FILTERS */
-import './globalFilters'
-
 //import form
 import './form'
 
@@ -43,8 +39,6 @@ const gauthOption = {
   fetch_basic_profile:true,
 }
 Vue.use(GAuth, gauthOption)
-
-
 
 Vue.config.productionTip = false
 

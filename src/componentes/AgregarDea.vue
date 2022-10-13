@@ -17,13 +17,14 @@
                 class="form-control mt-3"
                 autocomplete="on"
                 required
+                validateemail
               />
 
               <field-messages name="email" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-                <div class="alert alert-danger mt-1" slot="email">
+                <div class="alert alert-danger mt-1" slot="validateemail">
                   El correo ingresado es inválido.
                 </div>
               </field-messages>
@@ -42,11 +43,15 @@
                 type="latitud"
                 class="form-control mt-3"
                 autocomplete="off"
+                validatelatitude
               />
 
               <field-messages name="latitud" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
+                </div>
+                <div class="alert alert-danger mt-1" slot="validatelatitude">
+                  Coordenada inválida
                 </div>
               </field-messages>
             </validate>
@@ -62,11 +67,15 @@
                 type="longitud"
                 class="form-control mt-3"
                 autocomplete="off"
+                validatelongitude
               />
 
               <field-messages name="longitud" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
+                </div>
+                <div class="alert alert-danger mt-1" slot="validatelongitude">
+                  Coordenada inválida
                 </div>
               </field-messages>
             </validate>
@@ -92,14 +101,6 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">ERROR!</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <div class="modal-body">
                 <p>{{this.msjModal}}</p>
@@ -209,9 +210,6 @@ export default {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
-           /*   this.$router.push({
-              path: "/inicio",
-            })  */
           } 
           }
         } 

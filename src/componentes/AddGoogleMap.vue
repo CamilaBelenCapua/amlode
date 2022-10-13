@@ -1,22 +1,5 @@
 <template>
   <section>
-    <div class="container">
-      <!-- <div class="mx-auto" style="width: 500px;">
-        <label class="form-inline">
-          <gmap-autocomplete
-            class="form-control mr-2"
-            @place_changed="setPlace"
-          ></gmap-autocomplete>
-          <button
-            type="button"
-            class="btn btn-danger"
-            @click="addLocationMarker"
-          >
-            Agregar DEA
-          </button>
-        </label>
-      </div> -->
-    </div>
     <div>
       <gmap-map :center="center" :zoom="15" style="width: 100%; height: 555px">
         <gmap-marker
@@ -39,15 +22,6 @@
           <div class="modal-content" style="background-color:#f8e16c">
             <div class="modal-header">
               <h5 class="modal-title">Información DEA</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="modalShow = false"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div class="modal-body">
               <p>Latitud: {{ this.dea.latitude.value }}</p>

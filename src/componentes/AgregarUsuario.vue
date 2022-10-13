@@ -87,17 +87,17 @@
             v-model.trim="formData.email"
             id="email"
             name="email"
-            type="email"
             class="form-control mt-3"
             autocomplete="off"
             required
+            validateEmail
           />
 
           <field-messages name="email" show="$dirty">
             <div class="alert alert-danger mt-1" slot="required">
               Campo obligatorio
             </div>
-            <div class="alert alert-danger mt-1" slot="email">
+            <div class="alert alert-danger mt-1" slot="validateEmail">
               El correo ingresado es inválido.
             </div>
           </field-messages>
@@ -123,15 +123,6 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">{{ this.tituloModal }}</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="modalShow = false"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div class="modal-body">
               <p>{{ this.msjModal }}</p>
@@ -201,9 +192,6 @@ export default {
         this.formData = this.getInicialData();
         this.formState._reset();
         this.$emit("modalShow", false);
-        // this.modalShow = true,
-        // this.msjModal = "Usuaro ingresaso con Éxito!";
-        // this.tituloModal = "FELICITACIONES";
       }
     },
 

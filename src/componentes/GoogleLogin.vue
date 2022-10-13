@@ -15,11 +15,6 @@ export default {
 			type: Object,
 			required: true
 		},
-		/* offline: {
-			type: Boolean,
-            
-			default: false
-		}, */
 		onCurrentUser: {
 			type: Function,
 			default: () => { }
@@ -46,14 +41,6 @@ export default {
 	},
 	methods: {
 		handleClick() {
-			/* if (this.offline) {
-				GoogleAuth['grantOfflineAccess']({ 'redirect_uri': 'postmessage' }).then(result => {
-					return this.onSuccess(result);
-				}).catch(err => {
-					return this.onFailure(err);
-				});
-			} else {
-			} */
 			const method = this.logoutButton ? 'signOut' : 'signIn';
 			GoogleAuth[method]().then(result => {
 				return this.onSuccess(result);

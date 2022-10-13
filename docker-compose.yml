@@ -80,7 +80,7 @@ services:
       - CYGNUS_MYSQL_HOST=mysql
       - CYGNUS_MYSQL_PORT=3306
       - CYGNUS_MYSQL_USER=root
-      - CYGNUS_MYSQL_PASS= admin123
+      - CYGNUS_MYSQL_PASS=admin123
       - CYGNUS_MYSQL_BATCH_SIZE=1
       - CYGNUS_LOG_LEVEL=INFO
       - CYGNUS_SERVICE_PORT=5055
@@ -89,12 +89,13 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:10.8.3
+    image: mariadb
     container_name: mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD= admin123
-      - MYSQL_DATABASE= Amlode
+      - MARIADB_ROOT_PASSWORD=admin123
+      - MARIADB_DATABASE=Amlode
+      - MARIADB_ROOT_HOST=%
     volumes:
       - ./data/mysql:/var/lib/mysql
     ports:

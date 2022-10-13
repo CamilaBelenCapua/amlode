@@ -27,13 +27,14 @@
                 class="form-control mt-3"
                 autocomplete="on"
                 required
+                validateemail
               />
 
               <field-messages name="email" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
-                <div class="alert alert-danger mt-1" slot="email">
+                <div class="alert alert-danger mt-1" slot="validateemail">
                   El correo ingresado es inválido.
                 </div>
               </field-messages>
@@ -89,14 +90,6 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">ERROR!</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <div class="modal-body">
                 <p>Mail o Contraseña Incorrecta!</p>
@@ -154,7 +147,7 @@ export default {
         this.visible = true;
         this.$router.push({
           path: "/deas",
-        });
+        })
       } else {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
