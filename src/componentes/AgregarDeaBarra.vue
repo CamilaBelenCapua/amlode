@@ -279,8 +279,17 @@ export default {
         //this.formData = this.getInicialData();
         //this.formState._reset();
         return false;
+      } else if (this.usuario.active.value === false) {
+        this.msjModal = "Tu cuenta esta Inactiva";
+        this.tituloModal = "ERROR!";
+        //this.formAgregarUsuario = true;
+        console.log("Usuario inactivo");
+        //this.formData = this.getInicialData();
+        //this.formState._reset();
+        return false;
+      } else {
+        return true;
       }
-      return true;
     },
   },
 
