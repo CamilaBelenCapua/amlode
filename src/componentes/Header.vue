@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container-fluid">
-      <img class="d-block w-100" src="img/header.jpg" alt="AMLODE"/>
+      <img class="img-fluid" src="img/header.jpg" alt="AMLODE" />
     </div>
   </section>
 </template>

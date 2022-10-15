@@ -29,19 +29,16 @@ export default {
 </script>
 
 <style scoped lang="css">
-@media only screen and (min-width: 992px){
-    .footer {
-      background: #7B0B00 !important; 
-      color: #fff;
-      text-align:center;
-      position:absolute;
-      bottom:0;
-      left:0;
-      width:100%;
-    }
+.footer {
+  background: #7b0b00;
+  color: #fff;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 
-    img {
-      border-style: none;
-    }
+img {
+  border-style: none;
 }
 </style>

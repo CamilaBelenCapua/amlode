@@ -2,7 +2,7 @@
   <section class="container-fluid">
     <NavBarBack />
     <div class="container">
-      <h1 class="mt-5">Formulario de Modificación de Usuarios</h1>
+      <h1 class="mt-5">Detalle de Usuario Colaborador</h1>
 
       <div class="row">
         <div class="col-9">
@@ -14,10 +14,10 @@
           >
             <div class="media-body">
               <div class="col-2 float-left">ID DEA: {{ dea }}</div>
-              <div class="col-3 float-left">
+              <div class="col-4 float-left">
                 Latitud: {{ traerInfoDea(dea).latitude.value }}
               </div>
-              <div class="col-3 float-left">
+              <div class="col-4 float-left">
                 Longitud: {{ traerInfoDea(dea).longitude.value }}
               </div>
 
@@ -25,14 +25,14 @@
                 Activo:
                 {{ traerInfoDea(dea).active.value ? "Si" : "No" }}
               </div>
-              <div class="col-1 float-left text-center">
+              <!-- <div class="col-1 float-left text-center">
                 <button
                   class="btn btn-danger"
                   @click="borrarCurso(dea.examen_id)"
                 >
                   Desvincular
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -149,8 +149,8 @@
             </validate>
             <!-- FIN CAMPO CORREO  -->
 
-             <!-- CAMPO PUNTOS  -->
-             <validate tag="div">
+            <!-- CAMPO PUNTOS  -->
+            <validate tag="div">
               <span style="font-weight: bold">Puntos</span>
               <input
                 :placeholder="mostrarUsuario.points"
@@ -173,41 +173,42 @@
             <!-- FIN CAMPO POINTS  -->
 
             <!-- ENVIO -->
-            <button
-              class="btn btn-info my-3 float-right"
-              :disabled="formState.$invalid"
-            >
-              Guardar
-            </button>
+            <div class="text-center">
+              <button
+                class="btn btn-info my-3"
+                :disabled="formState.$invalid"
+              >
+                Guardar
+              </button>
+            </div>
           </vue-form>
 
           <div
-        class="modal"
-        tabindex="-1"
-        role="dialog"
-        :style="{display: mostrarDisplay() }"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">ERROR!</h5>
-            </div>
-            <div class="modal-body">
-              <p>{{this.msjModal}}</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click="modalShow = false"
-              >
-                Close
-              </button>
+            class="modal"
+            tabindex="-1"
+            role="dialog"
+            :style="{ display: mostrarDisplay() }"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">ERROR!</h5>
+                </div>
+                <div class="modal-body">
+                  <p>{{ this.msjModal }}</p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="modalShow = false"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
         </div>
       </div>
     </div>
@@ -238,26 +239,25 @@ export default {
       formData: this.getInicialData(),
       nameMinLength: 3,
       modalShow: false,
-      msjModal: ""
+      msjModal: "",
     };
   },
 
   methods: {
-
     async enviar() {
       console.log({ ...this.formData });
       const usuario = {
         id: this.formData.email,
-        active: {type: "Boolean", value: this.formData.active},
-        points: {type: "Number", value: this.formData.points}
+        active: { type: "Boolean", value: this.formData.active },
+        points: { type: "Number", value: this.formData.points },
       };
 
-      if(!await this.datosValidos()){
+      if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
-        return
+        return;
       }
-      
+
       let resu = await this.$store.dispatch("actualizarUsuario", usuario);
 
       if (resu) {
@@ -276,7 +276,7 @@ export default {
         lastName: "",
         fechaNac: "",
         email: "",
-        points:0,
+        points: 0,
         deas: [],
       };
     },
@@ -311,15 +311,15 @@ export default {
       }
       return estilo;
     },
-    
-    async datosValidos(){
-      const usuario = await this.$store.dispatch("getUsuarioByMail", this.mail)
-    
-      if(usuario == null){
-        this.msjModal = "ID no encontrado para ese usuario"
-        return false
+
+    async datosValidos() {
+      const usuario = await this.$store.dispatch("getUsuarioByMail", this.mail);
+
+      if (usuario == null) {
+        this.msjModal = "ID no encontrado para ese usuario";
+        return false;
       }
-      return true
+      return true;
     },
   },
   computed: {},

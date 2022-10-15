@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 text-center">
           <vue-form :state="formState" @submit.prevent="agregarDea()">
-            <h4 class="pt-4 ">¿Encontraste un DEA? Agregalo!</h4>
+            <h4 class="pt-4">¿Encontraste un DEA? Agregalo!</h4>
 
             <!-- CAMPO CORREO  -->
             <validate tag="div" class="col-3 float-left">
@@ -101,14 +101,32 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">{{ this.tituloModal }}</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  @click="modalShow = false"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
               <div class="modal-body">
                 <p class="h5">{{ this.msjModal }}</p>
-            
+
                 <AgregarUsuario
                   @modalShow="modalShow = $event"
                   :style="getStyle(formAgregarUsuario)"
                 />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  @click="modalShow = false"
+                >
+                  Cerrar
+                </button>
               </div>
             </div>
           </div>
@@ -129,9 +147,9 @@ export default {
   },
   props: [],
   async mounted() {
-    let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
-    if(cantSubscriptions==0){
-      await this.$store.dispatch('subscriber')
+    let cantSubscriptions = await this.$store.dispatch("getSubscriptions");
+    if (cantSubscriptions == 0) {
+      await this.$store.dispatch("subscriber");
     }
   },
   data() {
@@ -144,6 +162,8 @@ export default {
       formAgregarUsuario: false,
       cantDigitos: 8,
       usuarioRegistrado: "",
+      usuario: "",
+      puntos: "",
     };
   },
   methods: {
@@ -176,27 +196,31 @@ export default {
     },
 
     async agregarDea() {
-      const usuario = await this.$store.dispatch(
+      this.usuario = await this.$store.dispatch(
         "getUsuarioByMail",
         this.formData.email
       );
 
-      console.log("RESU USUARIO POR MAIL", usuario);
-
-      this.usuarioRegistrado = usuario;
-      this.usuarioRegistradoPuntos = usuario.points.value;
-      this.usuarioRegistradoNombre = usuario.name.value;
-
       if (!(await this.datosValidos())) {
         this.modalShow = true;
 
-        return;
+        // return;
       } else {
+        await this.agregarDeaUsuario();
+
+        console.log("RESU USUARIO POR MAIL", this.usuario);
+
+        this.formAgregarUsuario = false;
+        this.usuarioRegistrado = this.usuario;
+        this.usuarioRegistradoPuntos = this.puntos;
+        this.usuarioRegistradoNombre = this.usuario.name.value;
         this.modalShow = true;
         this.msjModal = `${this.usuarioRegistradoNombre}, ya tenes ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
         this.tituloModal = "Gracias por colaborar con AMLODE!";
       }
+    },
 
+    async agregarDeaUsuario() {
       const id = this.$store.state.deas.length + 1;
       let deaNuevo = {
         id: id.toString(),
@@ -224,12 +248,12 @@ export default {
         );
 
         if (usuario != null && resuDea) {
-          const puntos = usuario.points.value + 50;
+          this.puntos = usuario.points.value + 50;
 
           let usuarioModificado = {
             id: this.formData.email,
             active: { type: "Boolean", value: usuario.active.value },
-            points: { type: "Number", value: puntos },
+            points: { type: "Number", value: this.puntos },
           };
           const resuActualizar = await this.$store.dispatch(
             "actualizarUsuario",
@@ -247,17 +271,13 @@ export default {
     },
 
     async datosValidos() {
-      let usuario = await this.$store.dispatch(
-        "getUsuarioByMail",
-        this.formData.email
-      );
-      if (usuario == null) {
+      if (this.usuario == null) {
         this.msjModal = "Para ingrear un DEA tenes que registrarte";
         this.tituloModal = "ERROR!";
         this.formAgregarUsuario = true;
         console.log("Usuario inexistente");
-        this.formData = this.getInicialData();
-        this.formState._reset();
+        //this.formData = this.getInicialData();
+        //this.formState._reset();
         return false;
       }
       return true;

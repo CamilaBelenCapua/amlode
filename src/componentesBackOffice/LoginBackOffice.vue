@@ -1,21 +1,21 @@
 <template>
   <section class="container-fluid">
-    <div class="container" >
+    <div class="container">
       <div class="row">
-        <div class="col-8 pt-3 pl-5 pr-5">
-          <p class="h4 pt-5">Sistema de Gestión de Usuarios y Equipos DEA</p>
+        <div class="col-12 col-md-8 p-5">
+          <p class="h4">Sistema de Gestión de Usuarios y Equipos DEA</p>
           <h3>Aplicación Móvil para la Localización de Desfibriladores</h3>
-        
+
           <p class="h5">Solo personal autorizado puede ingresar al Sistema</p>
-          <p class="">
+          <p>
             Por favor, si no cuentas con cuenta para acceder al sistema,
             comunicate con el Administrador.
           </p>
         </div>
-        <div class="col-4 pt-3 pl-5 pr-5 pb-3 bg-warning" >
+        <div class="col-12 col-md-4 p-5 bg-warning">
           <vue-form :state="formState" @submit.prevent="login()">
             <h4>Ingreso a Usuarios Registrados</h4>
-            
+
             <!-- CAMPO CORREO  -->
             <validate tag="div">
               <input
@@ -75,10 +75,8 @@
           </vue-form>
         </div>
 
-        <div>
+        
 
-        </div>
-   
         <!-- MODAL -->
         <div
           class="modal"
@@ -100,7 +98,7 @@
                   class="btn btn-secondary"
                   @click="modalShow = false"
                 >
-                  Close
+                  Cerrar
                 </button>
               </div>
             </div>
@@ -117,13 +115,13 @@ export default {
   mixins: [mixinsBack],
   name: "src-componentes-loginBackOffice",
   props: [],
-  
+
   async mounted() {
-    let cantSubscriptions = await this.$store.dispatch('getSubscriptions')
-    if(cantSubscriptions==0){
-      await this.$store.dispatch('subscriber')
+    let cantSubscriptions = await this.$store.dispatch("getSubscriptions");
+    if (cantSubscriptions == 0) {
+      await this.$store.dispatch("subscriber");
     }
-    },
+  },
   data() {
     return {
       formState: {},
@@ -134,7 +132,6 @@ export default {
     };
   },
   methods: {
-
     async login() {
       let usuario = {
         name: this.formData.email,
@@ -147,7 +144,7 @@ export default {
         this.visible = true;
         this.$router.push({
           path: "/deas",
-        })
+        });
       } else {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
