@@ -5,7 +5,7 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-warning p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{mostrarDea.id}}</div>
+        <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
         <div class="flex-fill bd-highlight text-right">
           DEA ACTIVO:
           <input
@@ -87,16 +87,21 @@
         </div>
 
         <!-- ENVIO -->
-        <button class="btn btn-info my-3 text-center" :disabled="formState.$invalid">
-          Enviar
-        </button>
+        <div class="text-center">
+          <button
+            class="btn btn-info my-3 text-center"
+            :disabled="formState.$invalid"
+          >
+            Enviar
+          </button>
+        </div>
       </vue-form>
 
       <div
         class="modal"
         tabindex="-1"
         role="dialog"
-        :style="{display: mostrarDisplay() }"
+        :style="{ display: mostrarDisplay() }"
       >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -104,7 +109,7 @@
               <h5 class="modal-title">ERROR!</h5>
             </div>
             <div class="modal-body">
-              <p>{{this.msjModal}}</p>
+              <p>{{ this.msjModal }}</p>
             </div>
             <div class="modal-footer">
               <button
@@ -112,13 +117,12 @@
                 class="btn btn-secondary"
                 @click="modalShow = false"
               >
-                Close
+                Cerrar
               </button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </template>
@@ -144,9 +148,9 @@ export default {
   data() {
     return {
       formState: {},
-      formData: this.getInicialData(),  
+      formData: this.getInicialData(),
       modalShow: false,
-      msjModal: ""     
+      msjModal: "",
     };
   },
 
@@ -154,17 +158,17 @@ export default {
     async enviar() {
       console.log({ ...this.formData });
 
-      const dea = {   
-        id: this.id,    
-        latitude: {type: "String", value: this.formData.latitude},
-        longitude: {type: "String", value: this.formData.longitude},
-        active: {type: "Boolean", value: this.formData.active}
-      }; 
-     
-      if(!await this.datosValidos()){
+      const dea = {
+        id: this.id,
+        latitude: { type: "String", value: this.formData.latitude },
+        longitude: { type: "String", value: this.formData.longitude },
+        active: { type: "Boolean", value: this.formData.active },
+      };
+
+      if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
-        return
+        return;
       }
 
       let resu = await this.$store.dispatch("actualizarDea", dea);
@@ -188,7 +192,7 @@ export default {
       };
     },
 
-    async cargarForm(dea) {     
+    async cargarForm(dea) {
       this.formData.id = dea.id;
       this.formData.latitude = dea.latitude.value;
       this.formData.longitude = dea.longitude.value;
@@ -203,14 +207,14 @@ export default {
       }
       return estilo;
     },
-    
-    async datosValidos(){
-      const dea = await this.$store.dispatch("getDeaById", this.id)
-      if(dea == null){
-        this.msjModal = "ID no encontrado para ese DEA"
-        return false
+
+    async datosValidos() {
+      const dea = await this.$store.dispatch("getDeaById", this.id);
+      if (dea == null) {
+        this.msjModal = "ID no encontrado para ese DEA";
+        return false;
       }
-      return true
+      return true;
     },
   },
   computed: {},

@@ -14,7 +14,7 @@
             <th class="text-center">Tipo</th>
             <th class="text-center">Activo</th>
             <th class="text-center">Puntos</th>
-            <th class="text-center">Editar Usuario</th>
+            <th class="text-center"></th>
           </tr>
 
           <tr v-for="(usuario, index) in mostrarUsuarios" :key="index">
@@ -45,7 +45,7 @@
                 class="btn btn-success"
                 @click="editarUsuario(usuario.id)"
               >
-                Editar
+                Ver Detalle
               </button>
             </td>
           </tr>

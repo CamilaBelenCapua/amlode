@@ -26,12 +26,12 @@ var options = {
         },
 
         'validatelatitude': function(value){
-            var coordenada = /^[-+]?((0|([1-8]\d?))(\.\d{1,10})?|90(\.0{1,10})?)$/
+            var coordenada = /^[-+]?((0|([1-8]\d?))(\.\d{1,15})?|90(\.0{1,10})?)$/
             return coordenada.test(value)
         },
 
         'validatelongitude': function(value){
-            var coordenada = /^[+-]?((([1-9]?[0-9]|1[0-7][0-9])(\.[0-9]{1,6})?)|180(\.0{1,6})?)$/
+            var coordenada = /^[+-]?((([1-9]?[0-9]|1[0-7][0-9])(\.[0-9]{1,15})?)|180(\.0{1,6})?)$/
             return coordenada.test(value)
         }
     }
