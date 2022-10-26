@@ -16,8 +16,8 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item pr-3 pl-3">
-              <router-link to="/home">
-                <a class="nav-link" href="#">AMLODE HOME</a>
+              <router-link to="/inicio">
+                <a class="nav-link" href="#">Mapa</a>
               </router-link>
             </li>
 
