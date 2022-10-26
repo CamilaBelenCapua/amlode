@@ -1,27 +1,176 @@
 <template>
-  <section class="container-fluid">
-    <LoginBackOffice />
+  <section class="container caja">
+    <div class="row caja">
+      <div class="col-12 col-md-8">
+        <p class="h4 mt-5">Sistema de Gestión de Usuarios y Equipos DEA</p>
+        <h3>Aplicación Móvil para la Localización de Desfibriladores</h3>
+
+        <p class="h5">Solo personal autorizado puede ingresar al Sistema</p>
+        <p>
+          Por favor, si no cuentas con cuenta para acceder al sistema,
+          comunicate con el Administrador.
+        </p>
+      </div>
+      <div class="col-12 col-md-4 p-5 bg-warning caja">
+        <vue-form :state="formState" @submit.prevent="login()">
+          <h4>Ingreso a Usuarios Registrados</h4>
+
+          <!-- CAMPO CORREO  -->
+          <validate tag="div">
+            <input
+              placeholder="Correo Eléctronico"
+              v-model.trim="formData.email"
+              id="email"
+              name="email"
+              type="email"
+              class="form-control mt-3"
+              autocomplete="on"
+              required
+              validateemail
+            />
+
+            <field-messages name="email" show="$dirty">
+              <div class="alert alert-danger mt-1" slot="required">
+                Campo obligatorio
+              </div>
+              <div class="alert alert-danger mt-1" slot="validateemail">
+                El correo ingresado es inválido.
+              </div>
+            </field-messages>
+          </validate>
+          <!-- FIN CAMPO CORREO  -->
+
+          <!-- CAMPO CORREO  -->
+          <validate tag="div">
+            <input
+              placeholder="Contraseña"
+              v-model.trim="formData.password"
+              id="password"
+              name="password"
+              type="password"
+              class="form-control mt-3"
+              autocomplete="off"
+              required
+            />
+
+            <field-messages name="password" show="$dirty">
+              <div class="alert alert-danger mt-1" slot="required">
+                Campo obligatorio
+              </div>
+              <div class="alert alert-danger mt-1" slot="email">
+                El correo ingresado es inválido.
+              </div>
+            </field-messages>
+          </validate>
+          <!-- FIN CAMPO CORREO  -->
+
+          <!-- ENVIO -->
+          <button
+            class="btn btn-dark my-3 float-right"
+            :disabled="formState.$invalid"
+          >
+            Enviar
+          </button>
+        </vue-form>
+      </div>
+
+      <!-- MODAL -->
+      <div
+        class="modal"
+        tabindex="-1"
+        role="dialog"
+        :style="{ display: mostrarDisplay() }"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">ERROR!</h5>
+            </div>
+            <div class="modal-body">
+              <p>Mail o Contraseña Incorrecta!</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="modalShow = false"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
-
-import LoginBackOffice from "../componentesBackOffice/LoginBackOffice.vue";
-
+import { mixinsBack } from "../mixinsBack";
 export default {
-  name: "src-componentes-back-office",
-  components: {
-    LoginBackOffice,
-  },
+  mixins: [mixinsBack],
+  name: "src-componentes-loginBackOffice",
   props: [],
-  mounted() {},
-  data() {
-    return {};
+
+  async mounted() {
+    let cantSubscriptions = await this.$store.dispatch("getSubscriptions");
+    if (cantSubscriptions == 0) {
+      await this.$store.dispatch("subscriber");
+    }
   },
-  methods: {},
+  data() {
+    return {
+      formState: {},
+      formData: this.getInicialData(),
+      email: "",
+      password: "",
+      modalShow: false,
+    };
+  },
+  methods: {
+    async login() {
+      let usuario = {
+        name: this.formData.email,
+        password: this.formData.password,
+      };
+
+      let resu = await this.$store.dispatch("loguearAdmin", usuario);
+
+      if (resu) {
+        this.visible = true;
+        this.$router.push({
+          path: "/inicio",
+        });
+      } else {
+        console.log("ERROR DE REGISTRO!");
+        this.modalShow = true;
+      }
+    },
+
+    getInicialData() {
+      return {
+        email: "",
+        password: "",
+      };
+    },
+
+    mostrarDisplay() {
+      let estilo = "none";
+
+      if (this.modalShow) {
+        estilo = "inline";
+      }
+      return estilo;
+    },
+  },
+
   computed: {},
 };
 </script>
 
 <style scoped lang="css">
+
+.caja {
+  height: 100%;
+}
 </style>

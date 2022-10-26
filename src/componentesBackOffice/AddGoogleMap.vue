@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <gmap-map :center="center" :zoom="15" style="width: 100%; height: 555px">
+      <gmap-map :center="center" :zoom="15" class="map">
         <gmap-marker
           v-for="(gmp, index) in deasActivos"
           :key="index"
@@ -123,3 +123,10 @@ export default {
   },
 };
 </script>
+<style scoped lang="css">
+.map {
+  width: 100%;
+  height: 600px
+  
+}
+</style>

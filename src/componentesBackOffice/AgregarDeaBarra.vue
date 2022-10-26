@@ -2,19 +2,19 @@
   <section class="container-fluid">
     <div class="container">
       <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-12 text-center bg-warning rounded p-2">
           <vue-form :state="formState" @submit.prevent="agregarDea()">
-            <h4 class="pt-4">¿Encontraste un DEA? Agregalo!</h4>
-
+            <h4 class="pt-3 pb-3">Agregar DEA</h4>
+            <div class="row">
             <!-- CAMPO CORREO  -->
-            <validate tag="div" class="col-3 float-left">
+            <validate tag="div" class="col-sm">
               <input
                 placeholder="Correo Eléctronico"
                 v-model.trim="formData.email"
                 id="email"
                 name="email"
                 type="email"
-                class="form-control col mt-3"
+                class="form-control"
                 autocomplete="on"
                 required
                 validateemail
@@ -32,14 +32,14 @@
             <!-- FIN CAMPO CORREO  -->
 
             <!-- CAMPO LATITUD  -->
-            <validate tag="div" class="col-3 float-left">
+            <validate tag="div" class="col-sm">
               <input
                 placeholder="Latitud"
                 v-model.trim="formData.latitud"
                 id="latitud"
                 name="latitud"
                 type="text"
-                class="form-control col mt-3"
+                class="form-control"
                 autocomplete="off"
                 required
                 validatelatitude
@@ -57,14 +57,14 @@
             <!-- FIN CAMPO LATITUD  -->
 
             <!-- CAMPO LONGITUD  -->
-            <validate tag="div" class="col-3 float-left">
+            <validate tag="div" class="col-sm ">
               <input
                 placeholder="Longitud"
                 v-model.trim="formData.longitud"
                 id="longitud"
                 name="longitud"
                 type="text"
-                class="form-control col mt-3"
+                class="form-control"
                 autocomplete="off"
                 required
                 validatelongitude
@@ -77,19 +77,21 @@
                 <div class="alert alert-danger mt-1" slot="validatelongitude">
                   Coordenada inválida
                 </div>
+                <!-- FIN CAMPO LONGITUD  -->
               </field-messages>
+              
             </validate>
-            <!-- FIN CAMPO LONGITUD  -->
+            </div>
             <!-- ENVIO -->
             <button
-              class="btn btn-danger my-3 float-Lleft col-2"
+              class="btn btn-dark mt-3"
               :disabled="formState.$invalid"
             >
-              Agregar DEA
+              Aceptar
             </button>
+            
           </vue-form>
         </div>
-
         <!-- MODAL -->
         <div
           class="modal"
