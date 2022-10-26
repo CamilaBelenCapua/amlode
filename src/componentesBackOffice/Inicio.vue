@@ -1,6 +1,6 @@
 <template>
   <section class="container-fluid">
-    <NavBar />
+    <NavBarBack />
 
     <div class="container mt-5">
       <AgregarDeaBarra />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import NavBar from "./NavBar.vue";
+import NavBarBack from "./NavBarBack.vue";
 import AgregarDeaBarra from "./AgregarDeaBarra.vue";
 import AddGoogleMap from "./AddGoogleMap.vue";
 import { mixinsBack } from "../mixinsBack";
@@ -24,7 +24,7 @@ export default {
   name: "src-componentes-home",
 
   components: {
-    NavBar,
+    NavBarBack,
     AgregarDeaBarra,
     AddGoogleMap,
   },

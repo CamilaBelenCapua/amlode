@@ -63,7 +63,7 @@
             name="fechaNac"
             type="date"
             class="form-control mt-3"
-            autocomplete="off"
+            autocomplete="on"
             required
             menoredad
           />
@@ -90,14 +90,14 @@
             class="form-control mt-3"
             autocomplete="off"
             required
-            validateEmail
+            validateemail
           />
 
           <field-messages name="email" show="$dirty">
             <div class="alert alert-danger mt-1" slot="required">
               Campo obligatorio
             </div>
-            <div class="alert alert-danger mt-1" slot="validateEmail">
+            <div class="alert alert-danger mt-1" slot="validateemail">
               El correo ingresado es inválido.
             </div>
           </field-messages>
