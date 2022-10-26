@@ -36,6 +36,10 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
+  position: absolute;
+  min-height: 100px;
+  height: 200px;
+  
 }
 
 img {

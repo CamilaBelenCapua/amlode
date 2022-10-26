@@ -30,6 +30,16 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body{
+  position: relative;
+  padding-bottom: 200px;
+  min-height: 100vh;  
+  display: grid;
+  grid-template-rows:  auto 1fr auto;
+  
+}
+
 .container-fluid {
   padding-right: 0px !important ;
   padding-left: 0px !important;
