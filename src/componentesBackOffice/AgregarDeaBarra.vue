@@ -274,7 +274,7 @@ export default {
 
     async datosValidos() {
       if (this.usuario == null) {
-        this.msjModal = "Para ingrear un DEA tenes que registrarte";
+        this.msjModal = "Para ingresar un DEA tenes que registrarte";
         this.tituloModal = "ERROR!";
         this.formAgregarUsuario = true;
         console.log("Usuario inexistente");
