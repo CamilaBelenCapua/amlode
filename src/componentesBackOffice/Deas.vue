@@ -8,8 +8,8 @@
         <table class="table table-dark">
           <tr>
             <th class="text-center">ID</th>
-            <th class="text-center">Latitud</th>
-            <th class="text-center">Longitud</th>
+            <th class="text-center">Direccion</th>
+           
             <th class="text-center">Fecha de Alta</th>
             <th class="text-center">Activo</th>
             <th class="text-center">Editar Dea</th>
@@ -19,12 +19,10 @@
             <td class="text-center">
               {{ dea.id }}
             </td>
-            <td class="text-center">
-              {{ dea.latitude.value }}
+            <td class="text-left">
+              {{ dea.address.value }}
             </td>
-            <td class="text-center">
-              {{ dea.longitude.value }}
-            </td>
+           
             <td class="text-center">
               {{ dea.datestamp.value }}
             </td>

@@ -18,7 +18,7 @@
 
       <vue-form :state="formState" @submit.prevent="enviar()">
         <div class="row">
-           <div class="col-4">
+           <div class="col-12">
             <!-- CAMPO address  -->
             <validate tag="div">
               <span style="font-weight: bold">Dirección</span>

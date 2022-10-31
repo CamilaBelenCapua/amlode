@@ -6,90 +6,106 @@
           <vue-form :state="formState" @submit.prevent="agregarDea()">
             <h4 class="pt-3 pb-3">Agregar DEA</h4>
             <div class="row">
-            <!-- CAMPO CORREO  -->
-            <validate tag="div" class="col-sm">
-              <input
-                placeholder="Correo Eléctronico"
-                v-model.trim="formData.email"
-                id="email"
-                name="email"
-                type="email"
-                class="form-control"
-                autocomplete="on"
-                required
-                validateemail
-              />
+              <!-- CAMPO CORREO  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Correo Eléctronico"
+                  v-model.trim="formData.email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  autocomplete="on"
+                  required
+                  validateemail
+                />
 
-              <field-messages name="email" show="$dirty">
-                <div class="alert alert-danger mt-1" slot="required">
-                  Campo obligatorio
-                </div>
-                <div class="alert alert-danger mt-1" slot="validateemail">
-                  El correo ingresado es inválido.
-                </div>
-              </field-messages>
-            </validate>
-            <!-- FIN CAMPO CORREO  -->
+                <field-messages name="email" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="validateemail">
+                    El correo ingresado es inválido.
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO CORREO  -->
+              <!-- CAMPO ADDRESS  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Dirección"
+                  v-model.trim="formData.address"
+                  id="address"
+                  name="address"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  
+                />
 
-            <!-- CAMPO LATITUD  -->
-            <validate tag="div" class="col-sm">
-              <input
-                placeholder="Latitud"
-                v-model.trim="formData.latitud"
-                id="latitud"
-                name="latitud"
-                type="text"
-                class="form-control"
-                autocomplete="off"
-                required
-                validatelatitude
-              />
+                <field-messages name="address" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                  
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO ADDRESS  -->
+              <!-- CAMPO LATITUD  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Latitud"
+                  v-model.trim="formData.latitud"
+                  id="latitud"
+                  name="latitud"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatelatitude
+                />
 
-              <field-messages name="latitud" show="$dirty">
-                <div class="alert alert-danger mt-1" slot="required">
-                  Campo obligatorio
-                </div>
-                <div class="alert alert-danger mt-1" slot="validatelatitude">
-                  Coordenada inválida
-                </div>
-              </field-messages>
-            </validate>
-            <!-- FIN CAMPO LATITUD  -->
+                <field-messages name="latitud" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="validatelatitude">
+                    Coordenada inválida
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO LATITUD  -->
 
-            <!-- CAMPO LONGITUD  -->
-            <validate tag="div" class="col-sm ">
-              <input
-                placeholder="Longitud"
-                v-model.trim="formData.longitud"
-                id="longitud"
-                name="longitud"
-                type="text"
-                class="form-control"
-                autocomplete="off"
-                required
-                validatelongitude
-              />
+              <!-- CAMPO LONGITUD  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Longitud"
+                  v-model.trim="formData.longitud"
+                  id="longitud"
+                  name="longitud"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatelongitude
+                />
 
-              <field-messages name="longitud" show="$dirty">
-                <div class="alert alert-danger mt-1" slot="required">
-                  Campo obligatorio
-                </div>
-                <div class="alert alert-danger mt-1" slot="validatelongitude">
-                  Coordenada inválida
-                </div>
-                <!-- FIN CAMPO LONGITUD  -->
-              </field-messages>
-              
-            </validate>
+                <field-messages name="longitud" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="validatelongitude">
+                    Coordenada inválida
+                  </div>
+                  <!-- FIN CAMPO LONGITUD  -->
+                </field-messages>
+              </validate>
             </div>
             <!-- ENVIO -->
-            <button
-              class="btn btn-dark mt-3"
-              :disabled="formState.$invalid"
-            >
+            <button class="btn btn-dark mt-3" :disabled="formState.$invalid">
               Aceptar
             </button>
-            
           </vue-form>
         </div>
         <!-- MODAL -->
@@ -174,6 +190,7 @@ export default {
         email: "",
         latitud: "",
         longitud: "",
+        address:"",
         fechaAlta: this.obtenerFecha(),
       };
     },
@@ -230,6 +247,7 @@ export default {
         latitude: { type: "String", value: this.formData.latitud },
         longitude: { type: "String", value: this.formData.longitud },
         datestamp: { type: "String", value: this.formData.fechaAlta },
+        address: {type: "String", value: this.formData.address},
         active: { type: "Boolean", value: true },
       };
 

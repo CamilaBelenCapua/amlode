@@ -14,12 +14,10 @@
           >
             <div class="media-body">
               <div class="col-2 float-left">ID DEA: {{ dea }}</div>
-              <div class="col-4 float-left">
-                Latitud: {{ traerInfoDea(dea).latitude.value }}
+              <div class="col-8 float-left">
+                <b>Dirección:</b> {{ traerInfoDea(dea).address.value }}
               </div>
-              <div class="col-4 float-left">
-                Longitud: {{ traerInfoDea(dea).longitude.value }}
-              </div>
+              
 
               <div class="col-2 float-left text-center font-weight-bold">
                 Activo:
@@ -105,7 +103,7 @@
                 v-model.trim="formData.fechaNac"
                 id="fechaNac"
                 name="fechaNac"
-                type="date"
+                type="text"
                 class="form-control mb-3"
                 autocomplete="off"
                 required
