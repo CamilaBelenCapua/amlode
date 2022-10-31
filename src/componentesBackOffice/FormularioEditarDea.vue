@@ -18,6 +18,28 @@
 
       <vue-form :state="formState" @submit.prevent="enviar()">
         <div class="row">
+           <div class="col-4">
+            <!-- CAMPO address  -->
+            <validate tag="div">
+              <span style="font-weight: bold">Dirección</span>
+              <input
+                v-model.trim="formData.address"
+                id="address"
+                name="address"
+                type="text"
+                class="form-control mb-3"
+                autocomplete="off"
+                
+              />
+
+              <field-messages name="address" show="$dirty">
+                <div class="alert alert-danger mt-1" slot="required">
+                  Campo obligatorio
+                </div>
+              </field-messages>
+            </validate>
+            <!-- FIN CAMPO address  -->
+          </div>
           <div class="col-4">
             <!-- CAMPO latitude  -->
             <validate tag="div">
@@ -160,6 +182,7 @@ export default {
 
       const dea = {
         id: this.id,
+        address: { type: "String", value: this.formData.address },
         latitude: { type: "String", value: this.formData.latitude },
         longitude: { type: "String", value: this.formData.longitude },
         active: { type: "Boolean", value: this.formData.active },
@@ -189,11 +212,13 @@ export default {
         longitude: "",
         datestamp: "",
         active: "",
+        address:"",
       };
     },
 
     async cargarForm(dea) {
       this.formData.id = dea.id;
+      this.formData.address = dea.address.value;
       this.formData.latitude = dea.latitude.value;
       this.formData.longitude = dea.longitude.value;
       this.formData.datestamp = dea.datestamp.value;

@@ -14,6 +14,7 @@
             autocomplete="off"
             required
             :minlength="nameMinLength"
+            validatename
           />
 
           <field-messages name="name" show="$dirty">
@@ -23,6 +24,9 @@
             <div class="alert alert-danger mt-1" slot="minlength">
               El nombre debe tener entre al menos
               {{ nameMinLength }} caracteres.
+            </div>
+             <div class="alert alert-danger mt-1" slot="validatename">
+              El nombre ingresado es inválido.
             </div>
           </field-messages>
         </validate>
@@ -40,6 +44,7 @@
             autocomplete="off"
             required
             :minlength="nameMinLength"
+            validatename
           />
 
           <field-messages name="lastName" show="$dirty">
@@ -49,6 +54,9 @@
             <div class="alert alert-danger mt-1" slot="minlength">
               El Apellido debe tener entre al menos
               {{ nameMinLength }} caracteres.
+            </div>
+             <div class="alert alert-danger mt-1" slot="validatename">
+              El nombre ingresado es inválido.
             </div>
           </field-messages>
         </validate>
