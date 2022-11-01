@@ -19,7 +19,7 @@
         style="display: inline"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="background-color:#f8e16c">
+          <div class="modal-content ">
             <div class="modal-header">
               <h5 class="modal-title">Información DEA</h5>
             </div>
@@ -129,4 +129,5 @@ export default {
   height: 600px
   
 }
+
 </style>

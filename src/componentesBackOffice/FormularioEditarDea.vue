@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
-      <div class="h4 bg-warning p-2 d-flex bd-highlight">
+      <div class="h4 bg-grey p-2 d-flex bd-highlight">
         <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
         <div class="flex-fill bd-highlight text-right">
           DEA ACTIVO:

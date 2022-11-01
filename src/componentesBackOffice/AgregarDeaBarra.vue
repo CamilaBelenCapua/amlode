@@ -2,7 +2,7 @@
   <section class="container-fluid">
     <div class="container">
       <div class="row">
-        <div class="col-12 text-center bg-warning rounded p-2">
+        <div class="col-12 text-center bg-grey rounded p-2">
           <vue-form :state="formState" @submit.prevent="agregarDea()">
             <h4 class="pt-3 pb-3">Agregar DEA</h4>
             <div class="row">
