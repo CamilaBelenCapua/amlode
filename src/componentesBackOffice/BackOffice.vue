@@ -11,7 +11,7 @@
           comunicate con el Administrador.
         </p>
       </div>
-      <div class="col-12 col-md-4 p-5 bg-warning caja">
+      <div class="col-12 col-md-4 p-5 bg-grey caja">
         <vue-form :state="formState" @submit.prevent="login()">
           <h4>Ingreso a Usuarios Registrados</h4>
 

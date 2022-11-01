@@ -59,10 +59,21 @@ body{
   background: darkcyan;
 }
 
+.bg-grey {
+  background: #BEBEBE ;
+}
+
 .cajaDea {
   background: black;  
   color: white;
 
+}
+
+.modal{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-dialog{
+  margin-top: 20%;
 }
 </style>
 

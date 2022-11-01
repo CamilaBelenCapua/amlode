@@ -34,7 +34,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3 bg-warning">
+        <div class="col-3 bg-grey">
           <p class="h4 mt-5 text-center">Datos Personales</p>
           <vue-form :state="formState" @submit.prevent="enviar()">
             <div class="flex-fill bd-highlight text-center pb-3 pt-3">
