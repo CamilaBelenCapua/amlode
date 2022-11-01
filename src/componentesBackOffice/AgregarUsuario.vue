@@ -170,6 +170,8 @@ export default {
       tituloModal: "",
     };
   },
+
+  
   methods: {
     async enviar() {
       if (!(await this.datosValidos())) {
@@ -186,7 +188,7 @@ export default {
         type: "user",
         name: { type: "String", value: this.formData.name },
         lastName: { type: "String", value: this.formData.lastName },
-        fechaNac: { type: "String", value: this.formData.fechaNac },
+        fechaNac: { type: "String", value: this.formatoFecha(this.formData.fechaNac) },
         active: { type: "Boolean", value: true },
         points: { type: "Number", value: 0 },
         deas: { type: "StructuredValue", value: [] },
@@ -202,6 +204,16 @@ export default {
         this.$emit("modalShow", false);
       }
     },
+
+    
+    /* FILTROS QUE CAMBIA EL FORMATO DE LA FECHA */
+    formatoFecha: function (value) {
+        return new Intl.DateTimeFormat('en-US').format(new Date(value))
+
+        
+    },
+
+ 
 
     getInicialData() {
       return {

@@ -25,7 +25,7 @@
               {{ usuario.lastName.value }}
             </td>
             <td class="text-center">
-              {{ usuario.fechaNac.value }}
+              {{ usuario.fechaNac.value}}
             </td>
             <td class="text-center">
               {{ usuario.id }}
@@ -61,6 +61,8 @@
 
 <script>
 import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
+
+
 import { mixinsBack } from "../mixinsBack";
 
 export default {
@@ -78,6 +80,8 @@ export default {
     return {
     };
   },
+
+   
   methods: {
 
     editarUsuario(mail) {
