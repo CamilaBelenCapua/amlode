@@ -6,7 +6,7 @@
           v-for="(gmp, index) in deasActivos"
           :key="index"
           :position="armarPosition(gmp)"
-          @click="modalShow = !modalShow"
+          @click="setDea(gmp)"
         ></gmap-marker>
       </gmap-map>
 
@@ -19,14 +19,15 @@
         style="display: inline"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content ">
+          <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Información DEA</h5>
             </div>
             <div class="modal-body">
-              <p>Latitud: {{ this.dea.latitude.value }}</p>
-              <p>Longitud: {{ this.dea.longitude.value }}</p>
-              <p>Vigente desde: {{ this.dea.datestamp.value.toString() }}</p>
+              <p>Latitud: {{ mostrarDatos.latitud }}</p>
+              <p>Longitud: {{ mostrarDatos.longitud }}</p>
+              <p>Dirección: {{ mostrarDatos.direccion }}</p>
+              <p>Vigente desde: {{ mostrarDatos.fecha }}</p>
             </div>
             <div class="modal-footer">
               <button
@@ -48,7 +49,7 @@
 export default {
   name: "DrawGoogleMap",
 
-   props: ["deasActivos"],
+  props: ["deasActivos"],
 
   components: {},
 
@@ -57,20 +58,20 @@ export default {
       center: {
         lat: -34.45055543390788,
         lng: -58.54288444037823,
-
-      
       },
       locations: [],
       currentLocation: null,
       modalShow: false,
       msjModal: "",
       dea: "",
+      latitud: "",
+      longitud: "",
+      direccion: "",
     };
   },
 
   mounted() {
     this.setLocationLatLng();
-  
   },
 
   methods: {
@@ -99,13 +100,18 @@ export default {
         label: "United States",
       };
 
-      this.setDea(dea);
+      //this.setDea(dea);
 
       return location;
     },
 
     setDea(dea) {
-      this.dea = dea;
+      this.latitud = dea.latitude.value;
+      this.longitud = dea.longitude.value;
+      this.direccion = dea.address.value;
+      this.fecha = dea.datestamp.value;
+      console.log(this.dea);
+      this.modalShow = true;
     },
 
     setLocationLatLng: function () {
@@ -119,15 +125,20 @@ export default {
   },
 
   computed: {
-  
+    mostrarDatos() {
+      return {
+        latitud: this.latitud,
+        longitud: this.longitud,
+        direccion: this.direccion,
+        fecha: this.fecha,
+      };
+    },
   },
 };
 </script>
 <style scoped lang="css">
 .map {
   width: 100%;
-  height: 600px
-  
+  height: 600px;
 }
-
 </style>
