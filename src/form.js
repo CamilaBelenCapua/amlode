@@ -33,7 +33,9 @@ var options = {
         'validatelongitude': function(value){
             var coordenada = /^[+-]?((([1-9]?[0-9]|1[0-7][0-9])(\.[0-9]{1,15})?)|180(\.0{1,6})?)$/
             return coordenada.test(value)
-        }
+        },
+
+       
     }
 }
 

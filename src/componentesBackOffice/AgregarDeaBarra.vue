@@ -41,6 +41,7 @@
                   class="form-control"
                   autocomplete="off"
                   required
+                 
                   
                 />
 
@@ -48,6 +49,7 @@
                   <div class="alert alert-danger mt-1" slot="required">
                     Campo obligatorio
                   </div>
+                
                   
                 </field-messages>
               </validate>

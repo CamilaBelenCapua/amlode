@@ -189,6 +189,7 @@ export default new Vuex.Store({
 
         async actualizarDea({ commit }, deaAModificar) {
             let body = {
+                address: { type: "String", value: deaAModificar.address.value },
                 latitude: { type: "String", value: deaAModificar.latitude.value },
                 longitude: { type: "String", value: deaAModificar.longitude.value },
                 active: { type: "Boolean", value: deaAModificar.active.value }

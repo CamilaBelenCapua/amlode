@@ -181,12 +181,14 @@ export default {
       console.log({ ...this.formData });
 
       const dea = {
-        id: this.id,
-        address: { type: "String", value: this.formData.address },
+        id: this.id,        
         latitude: { type: "String", value: this.formData.latitude },
         longitude: { type: "String", value: this.formData.longitude },
+        address: { type: "String", value: this.formData.address },
         active: { type: "Boolean", value: this.formData.active },
       };
+
+      
 
       if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
