@@ -9,7 +9,7 @@
               <!-- CAMPO CORREO  -->
               <validate tag="div" class="col-sm">
                 <input
-                  placeholder="Correo Eléctronico"
+                  placeholder="Correo Eléctronico Usuario"
                   v-model.trim="formData.email"
                   id="email"
                   name="email"
@@ -30,30 +30,157 @@
                 </field-messages>
               </validate>
               <!-- FIN CAMPO CORREO  -->
-              <!-- CAMPO ADDRESS  -->
+            </div>
+            <p class="text-left mb-0 mt-2">Datos de Ubicación</p>
+            <div class="row">
+              <!-- CAMPO CALLE  -->
               <validate tag="div" class="col-sm">
                 <input
-                  placeholder="Dirección"
-                  v-model.trim="formData.address"
-                  id="address"
-                  name="address"
+                  placeholder="Calle"
+                  v-model.trim="formData.calle"
+                  id="calle"
+                  name="calle"
                   type="text"
                   class="form-control"
                   autocomplete="off"
                   required
-                 
-                  
+                  validatename
                 />
 
-                <field-messages name="address" show="$dirty">
+                <field-messages name="calle" show="$dirty">
+                  <div class="alert alert-danger mt-1 text-left" slot="validatename">
+                    Datos inválidos
+                  </div>
+                  <div class="alert alert-danger mt-1 text-left" slot="required">
+                    Campo obligatorio
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO CALLE  -->
+
+              <!-- CAMPO NUMERO CALLE  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Número"
+                  v-model.trim="formData.nroCalle"
+                  id="nroCalle"
+                  name="nroCalle"
+                  type="number"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                />
+
+                <field-messages name="nroCalle" show="$dirty">
                   <div class="alert alert-danger mt-1" slot="required">
                     Campo obligatorio
                   </div>
-                
-                  
                 </field-messages>
               </validate>
-              <!-- FIN CAMPO ADDRESS  -->
+              <!-- FIN CAMPO NUMERO CALLE  -->
+
+              <!-- CAMPO CODIGO POSTAL  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="CP"
+                  v-model.trim="formData.codigoPostal"
+                  id="codigoPostal"
+                  name="codigoPostal"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatename
+                />
+
+                <field-messages name="codigoPostal" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="validatename">
+                    Datos inválidos
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO CODIGO POSTAL  -->
+
+              <!-- CAMPO BARRIO  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Barrio"
+                  v-model.trim="formData.barrio"
+                  id="barrio"
+                  name="barrio"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatename
+                />
+
+                <field-messages name="barrio" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="validatename">
+                    Datos inválidos
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO BARRIO  -->
+
+              <!-- CAMPO PROVINCIA  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Provincia"
+                  v-model.trim="formData.provincia"
+                  id="provincia"
+                  name="provincia"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatename
+                />
+
+                <field-messages name="provincia" show="$dirty">
+                  <div class="alert alert-danger mt-1" slot="validatename">
+                    Datos inválidos
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO PROVINCIA  -->
+
+              <!-- CAMPO PAIS  -->
+              <validate tag="div" class="col-sm">
+                <input
+                  placeholder="Pais"
+                  v-model.trim="formData.pais"
+                  id="pais"
+                  name="pais"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  validatename
+                />
+
+                <field-messages name="pais" show="$dirty">
+                  <div class="alert alert-danger mt-1 text-left" slot="validatename">
+                    Datos inválidos
+                  </div>
+                  <div class="alert alert-danger mt-1" slot="required">
+                    Campo obligatorio
+                  </div>
+                </field-messages>
+              </validate>
+              <!-- FIN CAMPO PAIS  -->
+            </div>
+            <p class="text-left mb-0 mt-2">Coordenadas</p>
+            <div class="row">
               <!-- CAMPO LATITUD  -->
               <validate tag="div" class="col-sm">
                 <input
@@ -192,7 +319,12 @@ export default {
         email: "",
         latitud: "",
         longitud: "",
-        address:"",
+        calle: "",
+        nroCalle: "",
+        codigoPostal: "",
+        barrio: "",
+        provincia: "",
+        pais: "",
         fechaAlta: this.obtenerFecha(),
       };
     },
@@ -249,7 +381,21 @@ export default {
         latitude: { type: "String", value: this.formData.latitud },
         longitude: { type: "String", value: this.formData.longitud },
         datestamp: { type: "String", value: this.formData.fechaAlta },
-        address: {type: "String", value: this.formData.address},
+        address: {
+          type: "String",
+          value:
+            this.formData.calle +
+            " " +
+            this.formData.nroCalle +
+            ", " +
+            this.formData.codigoPostal +
+            " " +
+            this.formData.barrio +
+            ", " +
+            this.formData.provincia +
+            ", " +
+            this.formData.pais,
+        },
         active: { type: "Boolean", value: true },
       };
 

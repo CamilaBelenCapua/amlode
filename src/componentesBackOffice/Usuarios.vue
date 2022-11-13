@@ -11,7 +11,7 @@
             <th class="text-center">Apellido</th>
             <th class="text-center">Fecha de nacimiento</th>
             <th class="text-center">Correo Electronico</th>
-            <th class="text-center">Tipo</th>
+           
             <th class="text-center">Activo</th>
             <th class="text-center">Puntos</th>
             <th class="text-center"></th>
@@ -30,9 +30,7 @@
             <td class="text-center">
               {{ usuario.id }}
             </td>
-            <td class="text-center">
-              {{ usuario.type }}
-            </td>
+           
              <td class="text-center font-weight-bold" :class= cambiarColorEstado(usuario)>
               {{ usuario.active.value ? "Si" : "No" }}
             </td>
