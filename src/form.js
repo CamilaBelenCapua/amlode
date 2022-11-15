@@ -26,8 +26,7 @@ var options = {
         },
 
         'validateaddress': function(value){
-            var name = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+[A-Za-z0-9\s]+$/g;
-          
+            var name = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]*[A-Za-z0-9\s]+$/g;
             return name.test(value)
         },
 
