@@ -44,11 +44,11 @@
                   class="form-control"
                   autocomplete="off"
                   required
-                  validatename
+                  validateaddress
                 />
 
                 <field-messages name="calle" show="$dirty">
-                  <div class="alert alert-danger mt-1 text-left" slot="validatename">
+                  <div class="alert alert-danger mt-1 text-left" slot="validateaddress">
                     Datos inválidos
                   </div>
                   <div class="alert alert-danger mt-1 text-left" slot="required">
@@ -90,11 +90,11 @@
                   class="form-control"
                   autocomplete="off"
                   required
-                  validatename
+                  validateaddress
                 />
 
                 <field-messages name="codigoPostal" show="$dirty">
-                  <div class="alert alert-danger mt-1" slot="validatename">
+                  <div class="alert alert-danger mt-1" slot="validateaddress">
                     Datos inválidos
                   </div>
                   <div class="alert alert-danger mt-1" slot="required">
@@ -115,11 +115,11 @@
                   class="form-control"
                   autocomplete="off"
                   required
-                  validatename
+                  validateaddress
                 />
 
                 <field-messages name="barrio" show="$dirty">
-                  <div class="alert alert-danger mt-1" slot="validatename">
+                  <div class="alert alert-danger mt-1" slot="validateaddress">
                     Datos inválidos
                   </div>
                   <div class="alert alert-danger mt-1" slot="required">
@@ -140,11 +140,11 @@
                   class="form-control"
                   autocomplete="off"
                   required
-                  validatename
+                  validateprovstate
                 />
 
                 <field-messages name="provincia" show="$dirty">
-                  <div class="alert alert-danger mt-1" slot="validatename">
+                  <div class="alert alert-danger mt-1" slot="validateprovstate">
                     Datos inválidos
                   </div>
                   <div class="alert alert-danger mt-1" slot="required">
@@ -165,11 +165,11 @@
                   class="form-control"
                   autocomplete="off"
                   required
-                  validatename
+                  validateprovstate
                 />
 
                 <field-messages name="pais" show="$dirty">
-                  <div class="alert alert-danger mt-1 text-left" slot="validatename">
+                  <div class="alert alert-danger mt-1 text-left" slot="validateprovstate">
                     Datos inválidos
                   </div>
                   <div class="alert alert-danger mt-1" slot="required">

@@ -21,9 +21,22 @@ var options = {
         },
 
         'validatename': function(value){
-            var name = /^[A-Z]+$/i
+            var name = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
             return name.test(value)
         },
+
+        'validateaddress': function(value){
+            var name = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+[A-Za-z0-9\s]+$/g;
+          
+            return name.test(value)
+        },
+
+        'validateprovstate': function(value){
+            var name = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+            return name.test(value)
+        },
+
+        
 
         'validatelatitude': function(value){
             var coordenada = /^[-+]?((0|([1-8]\d?))(\.\d{1,15})?|90(\.0{1,10})?)$/
