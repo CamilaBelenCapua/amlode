@@ -5,14 +5,20 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-grey p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
-        <div class="flex-fill bd-highlight text-right">
+        <div class="flex-fill  ">ID: {{ mostrarDea.id }}</div>
+        <div class="flex-fill text-right">
           DEA ACTIVO:
           <input
-            style="width: 30px; height: 30px"
+            style="width: 20px; height: 20px"
             type="checkbox"
             v-model="formData.active"
           />
+          <button
+            class="btn btn-danger text-center ml-4" @click="restarPuntos()"
+            
+          >
+            Descontar Puntos
+          </button>
         </div>
       </div>
 
@@ -205,6 +211,12 @@ export default {
       } else {
         console.log("ERROR DE REGISTRO!");
       }
+    },
+
+    restarPuntos() {
+      console.log("Buscar dea por Id en los usuarios")
+      console.log("Resto 50 puntos")
+      console.log("Borro de la lista del usuario")
     },
 
     getInicialData() {
