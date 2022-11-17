@@ -134,7 +134,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">ERROR!</h5>
+              <h5 class="modal-title">ADVERTENCIA!</h5>
             </div>
             <div class="modal-body">
               <p>{{ this.msjModal }}</p>
@@ -214,15 +214,29 @@ export default {
     },
 
     async restarPuntos() {
-      const resu = await this.$store.dispatch("restarPuntos", this.id)
+      const usuarios = await this.$store.dispatch("getUsuarios")
+      const usuariosFiltrados = usuarios.filter(usuario => usuario.deas.value.filter(idDea => idDea == this.id).length >0)
+      
+      if(usuariosFiltrados.length >0){
+        const idDeas = usuariosFiltrados[0].deas.value
+        const newArray = idDeas.filter(idDea => idDea != this.id );
+        
+        const body = {
+                points: { type: "Number", value: usuariosFiltrados[0].points.value - 50 },
+                deas: { type: "StructuredValue", value: newArray }
+        } 
 
-      if(!resu){
-        this.modalShow = true;
-        this.msjModal = "Dea ya eliminado en el usuario";
-      }else{
+      const resu = await this.$store.dispatch("actualizarUsuario", {id: usuariosFiltrados[0].id, body})
+
+      if(resu){
         this.modalShow = true;
         this.msjModal = "Dea eliminado del usuario con éxito";
       }
+    }else{
+      this.modalShow = true;
+      this.msjModal = "Dea ya eliminado en el usuario";
+    }
+    
     },
 
     getInicialData() {

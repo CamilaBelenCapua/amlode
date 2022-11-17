@@ -23,14 +23,6 @@
                 Activo:
                 {{ traerInfoDea(dea).active.value ? "Si" : "No" }}
               </div>
-              <!-- <div class="col-1 float-left text-center">
-                <button
-                  class="btn btn-danger"
-                  @click="borrarCurso(dea.examen_id)"
-                >
-                  Desvincular
-                </button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -256,7 +248,12 @@ export default {
         return;
       }
 
-      let resu = await this.$store.dispatch("actualizarUsuario", usuario);
+      let body = {
+            active: { type: "Boolean", value: usuario.active.value },
+            points: { type: "Number", value: usuario.points.value }
+      }
+
+      let resu = await this.$store.dispatch("actualizarUsuario", {id: usuario.id, body});
 
       if (resu) {
         this.$router.push({

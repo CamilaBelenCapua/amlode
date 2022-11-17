@@ -368,7 +368,7 @@ export default {
         this.usuarioRegistradoPuntos = this.puntos;
         this.usuarioRegistradoNombre = this.usuario.name.value;
         this.modalShow = true;
-        this.msjModal = `${this.usuarioRegistradoNombre}, ya tenes ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
+        this.msjModal = `${this.usuarioRegistradoNombre}, ya tiene ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
         this.tituloModal = "Gracias por colaborar con AMLODE!";
       }
     },
@@ -418,14 +418,13 @@ export default {
         if (usuario != null && resuDea) {
           this.puntos = usuario.points.value + 50;
 
-          let usuarioModificado = {
-            id: this.formData.email,
+          let body = {
             active: { type: "Boolean", value: usuario.active.value },
             points: { type: "Number", value: this.puntos },
           };
           const resuActualizar = await this.$store.dispatch(
             "actualizarUsuario",
-            usuarioModificado
+            {id: this.formData.email, body}
           );
           console.log("RESU USUARIO ACTUALIZAR", resuActualizar);
 
@@ -440,20 +439,15 @@ export default {
 
     async datosValidos() {
       if (this.usuario == null) {
-        this.msjModal = "Para ingresar un DEA tenes que registrarte";
+        this.msjModal = "Para ingresar un DEA tenes que registrarlo";
         this.tituloModal = "ERROR!";
         this.formAgregarUsuario = true;
         console.log("Usuario inexistente");
-        //this.formData = this.getInicialData();
-        //this.formState._reset();
         return false;
       } else if (this.usuario.active.value === false) {
-        this.msjModal = "Tu cuenta esta Inactiva";
+        this.msjModal = "La cuenta está Inactiva";
         this.tituloModal = "ERROR!";
-        //this.formAgregarUsuario = true;
         console.log("Usuario inactivo");
-        //this.formData = this.getInicialData();
-        //this.formState._reset();
         return false;
       } else {
         return true;
