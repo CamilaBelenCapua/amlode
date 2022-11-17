@@ -400,44 +400,28 @@ export default {
       };
 
       const usuario =await this.$store.dispatch("getUsuarioByMail",  this.formData.email);
-      const idDeas = usuario.deas.value
-      const newArray = [...idDeas, deaNuevo.id];
+    
+      if (usuario != null) {
+        const idDeas = usuario.deas.value
+        const newArray = [...idDeas, deaNuevo.id];
+        this.puntos = usuario.points.value + 50;
 
-      let body = {
+        let body = {
+            active: { type: "Boolean", value: usuario.active.value },
+            points: { type: "Number", value: this.puntos },
             deas: { type: "StructuredValue", value: newArray }
-      }
+        }
 
       const resuUsuario = await this.$store.dispatch(
         "actualizarUsuario",
         {id: this.formData.email, body}
       );
-
-      if (resuUsuario) {
-        const resuDea = await this.$store.dispatch("agregarDea", deaNuevo);
-        const usuario = await this.$store.dispatch(
-          "getUsuarioByMail",
-          this.formData.email
-        );
-
-        if (usuario != null && resuDea) {
-          this.puntos = usuario.points.value + 50;
-
-          let body = {
-            active: { type: "Boolean", value: usuario.active.value },
-            points: { type: "Number", value: this.puntos },
-          };
-          const resuActualizar = await this.$store.dispatch(
-            "actualizarUsuario",
-            {id: this.formData.email, body}
-          );
-          console.log("RESU USUARIO ACTUALIZAR", resuActualizar);
-
-          if (resuActualizar) {
+          console.log("RESU USUARIO ACTUALIZAR", resuUsuario);
+          if (resuUsuario) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
           }
-        }
       }
     },
 
