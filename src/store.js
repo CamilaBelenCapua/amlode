@@ -54,7 +54,7 @@ export default new Vuex.Store({
             }
         },
 
-        async actualizarDeasByUsuario({ commit }, deaUsuario) {
+        async actualizarDeasByUsuario({commit}, deaUsuario) {
             const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario + "?type=user")
             const idDeas = usuario.deas.value
             const newArray = [...idDeas, deaUsuario.idDea];
@@ -62,6 +62,7 @@ export default new Vuex.Store({
             let body = {
                 deas: { type: "StructuredValue", value: newArray }
             }
+
             try {
                 const { data: usuario } = await axios.patch(url + "/v2/entities/" + deaUsuario.idUsuario +
                     "/attrs?type=user", body, { 'content-type': 'application/json' })
@@ -73,13 +74,14 @@ export default new Vuex.Store({
             }
         },
 
-        async actualizarUsuario({ commit }, usuarioModificado) {
+        async actualizarUsuario({commit}, usuarioModificado) {
             let body = {
                 active: { type: "Boolean", value: usuarioModificado.active.value },
                 points: { type: "Number", value: usuarioModificado.points.value }
             }
 
-            try {
+            
+           try {
                 const {data: usuario} = await axios.patch(url + "/v2/entities/" + usuarioModificado.id +
                     "/attrs?type=user", body, { 'content-type': 'application/json' })
                 commit('PATCH_Usuario', usuario)
@@ -216,6 +218,33 @@ export default new Vuex.Store({
                 return false
             }
         },
+
+        async restarPuntos({commit}, id){
+            try {
+                const usuarios = await axios.get(url + "/v2/entities?type=user")
+                const usuariosFiltrados = usuarios.data.filter(usuario => usuario.deas.value.filter(idDea => idDea == id).length >0)
+                
+                if(usuariosFiltrados.length >0){
+                    const idDeas = usuariosFiltrados[0].deas.value
+                    const newArray = idDeas.filter(idDea => idDea != id );
+        
+                    const camposAActualizar = {
+                        points: { type: "Number", value: usuariosFiltrados[0].points.value - 50 },
+                        deas: { type: "StructuredValue", value: newArray }
+                    } 
+                    const {data: usuario} = await axios.patch(url + "/v2/entities/" + usuariosFiltrados[0].id +
+                    "/attrs?type=user", camposAActualizar, { 'content-type': 'application/json' })
+                    commit('PATCH_Usuario', usuario)
+                    return true
+                }
+            }
+            catch (error) {
+                return false
+            }
+        },
+
+        
+
     },
 
     mutations: {
