@@ -54,26 +54,6 @@ export default new Vuex.Store({
             }
         },
 
-        async actualizarDeasByUsuario({commit}, deaUsuario) {
-            const { data: usuario } = await axios.get(url + "/v2/entities/" + deaUsuario.idUsuario + "?type=user")
-            const idDeas = usuario.deas.value
-            const newArray = [...idDeas, deaUsuario.idDea];
-
-            let body = {
-                deas: { type: "StructuredValue", value: newArray }
-            }
-
-            try {
-                const { data: usuario } = await axios.patch(url + "/v2/entities/" + deaUsuario.idUsuario +
-                    "/attrs?type=user", body, { 'content-type': 'application/json' })
-                commit('PATCH_Usuario', usuario)
-                return true
-            }
-            catch (error) {
-                return false
-            }
-        },
-
         async actualizarUsuario({commit}, data) {
            try {
                 const {data: usuario} = await axios.patch(url + "/v2/entities/" + data.id +

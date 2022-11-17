@@ -399,13 +399,17 @@ export default {
         active: { type: "Boolean", value: true },
       };
 
-      let deaUsuario = {
-        idDea: deaNuevo.id,
-        idUsuario: this.formData.email,
-      };
+      const usuario =await this.$store.dispatch("getUsuarioByMail",  this.formData.email);
+      const idDeas = usuario.deas.value
+      const newArray = [...idDeas, deaNuevo.id];
+
+      let body = {
+            deas: { type: "StructuredValue", value: newArray }
+      }
+
       const resuUsuario = await this.$store.dispatch(
-        "actualizarDeasByUsuario",
-        deaUsuario
+        "actualizarUsuario",
+        {id: this.formData.email, body}
       );
 
       if (resuUsuario) {
