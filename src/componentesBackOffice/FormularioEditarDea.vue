@@ -213,10 +213,16 @@ export default {
       }
     },
 
-    restarPuntos() {
-      console.log("Buscar dea por Id en los usuarios")
-      console.log("Resto 50 puntos")
-      console.log("Borro de la lista del usuario")
+    async restarPuntos() {
+      const resu = await this.$store.dispatch("restarPuntos", this.id)
+
+      if(!resu){
+        this.modalShow = true;
+        this.msjModal = "Dea ya eliminado en el usuario";
+      }else{
+        this.modalShow = true;
+        this.msjModal = "Dea eliminado del usuario con éxito";
+      }
     },
 
     getInicialData() {
