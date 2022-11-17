@@ -16,7 +16,6 @@ export const mixinsBack = {
       console.log("MIXIN MOSTRAR USUARIO")      
       let usuario = this.$store.state.usuario;
       this.cargarForm(usuario);
-      
       return usuario;
     },
 
