@@ -236,11 +236,6 @@ export default {
   methods: {
     async enviar() {
       console.log({ ...this.formData });
-      const usuario = {
-        id: this.formData.email,
-        active: { type: "Boolean", value: this.formData.active },
-        points: { type: "Number", value: this.formData.points },
-      };
 
       if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
@@ -249,11 +244,11 @@ export default {
       }
 
       let body = {
-            active: { type: "Boolean", value: usuario.active.value },
-            points: { type: "Number", value: usuario.points.value }
+            active: { type: "Boolean", value: this.formData.active.value },
+            points: { type: "Number", value: this.formData.points.value }
       }
 
-      let resu = await this.$store.dispatch("actualizarUsuario", {id: usuario.id, body});
+      let resu = await this.$store.dispatch("actualizarUsuario", {id: this.formData.email, body});
 
       if (resu) {
         this.$router.push({
