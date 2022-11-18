@@ -43,17 +43,23 @@
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
           <!-- CAMPO CONTRASEÑA  -->
           <validate tag="div">
+        
+      
             <input
               placeholder="Contraseña"
               v-model.trim="formData.password"
               id="password"
               name="password"
               type="password"
-              class="form-control mt-3"
+              class="form-control pass mt-3"
               autocomplete="off"
               required
+              
             />
-            <i class="far fa-eye eyeStyle" id="togglePassword" @click="showPassword()"></i>
+
+           <i class="far fa-eye glyphicon mt-3" id="togglePassword" @click="showPassword()"></i>
+            
+           
 
             <field-messages name="password" show="$dirty">
               <div class="alert alert-danger mt-1" slot="required">
@@ -182,9 +188,19 @@ export default {
 </script>
 
 <style scoped lang="css">
-.eyeStyle{
-  margin-left: -30px; 
+
+.pass {
+  padding-right: 30px;
+  width: 85%;
+  float: left;
+}
+
+.glyphicon {
+width: 15%;
+  right: 0;
+  padding: 12px 10px;
   cursor: pointer;
+  float: left;
 }
 .caja {
   height: 100%;
