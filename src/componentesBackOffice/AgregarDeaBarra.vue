@@ -353,23 +353,10 @@ export default {
         "getUsuarioByMail",
         this.formData.email
       );
-
       if (!(await this.datosValidos())) {
         this.modalShow = true;
-
-        // return;
       } else {
         await this.agregarDeaUsuario();
-
-        console.log("RESU USUARIO POR MAIL", this.usuario);
-
-        this.formAgregarUsuario = false;
-        this.usuarioRegistrado = this.usuario;
-        this.usuarioRegistradoPuntos = this.puntos;
-        this.usuarioRegistradoNombre = this.usuario.name.value;
-        this.modalShow = true;
-        this.msjModal = `${this.usuarioRegistradoNombre}, ya tiene ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
-        this.tituloModal = "Gracias por colaborar con AMLODE!";
       }
     },
 
@@ -399,43 +386,55 @@ export default {
         active: { type: "Boolean", value: true },
       };
 
-      let deaUsuario = {
-        idDea: deaNuevo.id,
-        idUsuario: this.formData.email,
-      };
-      const resuUsuario = await this.$store.dispatch(
-        "actualizarDeasByUsuario",
-        deaUsuario
-      );
+      this.$store.dispatch("getDeas");
+      const deas = this.$store.state.deas
+      const deasMismaDir = deas.filter(dea => dea.address.value === deaNuevo.address.value);
 
-      if (resuUsuario) {
-        const resuDea = await this.$store.dispatch("agregarDea", deaNuevo);
-        const usuario = await this.$store.dispatch(
-          "getUsuarioByMail",
-          this.formData.email
-        );
-
-        if (usuario != null && resuDea) {
+      if(deasMismaDir.length==0){
+        const usuario = await this.$store.dispatch("getUsuarioByMail",  this.formData.email);
+    
+        if (usuario != null) {
+          const idDeas = usuario.deas.value
+          const newArray = [...idDeas, deaNuevo.id];
           this.puntos = usuario.points.value + 50;
 
           let body = {
-            active: { type: "Boolean", value: usuario.active.value },
-            points: { type: "Number", value: this.puntos },
-          };
-          const resuActualizar = await this.$store.dispatch(
+              active: { type: "Boolean", value: usuario.active.value },
+              points: { type: "Number", value: this.puntos },
+              deas: { type: "StructuredValue", value: newArray }
+          }
+
+          const resuUsuario = await this.$store.dispatch(
             "actualizarUsuario",
             {id: this.formData.email, body}
           );
-          console.log("RESU USUARIO ACTUALIZAR", resuActualizar);
-
-          if (resuActualizar) {
+            console.log("RESU USUARIO ACTUALIZAR", resuUsuario);
+            
+          const resuDea = await this.$store.dispatch(
+          "agregarDea",deaNuevo)
+           
+          if (resuUsuario && resuDea) {
             this.formData = this.getInicialData();
             this.formState._reset();
             this.$store.dispatch("getDeas");
           }
+          
+          this.formAgregarUsuario = false;
+          this.usuarioRegistrado = this.usuario;
+          this.usuarioRegistradoPuntos = this.puntos;
+          this.usuarioRegistradoNombre = this.usuario.name.value;
+          this.modalShow = true;
+          this.msjModal = `${this.usuarioRegistradoNombre}, ya tiene ${this.usuarioRegistradoPuntos} Puntos acumulados!!`;
+          this.tituloModal = "Gracias por colaborar con AMLODE!";  
         }
-      }
-    },
+
+    }else{
+      this.modalShow = true
+      this.tituloModal = "ADVERTENCIA!";
+      this.formAgregarUsuario = false;
+      this.msjModal= "Ya existe un dea con esa dirección!"
+    } 
+  },
 
     async datosValidos() {
       if (this.usuario == null) {
