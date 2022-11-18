@@ -40,7 +40,8 @@
           </validate>
           <!-- FIN CAMPO CORREO  -->
 
-          <!-- CAMPO CORREO  -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+          <!-- CAMPO CONTRASEÑA  -->
           <validate tag="div">
             <input
               placeholder="Contraseña"
@@ -52,6 +53,7 @@
               autocomplete="off"
               required
             />
+            <i class="far fa-eye eyeStyle" id="togglePassword" @click="showPassword()"></i>
 
             <field-messages name="password" show="$dirty">
               <div class="alert alert-danger mt-1" slot="required">
@@ -62,7 +64,7 @@
               </div>
             </field-messages>
           </validate>
-          <!-- FIN CAMPO CORREO  -->
+          <!-- FIN CAMPO CONTRASEÑA  -->
 
           <!-- ENVIO -->
           <button
@@ -162,6 +164,17 @@ export default {
       }
       return estilo;
     },
+
+    showPassword(){
+      const togglePassword = document.querySelector('#togglePassword');
+      const password = document.querySelector('#password');
+
+      togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+      });
+    }
   },
 
   computed: {},
@@ -169,7 +182,10 @@ export default {
 </script>
 
 <style scoped lang="css">
-
+.eyeStyle{
+  margin-left: -30px; 
+  cursor: pointer;
+}
 .caja {
   height: 100%;
 }
