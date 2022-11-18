@@ -58,12 +58,16 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                validatelatitude
               />
 
               <field-messages name="latitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
+                <div class="alert alert-danger mt-1" slot="validatelatitude">
+                    Coordenada inválida
+                  </div>
               </field-messages>
             </validate>
             <!-- FIN CAMPO latitude  -->
@@ -80,12 +84,16 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                validatelongitude
               />
 
               <field-messages name="longitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
+                <div class="alert alert-danger mt-1" slot="validatelongitude">
+                    Coordenada inválida
+                  </div>
               </field-messages>
             </validate>
             <!-- FIN CAMPO longitude  -->
