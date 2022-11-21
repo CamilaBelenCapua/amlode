@@ -170,7 +170,6 @@ export default {
       tituloModal: "",
     };
   },
-
   
   methods: {
     async enviar() {
@@ -209,15 +208,10 @@ export default {
       }
     },
 
-    
     /* FILTROS QUE CAMBIA EL FORMATO DE LA FECHA */
     formatoFecha: function (value) {
         return new Intl.DateTimeFormat('en-US').format(new Date(value))
-
-        
     },
-
- 
 
     getInicialData() {
       return {

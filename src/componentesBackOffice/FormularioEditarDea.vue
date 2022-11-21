@@ -5,14 +5,20 @@
       <h1 class="mt-5">Formulario de Modificación de DEA</h1>
 
       <div class="h4 bg-grey p-2 d-flex bd-highlight">
-        <div class="flex-fill bd-highlight">ID: {{ mostrarDea.id }}</div>
-        <div class="flex-fill bd-highlight text-right">
+        <div class="flex-fill  ">ID: {{ mostrarDea.id }}</div>
+        <div class="flex-fill text-right">
           DEA ACTIVO:
           <input
-            style="width: 30px; height: 30px"
+            style="width: 20px; height: 20px"
             type="checkbox"
             v-model="formData.active"
           />
+          <button
+            class="btn btn-danger text-center ml-4" @click="restarPuntos()"
+            
+          >
+            Descontar Puntos
+          </button>
         </div>
       </div>
 
@@ -52,12 +58,16 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                validatelatitude
               />
 
               <field-messages name="latitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
+                <div class="alert alert-danger mt-1" slot="validatelatitude">
+                    Coordenada inválida
+                  </div>
               </field-messages>
             </validate>
             <!-- FIN CAMPO latitude  -->
@@ -74,12 +84,16 @@
                 class="form-control mb-3"
                 autocomplete="off"
                 required
+                validatelongitude
               />
 
               <field-messages name="longitude" show="$dirty">
                 <div class="alert alert-danger mt-1" slot="required">
                   Campo obligatorio
                 </div>
+                <div class="alert alert-danger mt-1" slot="validatelongitude">
+                    Coordenada inválida
+                  </div>
               </field-messages>
             </validate>
             <!-- FIN CAMPO longitude  -->
@@ -128,7 +142,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">ERROR!</h5>
+              <h5 class="modal-title">ADVERTENCIA!</h5>
             </div>
             <div class="modal-body">
               <p>{{ this.msjModal }}</p>
@@ -205,6 +219,32 @@ export default {
       } else {
         console.log("ERROR DE REGISTRO!");
       }
+    },
+
+    async restarPuntos() {
+      const usuarios = await this.$store.dispatch("getUsuarios")
+      const usuariosFiltrados = usuarios.filter(usuario => usuario.deas.value.filter(idDea => idDea == this.id).length >0)
+      
+      if(usuariosFiltrados.length >0){
+        const idDeas = usuariosFiltrados[0].deas.value
+        const newArray = idDeas.filter(idDea => idDea != this.id );
+        
+        const body = {
+                points: { type: "Number", value: usuariosFiltrados[0].points.value - 50 },
+                deas: { type: "StructuredValue", value: newArray }
+        } 
+
+      const resu = await this.$store.dispatch("actualizarUsuario", {id: usuariosFiltrados[0].id, body})
+
+      if(resu){
+        this.modalShow = true;
+        this.msjModal = "Dea eliminado del usuario con éxito";
+      }
+    }else{
+      this.modalShow = true;
+      this.msjModal = "Dea ya eliminado en el usuario";
+    }
+    
     },
 
     getInicialData() {

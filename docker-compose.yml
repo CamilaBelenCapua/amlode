@@ -60,8 +60,8 @@ services:
       - IDM_PORT=3000
       - IDM_DB_PASS=secret
       - IDM_DB_USER=root
-      - IDM_ADMIN_USER=administrador
-      - IDM_ADMIN_EMAIL=administrador@amlode.com
+      - IDM_ADMIN_USER=admin
+      - IDM_ADMIN_EMAIL=admin@test.com
       - IDM_ADMIN_PASS=$app%adm22
       - IDM_CORS_ENABLED=true
   
