@@ -177,9 +177,13 @@ export default {
       if (!(await this.datosValidos())) {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;
-        this.msjModal = "Correo electronico ya";
-        this.tituloModal = "ERROR!";
+        this.msjModal = "Correo electronico ya registrado";
+        this.tituloModal = "Error!";
         return;
+      } else {
+        this.modalShow = true;
+        this.msjModal = "Usuario registrado exitosamente";
+        this.tituloModal = "Registro";
       }
 
       console.log({ ...this.formData });
