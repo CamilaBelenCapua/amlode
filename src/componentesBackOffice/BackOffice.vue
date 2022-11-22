@@ -200,7 +200,7 @@ width: 15%;
   right: 0;
   padding: 12px 10px;
   cursor: pointer;
-  float: left;
+  
 }
 .caja {
   height: 100%;
