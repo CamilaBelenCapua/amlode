@@ -63,7 +63,7 @@ Paso 1: localhost:3000/v1/auth/tokens(POST)
 En el body
 {
 "name": "admin@test.com",
-"password": "$app%adm22"
+"password": "1234"
 }
 
 Te devuelve un X-Subject-Header en headers que se pone en el paso dos en X-Auth-token.
@@ -75,12 +75,12 @@ Content-Type: application/x-www-form-urlencoded
 body:
 grant_type: "Password"
 username: "admin@test.com"
-Password: "$app%adm22"
+Password: "1234"
 para que genere el QAUTH2.
 
 Paso 3: localhost:3000/oauth2/token(POST)
 
-Si se hacen los tres pasos, se genera una aplicación en el localhost:3000, si entramos con: admin@test.com / $app%adm22 lo podemos ver.
+Si se hacen los tres pasos, se genera una aplicación en el localhost:3000, si entramos con: admin@test.com / 1234 lo podemos ver.
 
 El paso que nos interesa es el paso 3, que nos devuelve el token para la sesión. Podemos usar variables de entorno para guardar nuestro ID de cliente y ID secret y así poder utilizar el tercer endpoint. Solamente pueden entrar al logueo las personas autorizadas por nuestra aplicación, donde el acceso se realiza en la pagina.
 
