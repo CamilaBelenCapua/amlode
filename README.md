@@ -75,7 +75,7 @@ Content-Type: application/x-www-form-urlencoded
 body:
 grant_type: "Password"
 username: "admin@test.com"
-Password: "1234"
+Password: "$app%adm22"
 para que genere el QAUTH2.
 
 Paso 3: localhost:3000/oauth2/token(POST)
